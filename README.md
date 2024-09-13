@@ -12,6 +12,12 @@ Desde Android Studio, en el gestor de dispositivos virtuales, se creó un nuevo 
 Con el comando flutter doctor, se puede obtener un resumen de las configuraciones y verificar si existen errores o advertencias. Se resuelve las advertencias necesarias para el correcto funcionamiento.
 Para crear el proyecto, se usó el comando flutter create proyecto; y, desde la carpeta del proyecto, se ejecuta con el comando flutter run.
 
+## Diagrama de despliegue
+
+
+![Diagrama_Despliegue](./images/diagramaDespliegue.drawio.svg)
+
+
 ## Requerimientos no funcionales
 
 - La aplicación será desarrollada en flutter SDK versión 3.24.2.
@@ -25,11 +31,36 @@ Para crear el proyecto, se usó el comando flutter create proyecto; y, desde la 
 - El sistema manejará errores para proporcionar una buena experiencia de usuario y los límites de las funcionalidades de la aplicación.
 - La aplicación será diseñada para ser intuitiva y fácil de navegar.
 
-## Diagrama de despliegue
 
 
-![Diagrama_Despliegue](./images/diagramaDespliegue.drawio.svg)
+## Diagrama de casos de uso
 
+
+![Diagrama_Usecase](./images/Diagrama%20de%20casos%20de%20uso.svg)
+```
+
+@startuml
+Cliente --> (Crear cuenta)
+Cliente --> (Iniciar sesión)
+Cliente --> (Recuperar contraseña)
+Cliente --> (Ver medicamentos)
+Cliente --> (Rastrear pedido)
+Cliente --> (Ver mi kit mensual)
+Cliente --> (Ver boticas)
+(Buscar boticas) .> (Ver boticas) : extends
+(Buscar medicamentos) .> (Ver medicamentos) : extends
+(Filtrar medicamentos) .> (Ver medicamentos) : extends
+(Ver detalles de medicamento) .> (Ver medicamentos) : extends
+(Buscar productos dentro de una botica) .> (Ver boticas) : extends
+Cliente --> (Suscribirme al kit)
+(Subir receta médica) .> (Suscribirme al kit) : extends
+Cliente --> (Editar medicamentos en mi kit)
+(Cancelar mi suscripción) .> (Ver mi kit mensual) : extends
+Cliente --> (Ver mi perfil)
+(Editar datos personales) .> (Ver mi perfil) : extends
+@enduml
+
+```
 
 ## Requisitos funcionales
 
@@ -52,11 +83,86 @@ Para crear el proyecto, se usó el comando flutter create proyecto; y, desde la 
 - Ver mi kit mensual: Como usuario quiero ver los detalles de mi kit mensual.
 - Rastrear pedido: Como usuario quiero ver el estado (aprobado, preparando pedido, en camino, entregado) de mi pedido.
 
-
-
-## Diagrama de casos de uso
-
-![Diagrama_Usecase](./images/)
-
 ## Mockups
 
+#### Crear cuenta
+
+![Signin](./images/signin_screen.png)
+
+#### Iniciar sesión
+
+![Login](./images/g125.png)
+
+#### Recuperar contraseña
+
+![RecPassword](./images/g17.png)
+
+#### Ver medicamentos - Buscar medicamentos
+
+![BusqMed](./images/g156.png)
+
+
+#### Filtrar medicamentos
+
+![FiltrarMed](./images/g642.png)
+
+
+#### Detalles de producto
+
+![DetProd](./images/g387.png)
+
+
+#### Ver boticas - Buscar boticas
+
+![Boticas](./images/g57.png)
+
+
+#### Buscar productos dentro de una botica
+
+![ProdBotic](./images/g439.png)
+
+
+#### Editar los medicamentos en mi kit
+
+![EditKit](./images/g484.png)
+
+
+
+#### Subir receta médica
+
+![UploadReceta](./images/receta.png)
+
+
+#### Suscribirme al kit
+
+![SubKit](./images/g497.png)
+
+
+#### Cancelar mi suscripción
+
+![CancKit](./images/g429.png)
+
+
+#### Ver mi perfil
+
+![Perfil](./images/g658.png)
+
+
+#### Editar datos personales
+
+![EditProf](./images/g782.png)
+
+
+#### Ver mi kit mensual
+
+![VerKit](./images/g713.png)
+
+
+#### Rastrear pedido
+
+![Rastrear](./images/g109.png)
+
+
+## Diagrama de base de datos
+
+![DiagramaBD](./images/Diagrama%20de%20base%20de%20datos.png)
