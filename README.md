@@ -28,7 +28,7 @@ Para crear el proyecto, se usó el comando flutter create proyecto; y, desde la 
 ## Diagrama de despliegue
 
 
-![Diagrama_Despliegue](./images/diagramaDespliegue.jpg)
+![Diagrama_Despliegue](./images/diagramaDespliegue.drawio.svg)
 
 
 ## Requisitos funcionales
