@@ -87,80 +87,80 @@ Cliente --> (Ver mi perfil)
 
 #### Crear cuenta
 
-![Signin](./images/signin_screen.png)
+![Signin](./images/1.png)
 
 #### Iniciar sesión
 
-![Login](./images/g125.png)
+![Login](./images/2.png)
 
 #### Recuperar contraseña
 
-![RecPassword](./images/g17.png)
+![RecPassword](./images/3.png)  ![RecPassword](./images/4.png)
 
 #### Ver medicamentos - Buscar medicamentos
 
-![BusqMed](./images/g156.png)
+![BusqMed](./images/5.png)
 
 
 #### Filtrar medicamentos
 
-![FiltrarMed](./images/g642.png)
+![FiltrarMed](./images/6.png)
 
 
 #### Detalles de producto
 
-![DetProd](./images/g387.png)
+![DetProd](./images/7.png)
 
 
 #### Ver boticas - Buscar boticas
 
-![Boticas](./images/g57.png)
+![Boticas](./images/8.png)
 
 
 #### Buscar productos dentro de una botica
 
-![ProdBotic](./images/g439.png)
-
+![ProdBotic](./images/9.png)  
 
 #### Editar los medicamentos en mi kit
 
-![EditKit](./images/g484.png)
+![EditKit](./images/10.png)  ![ProdBotic](./images/11.png)
+
 
 
 
 #### Subir receta médica
 
-![UploadReceta](./images/receta.png)
+![UploadReceta](./images/12.png)
 
 
 #### Suscribirme al kit
 
-![SubKit](./images/g497.png)
+![SubKit](./images/13.png)  ![SubKit](./images/14.png)
 
 
 #### Cancelar mi suscripción
 
-![CancKit](./images/g429.png)
+![CancKit](./images/15.png)
 
 
 #### Ver mi perfil
 
-![Perfil](./images/g658.png)
+![Perfil](./images/16.png)
 
 
 #### Editar datos personales
 
-![EditProf](./images/g782.png)
+![EditProf](./images/17.png)
 
 
 #### Ver mi kit mensual
 
-![VerKit](./images/g713.png)
+![VerKit](./images/18.png)
 
 
 #### Rastrear pedido
 
-![Rastrear](./images/g109.png)
+![Rastrear](./images/19.png)  ![Rastrear](./images/20.png)
 
 
 ## Diagrama de base de datos
