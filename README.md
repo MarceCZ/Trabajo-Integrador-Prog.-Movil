@@ -1,5 +1,14 @@
 # MediPlan+
 
+- [Descripcion](#descripción)
+- [Entorno de desarrollo](#breve-explicación-del-entorno-de-desarrollo)
+- [Diagrama de despliegue](#diagrama-de-despliegue)
+- [Requerimientos no funcionales](#requerimientos-no-funcionales)
+- [Diagrama de casos de uso](#diagrama-de-casos-de-uso)
+- [Requerimientos funcionales](#requerimientos-funcionales)
+- [Mockups](#mockups)
+- [Diagrama de base de datos](#diagrama-de-base-de-datos)
+
 ## Descripción
 MediPlan+ es una plataforma de ecommerce que permite a las personas registrarse y configurar un kit mensual de medicamentos, pagando una suscripción mensual. La plataforma está diseñada para facilitar el acceso a medicamentos esenciales de manera conveniente y personalizada.
 
@@ -62,7 +71,7 @@ Cliente --> (Ver mi perfil)
 
 ```
 
-## Requisitos funcionales
+## Requerimientos funcionales
 
 - Crear cuenta: Como usuario quiero poder registrarme como un usuario válido.
 - Iniciar sesión: Como usuario quiero poder logearme en la aplicación.
