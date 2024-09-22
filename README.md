@@ -1,5 +1,14 @@
 # MediPlan+
 
+- [Descripcion](#descripción)
+- [Entorno de desarrollo](#breve-explicación-del-entorno-de-desarrollo)
+- [Diagrama de despliegue](#diagrama-de-despliegue)
+- [Requerimientos no funcionales](#requerimientos-no-funcionales)
+- [Diagrama de casos de uso](#diagrama-de-casos-de-uso)
+- [Requerimientos funcionales](#requerimientos-funcionales)
+- [Mockups](#mockups)
+- [Diagrama de base de datos](#diagrama-de-base-de-datos)
+
 ## Descripción
 MediPlan+ es una plataforma de ecommerce que permite a las personas registrarse y configurar un kit mensual de medicamentos, pagando una suscripción mensual. La plataforma está diseñada para facilitar el acceso a medicamentos esenciales de manera conveniente y personalizada.
 
@@ -11,6 +20,12 @@ Se instaló la IDE Android Studio Koala desde la página oficial (https://develo
 Desde Android Studio, en el gestor de dispositivos virtuales, se creó un nuevo dispositivo que funcionará como el emulador. 
 Con el comando flutter doctor, se puede obtener un resumen de las configuraciones y verificar si existen errores o advertencias. Se resuelve las advertencias necesarias para el correcto funcionamiento.
 Para crear el proyecto, se usó el comando flutter create proyecto; y, desde la carpeta del proyecto, se ejecuta con el comando flutter run.
+
+## Diagrama de despliegue
+
+
+![Diagrama_Despliegue](./images/diagramaDespliegue.drawio.svg)
+
 
 ## Requerimientos no funcionales
 
@@ -25,13 +40,38 @@ Para crear el proyecto, se usó el comando flutter create proyecto; y, desde la 
 - El sistema manejará errores para proporcionar una buena experiencia de usuario y los límites de las funcionalidades de la aplicación.
 - La aplicación será diseñada para ser intuitiva y fácil de navegar.
 
-## Diagrama de despliegue
 
 
-![Diagrama_Despliegue](./images/diagramaDespliegue.drawio.svg)
+## Diagrama de casos de uso
 
 
-## Requisitos funcionales
+![Diagrama_Usecase](./images/Diagrama%20de%20casos%20de%20uso.svg)
+```
+
+@startuml
+Cliente --> (Crear cuenta)
+Cliente --> (Iniciar sesión)
+Cliente --> (Recuperar contraseña)
+Cliente --> (Ver medicamentos)
+Cliente --> (Rastrear pedido)
+Cliente --> (Ver mi kit mensual)
+Cliente --> (Ver boticas)
+(Buscar boticas) .> (Ver boticas) : extends
+(Buscar medicamentos) .> (Ver medicamentos) : extends
+(Filtrar medicamentos) .> (Ver medicamentos) : extends
+(Ver detalles de medicamento) .> (Ver medicamentos) : extends
+(Buscar productos dentro de una botica) .> (Ver boticas) : extends
+Cliente --> (Suscribirme al kit)
+(Subir receta médica) .> (Suscribirme al kit) : extends
+Cliente --> (Editar medicamentos en mi kit)
+(Cancelar mi suscripción) .> (Ver mi kit mensual) : extends
+Cliente --> (Ver mi perfil)
+(Editar datos personales) .> (Ver mi perfil) : extends
+@enduml
+
+```
+
+## Requerimientos funcionales
 
 - Crear cuenta: Como usuario quiero poder registrarme como un usuario válido.
 - Iniciar sesión: Como usuario quiero poder logearme en la aplicación.
@@ -52,11 +92,86 @@ Para crear el proyecto, se usó el comando flutter create proyecto; y, desde la 
 - Ver mi kit mensual: Como usuario quiero ver los detalles de mi kit mensual.
 - Rastrear pedido: Como usuario quiero ver el estado (aprobado, preparando pedido, en camino, entregado) de mi pedido.
 
-
-
-## Diagrama de casos de uso
-
-![Diagrama_Usecase](./images/)
-
 ## Mockups
 
+#### Crear cuenta
+
+![Signin](./images/1.png)
+
+#### Iniciar sesión
+
+![Login](./images/2.png)
+
+#### Recuperar contraseña
+
+![RecPassword](./images/3.png)  ![RecPassword](./images/4.png)
+
+#### Ver medicamentos - Buscar medicamentos
+
+![BusqMed](./images/5.png)
+
+
+#### Filtrar medicamentos
+
+![FiltrarMed](./images/6.png)
+
+
+#### Detalles de producto
+
+![DetProd](./images/7.png)
+
+
+#### Ver boticas - Buscar boticas
+
+![Boticas](./images/8.png)
+
+
+#### Buscar productos dentro de una botica
+
+![ProdBotic](./images/9.png)  
+
+#### Editar los medicamentos en mi kit
+
+![EditKit](./images/10.png)  ![ProdBotic](./images/11.png)
+
+
+
+
+#### Subir receta médica
+
+![UploadReceta](./images/12.png)
+
+
+#### Suscribirme al kit
+
+![SubKit](./images/13.png)  ![SubKit](./images/14.png)
+
+
+#### Cancelar mi suscripción
+
+![CancKit](./images/15.png)
+
+
+#### Ver mi perfil
+
+![Perfil](./images/16.png)
+
+
+#### Editar datos personales
+
+![EditProf](./images/17.png)
+
+
+#### Ver mi kit mensual
+
+![VerKit](./images/18.png)
+
+
+#### Rastrear pedido
+
+![Rastrear](./images/19.png)  ![Rastrear](./images/20.png)
+
+
+## Diagrama de base de datos
+
+![DiagramaBD](./images/Diagrama%20de%20base%20de%20datos.png)
