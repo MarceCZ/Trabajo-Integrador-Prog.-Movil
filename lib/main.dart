@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'pages/homePage/home_page.dart';
+import 'pages/loginPage/login_page.dart';
+import 'pages/signUpPage/sign_up_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -11,16 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Hola Mundo!'),
-        ),
-      ),
+      initialRoute: '/sign-up',
+      routes: {
+        '/home': (context) => HomePage(),
+        '/login': (context) => LoginPage(),
+        '/sign-up' : (context) => SignUpPage(),
+      },
     );
   }
 }
