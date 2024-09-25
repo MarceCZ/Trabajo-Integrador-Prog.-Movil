@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                   Button(
                     title: "Empieza hoy",
                     onPressed: () {
-                      Get.toNamed('/login');
+                      Navigator.pushNamed(context, '/sign-up');
                     },
                     width: 200.0,
                   ),
@@ -79,12 +79,12 @@ class HomePage extends StatelessWidget {
                     child: Text(
                       "Inicia sesión",
                       style: TextStyle(
-                        color: AppColors.primaryColor,
+                        color: AppColors.customGreen,
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )]
+                  )],
               )
             )
           )
