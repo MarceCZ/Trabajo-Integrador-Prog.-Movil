@@ -14,9 +14,11 @@ class ResetPasswordPage extends StatelessWidget{
    @override
   Widget _buildBody(BuildContext context) {
   return SafeArea(
-    child: Container(
-      color: AppColors.backgroundColor3,
-      child: Column(
+      child: Container(
+        color: AppColors.backgroundColor3,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
@@ -107,8 +109,11 @@ class ResetPasswordPage extends StatelessWidget{
           ),
         ],
       ),
-    ),
-  );
+           
+          ),
+        ),
+      ),
+    );
 }
 
 

@@ -9,7 +9,8 @@ class HomePage extends StatelessWidget {
   HomeController control = Get.put(HomeController());
 
   Widget _buildBody(BuildContext context) {
-    return SafeArea(child: Column(
+    return SafeArea(
+      child: Column(
       children: [
         Expanded(
           flex: 7,
