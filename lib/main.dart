@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mediplan/pages/homePage/home_page.dart';
 import 'pages/resetMSGPage/reset_msg_page.dart';
-import 'pages/homePage/home_page.dart';
+import 'pages/presentationPage/presentation_page.dart';
 import 'pages/loginPage/login_page.dart';
 import 'pages/resetPasswordPage/reset_password_page.dart';
 import 'pages/profileSettingPage/profile_setting_page.dart';
@@ -21,15 +22,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Gontserrat',
       ),
-      initialRoute: '/home',
+      initialRoute: '/presentation',
       routes: {
-        '/home': (context) => HomePage(),
+        '/presentation': (context) => PresentationPage(),
         '/login': (context) => LoginPage(),
         '/sign-up' : (context) => SignUpPage(),
         '/profile-setting' : (context) => ProfileSettingPage(),
         '/reset-password' : (context) => ResetPasswordPage(),
         '/reset-msg' : (context) => ResetMsgPage(),
         '/purchase-confirmation' : (context) => PurchaseConfirmationPage(),
+        '/home': (context) => HomePage(),
       },
     );
   }

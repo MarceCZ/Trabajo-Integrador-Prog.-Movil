@@ -70,7 +70,7 @@ class ResetPasswordPage extends StatelessWidget{
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'example@email.com',
+                      hintText: 'example@email.com',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),

@@ -23,7 +23,7 @@ class LoginPageController extends GetxController{
     } else if (usuario != null) {
       this.hayError.value = false;
       Future.delayed(Duration(seconds: 3), () {
-        Navigator.pushNamed(context, '/main-page', arguments: usuario.toJson());
+        Navigator.pushNamed(context, '/home', arguments: usuario.toJson());
       });
     } else {
       this.msg.value = 'ERROR: Usuario y contraseña no válidos';

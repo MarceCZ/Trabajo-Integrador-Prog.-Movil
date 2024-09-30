@@ -196,14 +196,14 @@ class ProfileSettingPage extends StatelessWidget{
                     Button(
                       title: "Guardar",
                       onPressed: () {
-                        Get.toNamed('/main-page');
+                        Navigator.pushNamed(context, '/home');
                       },
                       width: 200.0,
                     ),
                     SizedBox(height: 10.0),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/main-page');
+                        Navigator.pushNamed(context, '/home');
                       },
                       child: Text(
                         "Ahora no",
