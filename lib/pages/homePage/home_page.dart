@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'home_controller.dart';
-import '../../common_app_bar.dart';
+import '../../components/common_app_bar.dart';
 import 'package:mediplan/components/button.dart';
 import '../../configs/colors.dart';
 

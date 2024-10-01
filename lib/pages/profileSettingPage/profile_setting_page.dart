@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/pages/profileSettingPage/profile_setting_controller.dart';
 
-import '../../common_app_bar.dart';
+import '../../components/common_app_bar.dart';
 import '../../components/button.dart';
+import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 
 class ProfileSettingPage extends StatelessWidget{
@@ -56,24 +57,8 @@ class ProfileSettingPage extends StatelessWidget{
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 10.0),
-                                        child: Text(
-                                          "Altura",
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                      ),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0),
-                                        ),
+                                      Customtextfield(
+                                        label: 'Altura',
                                       ),
                                     ],
                                   ),
@@ -83,24 +68,8 @@ class ProfileSettingPage extends StatelessWidget{
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 10.0),
-                                        child: Text(
-                                          "Peso",
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                      ),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0),
-                                        ),
+                                      Customtextfield(
+                                        label: 'Peso',
                                       ),
                                     ],
                                   ),
@@ -108,77 +77,21 @@ class ProfileSettingPage extends StatelessWidget{
                               ],
                             ),
                             SizedBox(height: 5.0),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                "Sexo",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                ),
-                              ),
+                            Customtextfield(
+                                label: 'Sexo',
                             ),
-                            TextField(
-                                decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20.0),
-                            )),
                             SizedBox(height: 5.0),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                "Condiciones médicas",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                ),
-                              ),
+                            Customtextfield(
+                              label: 'Condiciones médicas',
                             ),
-                            TextField(
-                                decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20.0),
-                            )),
                             SizedBox(height: 5.0),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                "Alergias",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                ),
-                              ),
+                            Customtextfield(
+                              label: 'Alergias',
                             ),
-                            TextField(
-                                decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20.0),
-                            )),
                             SizedBox(height: 5.0),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                "Otros",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                ),
-                              ),
+                            Customtextfield(
+                              label: 'Otros',
                             ),
-                            TextField(
-                                decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20.0),
-                            )),
                           ],
                         ),
                       ),

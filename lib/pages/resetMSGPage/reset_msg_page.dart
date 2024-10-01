@@ -5,7 +5,7 @@ import 'package:mediplan/pages/resetMSGPage/reset_msg_controller.dart';
 import 'package:mediplan/pages/resetPasswordPage/reset_password_controller.dart';
 import 'package:mediplan/pages/profileSettingPage/profile_setting_controller.dart';
 
-import '../../common_app_bar.dart';
+import '../../components/common_app_bar.dart';
 import '../../components/button.dart';
 import '../../configs/colors.dart';
 

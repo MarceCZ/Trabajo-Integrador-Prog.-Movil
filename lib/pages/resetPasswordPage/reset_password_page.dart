@@ -4,8 +4,9 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:mediplan/pages/resetPasswordPage/reset_password_controller.dart';
 import 'package:mediplan/pages/profileSettingPage/profile_setting_controller.dart';
 
-import '../../common_app_bar.dart';
+import '../../components/common_app_bar.dart';
 import '../../components/button.dart';
+import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 
 class ResetPasswordPage extends StatelessWidget{
@@ -59,23 +60,9 @@ class ResetPasswordPage extends StatelessWidget{
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 30.0),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Correo electrónico",
-                      style: TextStyle(
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'example@email.com',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                    ),
+                  Customtextfield(
+                          label: 'Correo electrónico',
+                          hintText: 'example@example.com'
                   ),
                   SizedBox(height: 40.0),
                   Center(
