@@ -28,7 +28,8 @@ flutter_launcher_icons:
   flutter_lints: ^4.0.0
 
 flutter_native_splash:
-  color: "#ffffff"
+  android: true
+  background_image: assets/img/splash.png
 
 flutter:
 
@@ -40,7 +41,7 @@ flutter:
   fonts:
     - family: Gontserrat
       fonts:
-        - asset: assets/fonts/Gontserrat-Regular.ttf
+        - asset: assets/fonts/GontserratRegular.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
