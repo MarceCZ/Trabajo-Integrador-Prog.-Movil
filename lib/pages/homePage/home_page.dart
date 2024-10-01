@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'home_controller.dart';
 import '../../common_app_bar.dart';
 import 'package:mediplan/components/button.dart';
+import 'package:mediplan/components/productcard.dart';
 import '../../configs/colors.dart';
 
 class HomePage extends StatelessWidget {
@@ -67,16 +68,15 @@ class HomePage extends StatelessWidget {
                             },
                             height: 40.0),
                         ProductCard(
-                          imageUrl: 'https://via.placeholder.com/150',
-                          title:
-                              'Gel Hidratante Facial Hydro Boost | Neutrogena',
-                          description: 'POTE 50 G',
+                          imageUrl: 'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/011592L.jpg',
+                          title: 'Gel Hidratante Facil Hydro Boost | Neutrogena',
+                          description: 'POTE 50G',
                           price: 55.40,
-                          onAddPressed: () {
-                            // Lógica para añadir al carrito
+                          onAddPressed: (){
                             print('Producto añadido al carrito');
-                          },
-                        )
+                          }
+                          
+                        ),
                       ],
                     ),
                   )
