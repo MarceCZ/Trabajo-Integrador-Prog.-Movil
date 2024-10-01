@@ -28,7 +28,8 @@ flutter_launcher_icons:
   flutter_lints: ^4.0.0
 
 flutter_native_splash:
-  color: "#ffffff"
+  android: true
+  background_image: assets/img/splash.png
 
 flutter:
 

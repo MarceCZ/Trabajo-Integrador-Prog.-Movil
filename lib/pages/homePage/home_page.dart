@@ -16,33 +16,35 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-          Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Button(
-                      title: 'Productos',
-                      onPressed: () {
-                        //logica
-                      },
-                      width: 180.0,
-                      height: 40.0),
-                  const SizedBox(width: 16.0),
-                  Button(
-                      title: 'Boticas',
-                      onPressed: () {
-                        //logica
-                      },
-                      width: 180.0,
-                      height: 40.0),
-                ],
-              )),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            child: Column(
-              children: [
-                TextField(
+                  Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Button(
+                              title: 'Productos',
+                              onPressed: () {
+                                //logica
+                              },
+                              width: 180.0,
+                              height: 40.0),
+                          const SizedBox(width: 16.0),
+                          Button(
+                              title: 'Boticas',
+                              onPressed: () {
+                                //logica
+                              },
+                              width: 180.0,
+                              height: 40.0),
+                        ],
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 40.0,
+                          child: TextField(
                             decoration: InputDecoration(
                               hintText: 'Buscar producto',
                               prefixIcon: Icon(Icons.search),
@@ -52,12 +54,33 @@ class HomePage extends StatelessWidget {
                               ),
                               filled: true,
                               fillColor: Colors.white,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 8.0),
                             ),
                           ),
-              ],
-            ),
-          )
-        ])));
+                        ),
+                        const SizedBox(height: 16.0),
+                        Button(
+                            title: 'Filtrar',
+                            onPressed: () {
+                              //logica
+                            },
+                            height: 40.0),
+                        ProductCard(
+                          imageUrl: 'https://via.placeholder.com/150',
+                          title:
+                              'Gel Hidratante Facial Hydro Boost | Neutrogena',
+                          description: 'POTE 50 G',
+                          price: 55.40,
+                          onAddPressed: () {
+                            // Lógica para añadir al carrito
+                            print('Producto añadido al carrito');
+                          },
+                        )
+                      ],
+                    ),
+                  )
+                ])));
   }
 
   @override
