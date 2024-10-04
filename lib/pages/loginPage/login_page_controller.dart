@@ -2,8 +2,11 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mediplan/services/usuario_service.dart';
 import '../../models/usuario.dart';
+import '../../components/common_app_bar_controller.dart';
 
 class LoginPageController extends GetxController{
+  CommonAppBarController appBarControl = Get.put(CommonAppBarController());
+
   TextEditingController txtemail = TextEditingController();
   TextEditingController txtpassword = TextEditingController();
   RxString msg = ''.obs;
@@ -22,7 +25,8 @@ class LoginPageController extends GetxController{
       });
     } else if (usuario != null) {
       this.hayError.value = false;
-      Future.delayed(Duration(seconds: 3), () {
+      appBarControl.updateUsuario(usuario);
+      Future.delayed(Duration(seconds: 1), () {
         Navigator.pushNamed(context, '/home', arguments: usuario.toJson());
       });
     } else {
