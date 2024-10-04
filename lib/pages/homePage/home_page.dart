@@ -16,48 +16,62 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-          Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Button(
-                      title: 'Productos',
-                      onPressed: () {
-                        //logica
-                      },
-                      width: 180.0,
-                      height: 40.0),
-                  const SizedBox(width: 16.0),
-                  Button(
-                      title: 'Boticas',
-                      onPressed: () {
-                        //logica
-                      },
-                      width: 180.0,
-                      height: 40.0),
-                ],
-              )),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            child: Column(
-              children: [
-                TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Buscar producto',
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40.0),
-                                borderSide: BorderSide.none,
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
+                  Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Button(
+                              title: 'Productos',
+                              onPressed: () {
+                                //logica
+                              },
+                              width: 180.0,
+                              height: 40.0),
+                          const SizedBox(width: 16.0),
+                          Button(
+                              title: 'Boticas',
+                              onPressed: () {
+                                //logica
+                              },
+                              width: 180.0,
+                              height: 40.0),
+                        ],
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                    child: Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Buscar producto',
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/purchase-confirmation');
+                          },
+                          child: Text(
+                            'Comprar Kit',
+                            style: TextStyle(
+                              color: AppColors.customGreen,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
-              ],
-            ),
-          )
-        ])));
+                        )
+                      ],
+                    ),
+                  )
+                ])));
   }
 
   @override
