@@ -96,10 +96,11 @@ class PresentationPage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         appBar: CommonAppBar(),
         body: _buildBody(context),
-      
+      ),
     );
   }
 }

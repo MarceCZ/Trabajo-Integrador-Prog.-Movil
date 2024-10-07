@@ -7,7 +7,6 @@ import 'pages/resetPasswordPage/reset_password_page.dart';
 import 'pages/profileSettingPage/profile_setting_page.dart';
 import 'pages/signUpPage/sign_up_page.dart';
 import 'pages/purchaseConfirmationPage/purchase_confirmation_page.dart';
-import 'pages/profilePage/profile_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +32,6 @@ class MyApp extends StatelessWidget {
         '/reset-msg' : (context) => ResetMsgPage(),
         '/purchase-confirmation' : (context) => PurchaseConfirmationPage(),
         '/home': (context) => HomePage(),
-        '/profile': (context) => ProfilePage(),
       },
     );
   }
