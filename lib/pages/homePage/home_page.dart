@@ -77,6 +77,16 @@ class HomePage extends StatelessWidget {
                           }
                           
                         ),
+                        ProductCard(
+                          imageUrl: 'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/011592L.jpg',
+                          title: 'Gel Hidratante Facil Hydro Boost | Neutrogena',
+                          description: 'POTE 50G',
+                          price: 55.40,
+                          onAddPressed: (){
+                            print('Producto añadido al carrito');
+                          }
+                          
+                        )
                       ],
                     ),
                   )
