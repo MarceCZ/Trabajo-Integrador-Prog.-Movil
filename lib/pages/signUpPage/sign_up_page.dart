@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import '../../common_app_bar.dart';
+import '../../components/common_app_bar.dart';
 import '../../components/button.dart';
+import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 import 'sign_up_controller.dart';
 
@@ -40,108 +41,35 @@ class SignUpPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Nombre",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Ingrese su(s) nombre(s)',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                          ),
+                        Customtextfield(
+                          label: 'Nombre',
+                          hintText: 'Ingrese su(s) nombre(s)'
                         ),
                         SizedBox(height: 5.0),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Apellidos",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Ingrese su(s) apellido(s)',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                          ),
+                        Customtextfield(
+                          label: 'Apellidos',
+                          hintText: 'Ingrese su(s) apellido(s)'
                         ),
                         SizedBox(height: 5.0),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Fecha de nacimiento",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: 'dd/mm/aaaa',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                          ),
+                        Customtextfield(
+                          label: 'Fecha de nacimiento',
+                          hintText: 'dd/mm/aaaa'
                         ),
                         SizedBox(height: 5.0),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Correo electrónico",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: 'example@example.com',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                          ),
+                        Customtextfield(
+                          label: 'Correo electrónico',
+                          hintText: 'example@example.com'
                         ),
                         SizedBox(height: 5.0),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Celular",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Ingrese su número de celular',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                          ),
+                        Customtextfield(
+                          label: 'Celular',
+                          hintText: 'Ingrese su número de celular'
                         ),
                         SizedBox(height: 5.0),
-
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Contraseña",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ),
-                        TextField(
+                        Customtextfield(
+                          label: 'Contraseña',
                           obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'Ingrese su contraseña',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                          ),
+                          hintText: 'Ingrese su contraseña'
                         ),
                         SizedBox(height: 20.0),
                         Center(

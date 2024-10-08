@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/components/button.dart';
+import 'package:mediplan/components/customTextfield.dart';
 import 'package:mediplan/pages/loginPage/login_page_controller.dart';
-import '../../common_app_bar.dart';
+import '../../components/common_app_bar.dart';
 import '../../components/custom_texfield.dart';
 import '../../configs/colors.dart';
 
@@ -40,46 +41,17 @@ class LoginPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        "Correo electrónico",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ),
-                    TextField(
+                    Customtextfield(
+                      label: 'Correo electrónico',
                       controller: control.txtemail,
-                      decoration: InputDecoration(
-                        hintText: 'example@example.com',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                      ),
+                      hintText: 'example@example.com'
                     ),
                     SizedBox(height: 18.0),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        "Contraseña",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ),
-                    TextField(
+                    Customtextfield(
+                      label: "Contraseña",
                       controller: control.txtpassword,
                       obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Ingrese su contraseña',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                      ),
-                    ),
+                      hintText: 'Ingrese su contraseña'),
                     Padding(
                       padding: const EdgeInsets.only(top: 6.0, left: 15.0),
                       child: InkWell(
