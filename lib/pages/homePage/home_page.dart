@@ -95,11 +95,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return  Scaffold(
         appBar: CommonAppBar(),
         body: _buildBody(context),
-      ),
+      
     );
   }
 }

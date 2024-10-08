@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mediplan/pages/profileSettingPage/profile_setting_controller.dart';
-
+import './profile_controller.dart';
 import '../../components/common_app_bar.dart';
 import '../../components/button.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 
-class ProfileSettingPage extends StatelessWidget{
-  ProfileSettingController control = Get.put(ProfileSettingController());
+class ProfilePage extends StatelessWidget{
+  ProfileController control = Get.put(ProfileController());
 
   @override
   Widget _buildBody(BuildContext context) {
@@ -17,7 +16,7 @@ class ProfileSettingPage extends StatelessWidget{
           children: [
             Container( 
               height: 650.0,
-              color: AppColors.backgroundColor3,
+              color: AppColors.backgroundColor5,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
