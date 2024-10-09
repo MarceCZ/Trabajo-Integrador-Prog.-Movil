@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/components/button.dart';
-import 'package:mediplan/components/customTextfield.dart';
 import 'package:mediplan/pages/loginPage/login_page_controller.dart';
 import '../../components/common_app_bar.dart';
-import '../../components/custom_texfield.dart';
+import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 
 class LoginPage extends StatelessWidget {
