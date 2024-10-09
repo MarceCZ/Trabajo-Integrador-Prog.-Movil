@@ -68,6 +68,7 @@ class HomePage extends StatelessWidget {
                               //logica
                             },
                             height: 40.0),
+                        const SizedBox(height: 16.0),
                         Obx(() {
                           if (control.productos.isEmpty) {
                             return Center(
