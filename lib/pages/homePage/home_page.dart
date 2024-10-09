@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mediplan/models/producto_botica.dart';
 import 'home_controller.dart';
 import '../../components/common_app_bar.dart';
 import 'package:mediplan/components/button.dart';
@@ -10,7 +11,7 @@ class HomePage extends StatelessWidget {
   HomeController control = Get.put(HomeController());
 
   Widget _buildBody(BuildContext context) {
-    return SafeArea(
+    return SingleChildScrollView(
         child: Container(
             color: AppColors.backgroundColor5,
             child: Column(
@@ -67,26 +68,48 @@ class HomePage extends StatelessWidget {
                               //logica
                             },
                             height: 40.0),
-                        ProductCard(
-                          imageUrl: 'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/011592L.jpg',
-                          title: 'Gel Hidratante Facil Hydro Boost | Neutrogena',
-                          description: 'POTE 50G',
-                          price: 55.40,
-                          onAddPressed: (){
-                            print('Producto añadido al carrito');
+                        Obx(() {
+                          if (control.productos.isEmpty) {
+                            return Center(
+                                child: Text('No hay productos disponibles'));
+                          } else {
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2, // Número de columnas
+                                childAspectRatio:
+                                    0.625, // Relación de aspecto para ajustar el tamaño de las tarjetas
+                                crossAxisSpacing:
+                                    10.0, // Espaciado horizontal entre las tarjetas
+                                mainAxisSpacing:
+                                    10.0, // Espaciado vertical entre las tarjetas
+                              ),
+                              itemCount: control.productos.length,
+                              itemBuilder: (context, index) {
+                                ProductoBotica producto =
+                                    control.productos[index];
+                                return ProductCard(
+                                  imageUrl: producto.imagen,
+                                  title:
+                                      '${producto.nombre} | ${producto.marca}',
+                                  description: producto.presentacion,
+                                  price: producto.precio,
+                                  onAddPressed: () {
+                                    print('Producto añadido al carrito');
+                                  },
+                                  chipLabel: producto.botica,
+                                  chipTextColor: Colors.black,
+                                  chipBackgroundColor: Color(0xFFCCCCCC),
+                                  onChipTap: () {
+                                    print('Chip de Recomendado presionado');
+                                  },
+                                );
+                              },
+                            );
                           }
-                          
-                        ),
-                        ProductCard(
-                          imageUrl: 'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/011592L.jpg',
-                          title: 'Gel Hidratante Facil Hydro Boost | Neutrogena',
-                          description: 'POTE 50G',
-                          price: 55.40,
-                          onAddPressed: (){
-                            print('Producto añadido al carrito');
-                          }
-                          
-                        )
+                        })
                       ],
                     ),
                   )
@@ -95,10 +118,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: CommonAppBar(),
-        body: _buildBody(context),
-      
+    return Scaffold(
+      appBar: CommonAppBar(),
+      body: _buildBody(context),
     );
   }
 }
