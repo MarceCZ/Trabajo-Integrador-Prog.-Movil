@@ -5,6 +5,7 @@ class CustomChip extends StatelessWidget {
   final Color textColor;
   final Color backgroundColor;
   final VoidCallback onTap;
+  final double fontSize;
 
   const CustomChip({
     Key? key,
@@ -12,9 +13,10 @@ class CustomChip extends StatelessWidget {
     required this.textColor,
     required this.backgroundColor,
     required this.onTap,
+    required this.fontSize,
   }) : super(key: key);
 
- @override
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
@@ -23,12 +25,13 @@ class CustomChip extends StatelessWidget {
           label,
           style: TextStyle(
             color: textColor,
-            fontSize: 11.0, // Ajusta el tamaño de la fuente
+            fontSize: fontSize, // Ajusta el tamaño de la fuente
             fontWeight: FontWeight.bold, // Negrita para mayor legibilidad
           ),
         ),
         backgroundColor: backgroundColor,
-        padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 1.0), // Ajusta el padding
+        padding: EdgeInsets.symmetric(
+            horizontal: 3.0, vertical: 1.0), // Ajusta el padding
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18.0), // Bordes redondeados
           side: BorderSide(color: backgroundColor), // Borde gris claro

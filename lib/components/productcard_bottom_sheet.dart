@@ -11,6 +11,7 @@ class ProductCard extends StatelessWidget {
   final Color chipTextColor;
   final Color chipBackgroundColor;
   final VoidCallback onChipTap;
+  final double chipFontSize;
 
   const ProductCard({
     Key? key,
@@ -23,6 +24,7 @@ class ProductCard extends StatelessWidget {
     required this.chipTextColor,
     required this.chipBackgroundColor,
     required this.onChipTap,
+    required this.chipFontSize,
   }) : super(key: key);
 
   @override
@@ -81,6 +83,7 @@ class ProductCard extends StatelessWidget {
                 textColor: chipTextColor,
                 backgroundColor: chipBackgroundColor,
                 onTap: onChipTap,
+                fontSize: chipFontSize,
               ),
             ),
             const Spacer(),
