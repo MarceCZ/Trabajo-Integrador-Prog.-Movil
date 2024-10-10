@@ -6,6 +6,7 @@ import '../../components/common_app_bar.dart';
 import 'package:mediplan/components/button.dart';
 import 'package:mediplan/components/productcard.dart';
 import '../../configs/colors.dart';
+import 'package:mediplan/components/floating_button.dart';
 
 class HomePage extends StatelessWidget {
   HomeController control = Get.put(HomeController());
@@ -122,6 +123,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(),
       body: _buildBody(context),
+      floatingActionButton: FloatingButton(
+        onPressed: () {
+          // Lógica cuando se presiona el botón
+        },
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.endFloat,
     );
   }
 }
