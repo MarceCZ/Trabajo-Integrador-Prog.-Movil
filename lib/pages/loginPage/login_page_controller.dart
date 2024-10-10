@@ -13,26 +13,25 @@ class LoginPageController extends GetxController{
   RxBool hayError = false.obs;
 
   void goMainPage(BuildContext context) async {
-    print("Estoy en el controlador");
     UsuarioService service = UsuarioService();
     Usuario? usuario = 
       await service.login(txtemail.text,txtpassword.text);
     if (txtemail.text == '' || txtpassword.text == '') {
       this.hayError.value = true;
       this.msg.value = 'Error: Debe de llenar usuario y contraseña';
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(seconds: 2), () {
         this.msg.value = '';
       });
     } else if (usuario != null) {
       this.hayError.value = false;
       appBarControl.updateUsuario(usuario);
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(Duration(seconds: 2), () {
         Navigator.pushNamed(context, '/home', arguments: usuario.toJson());
       });
     } else {
       this.msg.value = 'ERROR: Usuario y contraseña no válidos';
       this.hayError.value = true;
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(seconds: 2), () {
         this.msg.value = '';
       });
     }

@@ -1,16 +1,17 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../components/common_app_bar.dart';
 import '../../components/button.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 import 'sign_up_controller.dart';
+import '../../components/customDateField.dart';
 
 class SignUpPage extends StatelessWidget {
-    SignUpController control = Get.put(SignUpController());
+  final SignUpController control = Get.put(SignUpController());
 
   @override
-   Widget _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context) {
     return SafeArea(
       child: Container(
         color: AppColors.backgroundColor3,
@@ -32,7 +33,6 @@ class SignUpPage extends StatelessWidget {
                   SizedBox(height: 20.0),
                   Container(
                     width: double.infinity,
-                    height: 610.0,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30.0),
@@ -41,47 +41,132 @@ class SignUpPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Nombre
                         Customtextfield(
                           label: 'Nombre',
-                          hintText: 'Ingrese su(s) nombre(s)'
+                          controller: control.txtname,
+                          hintText: 'Ingrese su(s) nombre(s)',
                         ),
+                        Obx(() => control.nameError.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  control.nameError.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              )
+                            : SizedBox()),
+
                         SizedBox(height: 5.0),
+
+                        // Apellidos
                         Customtextfield(
                           label: 'Apellidos',
-                          hintText: 'Ingrese su(s) apellido(s)'
+                          controller: control.txtlastname,
+                          hintText: 'Ingrese su(s) apellido(s)',
                         ),
+                        Obx(() => control.lastNameError.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  control.lastNameError.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              )
+                            : SizedBox()),
+
                         SizedBox(height: 5.0),
-                        Customtextfield(
+
+                        // Fecha de nacimiento
+                        CustomDateField(
                           label: 'Fecha de nacimiento',
-                          hintText: 'dd/mm/aaaa'
+                          hintText: 'dd/mm/aaaa',
+                          controller: control.date,
+                          onCalendarTap: () => control.selectDate(context),
                         ),
+                        Obx(() => control.dateError.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  control.dateError.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              )
+                            : SizedBox()),
+
                         SizedBox(height: 5.0),
+
+                        // Correo electrónico
                         Customtextfield(
                           label: 'Correo electrónico',
-                          hintText: 'example@example.com'
+                          controller: control.txtemail,
+                          hintText: 'example@example.com',
                         ),
+                        Obx(() => control.emailError.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  control.emailError.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              )
+                            : SizedBox()),
+
                         SizedBox(height: 5.0),
+
+                        // Celular
                         Customtextfield(
                           label: 'Celular',
-                          hintText: 'Ingrese su número de celular'
+                          controller: control.phonenumber,
+                          hintText: 'Ingrese su número de celular',
                         ),
+                        Obx(() => control.phoneError.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 15.0), 
+                                child: Text(
+                                  control.phoneError.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              )
+                            : SizedBox()),
+
                         SizedBox(height: 5.0),
+
+                        // Contraseña
                         Customtextfield(
                           label: 'Contraseña',
+                          controller: control.txtpassword,
                           obscureText: true,
-                          hintText: 'Ingrese su contraseña'
+                          hintText: 'Ingrese su contraseña',
                         ),
+                        Obx(() => control.passwordError.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 15.0), 
+                                child: Text(
+                                  control.passwordError.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              )
+                            : SizedBox()),
+
                         SizedBox(height: 20.0),
+
+                        // Botón de registro
                         Center(
                           child: Button(
                             title: 'Registrarme',
                             onPressed: () {
-                              Navigator.pushNamed(context, '/profile-setting');
+                              if (control.validateForm()) {
+                                Navigator.pushNamed(context, '/profile-setting');
+                              }
                             },
                             width: 200.0,
                           ),
                         ),
+
                         SizedBox(height: 5.0),
+
+                        // Iniciar sesión
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -122,10 +207,10 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: CommonAppBar(),
-        body: _buildBody(context),
-      
+    return Scaffold(
+      appBar: CommonAppBar(),
+      body: _buildBody(context),
+      resizeToAvoidBottomInset: true,
     );
   }
 }
