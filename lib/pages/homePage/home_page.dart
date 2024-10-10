@@ -89,6 +89,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildProductView(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        
         color: AppColors.backgroundColor5,
         child: Column(
           children: [
@@ -167,8 +168,14 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                   }),
+                  Container(
+                    height:
+                        50, 
+                    color: AppColors
+                        .backgroundColor5)
                 ],
               ),
+              
             ),
           ],
         ),
@@ -180,6 +187,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildStoreView(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        height: MediaQuery.of(context).size.height,
         color: AppColors.backgroundColor5,
         child: Column(
           children: [
