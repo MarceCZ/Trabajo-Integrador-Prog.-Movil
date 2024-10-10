@@ -36,7 +36,7 @@ class ProductCard extends StatelessWidget {
       color: Colors.white,
       elevation: 2.0,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,23 +52,22 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10.0),
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 10.0,
+                color: Color.fromARGB(255, 117, 117, 117),
+              ),
+            ),
             // Título del producto
             Text(
               title,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 14.0,
+                fontSize: 13.0,
               ),
             ),
             const SizedBox(height: 2.0),
-            // Descripción del producto
-            Text(
-              description,
-              style: const TextStyle(
-                fontSize: 11.0,
-                color: Color.fromARGB(255, 117, 117, 117),
-              ),
-            ),
             // Chip personalizado
             CustomChip(
               label: chipLabel,
@@ -77,6 +76,7 @@ class ProductCard extends StatelessWidget {
               onTap: onChipTap,
               fontSize: chipFontSize,
             ),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
