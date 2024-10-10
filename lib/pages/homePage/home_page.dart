@@ -9,6 +9,7 @@ import 'package:mediplan/components/productcard.dart';
 import 'package:mediplan/components/boticacard.dart';
 import '../../configs/colors.dart';
 import 'package:mediplan/components/floating_button.dart';
+import 'package:mediplan/pages/productDetailPage/product_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,11 +28,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildScaffold(context);
-  }
-
-  // Método separado para construir el Scaffold
-  Widget _buildScaffold(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
       body: _buildBody(context),
@@ -142,22 +138,31 @@ class _HomePageState extends State<HomePage> {
                         itemCount: control.productos.length,
                         itemBuilder: (context, index) {
                           ProductoBotica producto = control.productos[index];
-                          return ProductCard(
-                            imageUrl: producto.imagen,
-                            title: '${producto.nombre} | ${producto.marca}',
-                            description: producto.presentacion,
-                            price: producto.precio,
-                            onAddPressed: () {
-                              print('Producto añadido al carrito');
-                            },
-                            chipLabel: producto.botica,
-                            chipTextColor: Colors.black,
-                            chipBackgroundColor: Color(0xFFCCCCCC),
-                            chipFontSize: 9,
-                            onChipTap: () {
-                              print('Chip de Recomendado presionado');
-                            },
-                          );
+                          return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailPage(pId: producto.id)),
+                                );
+                              },
+                              child: ProductCard(
+                                imageUrl: producto.imagen,
+                                title: '${producto.nombre} | ${producto.marca}',
+                                description: producto.presentacion,
+                                price: producto.precio,
+                                onAddPressed: () {
+                                  print('Producto añadido al carrito');
+                                },
+                                chipLabel: producto.botica,
+                                chipTextColor: Colors.black,
+                                chipBackgroundColor: Color(0xFFCCCCCC),
+                                chipFontSize: 9,
+                                onChipTap: () {
+                                  print('Chip de Recomendado presionado');
+                                },
+                              ));
                         },
                       );
                     }
