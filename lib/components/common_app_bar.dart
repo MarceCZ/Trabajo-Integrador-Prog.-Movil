@@ -89,6 +89,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+       backgroundColor: Colors.white,
       title: Row(
         children: [
           Image.asset(
