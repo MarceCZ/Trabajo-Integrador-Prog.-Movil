@@ -39,6 +39,7 @@ flutter:
     - assets/img/logo2.png
     - assets/img/logo3.png
     - assets/json/data.json
+    - assets/json/usuarios.json
 
   fonts:
     - family: Gontserrat

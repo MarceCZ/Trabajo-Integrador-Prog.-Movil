@@ -3,34 +3,35 @@ import 'package:flutter/services.dart' show rootBundle;
 import '../models/usuario.dart';
 
 class UsuarioService {
+  // Método privado para cargar y decodificar el archivo JSON
+  Future<List<dynamic>> _loadUsuariosData() async {
+    final String response =
+        await rootBundle.loadString('assets/json/usuarios.json');
+    final Map<String, dynamic> jsonData = jsonDecode(response);
+    return jsonData['usuarios'] as List<dynamic>;
+  }
+
   Future<Usuario?> login(String email, String password) async {
-    if (email == 'admin@example.com' && password == 'admin') {
-      return Usuario(idUsuario: 1, correo: 'pepe@ulima.edu.pe');
+    final List<dynamic> data = await _loadUsuariosData();
+    // Buscar el usuario con el email y password proporcionados
+    final usuarioEncontrado = data.firstWhere(
+      (map) =>
+          (map as Map<String, dynamic>)['correo'] == email &&
+          (map)['contraseña'] == password,
+      orElse: () => null,
+    );
+
+    if (usuarioEncontrado != null) {
+      print("usuario encontrado");
+      return Usuario.fromMap(usuarioEncontrado as Map<String, dynamic>);
     } else {
+      print("usuario no encontrado");
       return null;
     }
   }
 
-  Future<List<Usuario>> fetchAll() async {
-    List<Usuario> usuarios = [];
-    final String response =
-        await rootBundle.loadString('assets/json/data.json');
-    print(response);
-    final Map<String, dynamic> jsonData = jsonDecode(response);
-    final List<dynamic> data = jsonData['usuarios'];
-    usuarios = data
-        .map((map) => Usuario.fromMap(map as Map<String, dynamic>))
-        .toList();
-    return usuarios;
-  }
-
-
   Future<Usuario?> fetchOne(int idUsuario) async {
-    final String response =
-        await rootBundle.loadString('assets/json/data.json');
-    final Map<String, dynamic> jsonData = jsonDecode(response);
-    final List<dynamic> data = jsonData['usuarios'];
-
+    final List<dynamic> data = await _loadUsuariosData();
     // Buscar el usuario por idUsuario
     final usuarioEncontrado = data.firstWhere(
       (map) => (map as Map<String, dynamic>)['idUsuario'] == idUsuario,
@@ -40,7 +41,19 @@ class UsuarioService {
     if (usuarioEncontrado != null) {
       return Usuario.fromMap(usuarioEncontrado as Map<String, dynamic>);
     } else {
-      return null; // Si no se encuentra el usuario, devolvemos null
+      return null;
     }
+  }
+
+  Future<bool> isEmailRegistered(String email) async {
+    final List<dynamic> data = await _loadUsuariosData();
+    
+    // Buscar si el correo ya existe
+    final usuarioEncontrado = data.firstWhere(
+      (map) => (map as Map<String, dynamic>)['correo'] == email,
+      orElse: () => null,
+    );
+
+    return usuarioEncontrado != null;
   }
 }

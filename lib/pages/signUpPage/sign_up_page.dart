@@ -122,7 +122,7 @@ class SignUpPage extends StatelessWidget {
                         ),
                         Obx(() => control.phoneError.isNotEmpty
                             ? Padding(
-                                padding: EdgeInsets.only(left: 15.0), 
+                                padding: EdgeInsets.only(left: 15.0),
                                 child: Text(
                                   control.phoneError.value,
                                   style: TextStyle(color: Colors.red),
@@ -141,7 +141,7 @@ class SignUpPage extends StatelessWidget {
                         ),
                         Obx(() => control.passwordError.isNotEmpty
                             ? Padding(
-                                padding: EdgeInsets.only(left: 15.0), 
+                                padding: EdgeInsets.only(left: 15.0),
                                 child: Text(
                                   control.passwordError.value,
                                   style: TextStyle(color: Colors.red),

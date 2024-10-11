@@ -178,57 +178,7 @@
         "id_kit":2,
         "receta":false
       }
-    ],"usuarios": [
-    
-      {
-        "idUsuario": 1,
-        "nombres": "Juan Perez",
-        "apellidos": "Tello Linares",
-        "fechaNacimiento": "2024-01-10T00:00:00.000Z",
-        "correo": "juan@mail.com",
-        "contraseña": "1234",
-        "altura": 1.70,
-        "peso": 70.5,
-        "sexo": "M",
-        "condicionesMedicas": "Diabetes Tipo II",
-        "alergias": "Maní",
-        "celular": "999666999",
-        "otros":"vacio"
-      },
-      {
-        "idUsuario": 2,
-        "nombres": "Maria Lopez",
-        "apellidos": "Gomez Solano",
-        "fechaNacimiento": "1995-03-22T00:00:00.000Z",
-        "correo": "maria@mail.com",
-        "contraseña": "abcd",
-        "altura": 1.65,
-        "peso": 60.0,
-        "sexo": "F",
-        "condicionesMedicas": "Hipertensión",
-        "alergias": "Lactosa",
-        "celular": "988777111",
-        "otros": "Tiene antecedentes familiares de cáncer"
-      },
-      {
-        "idUsuario": 3,
-        "nombres": "Carlos Martínez",
-        "apellidos": "Quispe Paredes",
-        "fechaNacimiento": "1988-07-15T00:00:00.000Z",
-        "correo": "carlos@mail.com",
-        "contraseña": "xyz123",
-        "altura": 1.80,
-        "peso": 80.2,
-        "sexo": "M",
-        "condicionesMedicas": "Asma",
-        "alergias": "Polen",
-        "celular": "987654321",
-        "otros": "Practicante de deporte regularmente"
-      }
-      
-      
     ],
-    
     "kits":[
       {
         "id":1,

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mediplan/services/usuario_service.dart';
 
 class SignUpController extends GetxController {
   // Controladores de los campos
@@ -36,34 +37,50 @@ class SignUpController extends GetxController {
 
   // Validaciones para los campos
   void validateName() {
+    final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
     if (txtname.text.isEmpty) {
       nameError.value = 'La casilla de nombre está vacía';
+    } else if (!nameRegex.hasMatch(txtname.text)) {
+      nameError.value = 'El nombre solo debe contener letras';
     } else {
       nameError.value = '';
     }
   }
 
   void validateLastName() {
+    final lastNameRegex = RegExp(r'^[a-zA-Z\s]+$');
     if (txtlastname.text.isEmpty) {
       lastNameError.value = 'La casilla de apellidos está vacía';
+    } else if (!lastNameRegex.hasMatch(txtlastname.text)) {
+      lastNameError.value = 'Los apellidos solo deben contener letras';
     } else {
       lastNameError.value = '';
     }
   }
 
-  void validateEmail() {
+  Future<void> validateEmail() async {
+    UsuarioService service = UsuarioService();
     final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-    if (txtemail.text.isEmpty || !emailRegex.hasMatch(txtemail.text)) {
+    if (txtemail.text.isEmpty) {
+      emailError.value = 'La casilla del correo esta vacía';
+    } else if (!emailRegex.hasMatch(txtemail.text)) {
       emailError.value = 'Ingrese un correo válido';
     } else {
-      emailError.value = '';
+      bool isRegistered = await service.isEmailRegistered(txtemail.text);
+      if (isRegistered) {
+        emailError.value = 'Este correo ya está registrado';
+      } else {
+        emailError.value = '';
+      }
     }
   }
 
   void validatePhone() {
-    final phoneRegex = RegExp(r'^[0-9]+$');
-    if (phonenumber.text.isEmpty || !phoneRegex.hasMatch(phonenumber.text)) {
-      phoneError.value = 'Ingrese un número de teléfono válido';
+    final phoneRegex = RegExp(r'^[0-9]{9}$');
+    if (phonenumber.text.isEmpty) {
+      phoneError.value = 'La casilla de teléfono está vacía';
+    } else if (!phoneRegex.hasMatch(phonenumber.text)) {
+      phoneError.value = 'Debe ingresar exactamente 9 dígitos y que sean solo números';
     } else {
       phoneError.value = '';
     }
@@ -100,6 +117,6 @@ class SignUpController extends GetxController {
         emailError.value.isEmpty &&
         phoneError.value.isEmpty &&
         dateError.value.isEmpty &&
-        passwordError.value.isEmpty; 
+        passwordError.value.isEmpty;
   }
 }
