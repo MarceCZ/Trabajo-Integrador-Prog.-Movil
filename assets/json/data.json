@@ -110,5 +110,153 @@
       "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQEE8vKi-t96wQ/company-logo_200_200/company-logo_200_200/0/1630577962946/farmacia_universal_logo?e=2147483647&v=beta&t=XO81-gCEXqYPvuu8jDaEhQN8hQpZm2nNf-NrUeG_1hw",
       "cantidad_productos": 2
     }
-  ]
+  ],
+  "kit_productos":[
+      {
+        "id": 1,
+        "nombre": "Paracetamol 500mg",
+        "marca": "Genfar",
+        "imagen": "https://farmaciauniversalpe.vtexassets.com/arquivos/ids/156423-800-auto?v=638417260707800000&width=800&height=auto&aspect=true",
+        "sub_total": 11.00,
+        "cantidad_productos": 2,
+        "botica":"MiFarma",
+        "id_kit":1,
+        "receta":false
+      },
+      {
+        "id": 2,
+        "nombre": "Ibuprofeno 400mg",
+        "marca": "MK",
+        "imagen": "https://farmaciauniversalpe.vtexassets.com/arquivos/ids/159167/00890_1.jpg?v=638590981889170000",
+        "sub_total": 16.00,
+        "cantidad_productos": 2,
+        "botica":"InkaFarma",
+        "id_kit":1,
+        "receta":false
+      },
+      {
+        "id": 3,
+        "nombre": "Amoxicilina 500mg",
+        "marca": "Bayer",
+        "imagen": "https://www.hogarysalud.com.pe/wp-content/uploads/2021/03/00202295-C2.jpg",
+        "sub_total": 30.00,
+        "cantidad_productos": 2,
+        "botica":"Boticas Peru",
+        "id_kit":1,
+        "receta":true
+      },
+      {
+        "id": 4,
+        "nombre": "Clorfenamina 4mg",
+        "marca": "Sanofi",
+        "imagen": "https://www.hogarysalud.com.pe/wp-content/uploads/2021/03/78272-C1.jpg",
+        "sub_total": 6.00,
+        "cantidad_productos": 2,
+        "botica":"Boticas Peru",
+        "id_kit":2,
+        "receta":false
+      },
+      {
+        "id": 5,
+        "nombre": "Losartán 50mg",
+        "marca": "Teva",
+        "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNB3IYwS9TH3RnjzyBb8Wc3Ic-t6QkbyPhtg&s",
+        "sub_total": 40.00,
+        "cantidad_productos": 2,
+        "botica":"MiFarma",
+        "id_kit":2,
+        "receta":true
+      },
+      {
+        "id": 6,
+        "nombre": "Omeprazol 20mg",
+        "marca": "Sandoz",
+        "imagen": "https://www.hogarysalud.com.pe/wp-content/uploads/2021/06/00204198-C2.jpg",
+        "sub_total": 21.00,
+        "cantidad_productos": 2,
+        "botica":"InkaFarma",
+        "id_kit":2,
+        "receta":false
+      }
+    ],"usuarios": [
+    
+      {
+        "idUsuario": 1,
+        "nombres": "Juan Perez",
+        "apellidos": "Tello Linares",
+        "fechaNacimiento": "2024-01-10T00:00:00.000Z",
+        "correo": "juan@mail.com",
+        "contraseña": "1234",
+        "altura": 1.70,
+        "peso": 70.5,
+        "sexo": "M",
+        "condicionesMedicas": "Diabetes Tipo II",
+        "alergias": "Maní",
+        "celular": "999666999",
+        "otros":"vacio"
+      },
+      {
+        "idUsuario": 2,
+        "nombres": "Maria Lopez",
+        "apellidos": "Gomez Solano",
+        "fechaNacimiento": "1995-03-22T00:00:00.000Z",
+        "correo": "maria@mail.com",
+        "contraseña": "abcd",
+        "altura": 1.65,
+        "peso": 60.0,
+        "sexo": "F",
+        "condicionesMedicas": "Hipertensión",
+        "alergias": "Lactosa",
+        "celular": "988777111",
+        "otros": "Tiene antecedentes familiares de cáncer"
+      },
+      {
+        "idUsuario": 3,
+        "nombres": "Carlos Martínez",
+        "apellidos": "Quispe Paredes",
+        "fechaNacimiento": "1988-07-15T00:00:00.000Z",
+        "correo": "carlos@mail.com",
+        "contraseña": "xyz123",
+        "altura": 1.80,
+        "peso": 80.2,
+        "sexo": "M",
+        "condicionesMedicas": "Asma",
+        "alergias": "Polen",
+        "celular": "987654321",
+        "otros": "Practicante de deporte regularmente"
+      }
+      
+      
+    ],
+    
+    "kits":[
+      {
+        "id":1,
+        "tipo":"Starter (1 mes)",
+        "fecha_inicio":"2024-07-15T00:00:00.000Z",
+        "fecha_fin":"2024-08-15T00:00:00.000Z",
+        "total":57.00,
+        "metodo_pago":"Tarjeta de crédito",
+        "fecha_entrega":"2024-07-20T00:00:00.000Z",
+        "estado":"En camino",
+        "departamento":"Lima",
+        "distrito":"Miraflores",
+        "direccion":"Av. Larco 123",
+        "otro": "-"
+      },
+      {
+        "id":2,
+        "tipo":"Advanced (3 meses)",
+        "fecha_inicio":"2024-07-15T00:00:00.000Z",
+        "fecha_fin":"2024-10-15T00:00:00.000Z",
+        "total":67.00,
+        "metodo_pago":"Tarjeta de crédito",
+        "fecha_entrega":"2024-07-20T00:00:00.000Z",
+        "estado":"Entregado",
+        "departamento":"Lima",
+        "distrito":"Miraflores",
+        "direccion":"Av. Larco 123",
+        "otro": "-"
+      }
+    ]
 }
