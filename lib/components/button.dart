@@ -9,6 +9,9 @@ class Button extends StatelessWidget {
   final BorderRadius? borderRadius;
   final double? width;
   final double? height;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+  final double? elevation;
 
   const Button({
     Key? key,
@@ -19,6 +22,9 @@ class Button extends StatelessWidget {
     this.borderRadius,
     this.width,
     this.height,
+    this.fontSize,
+    this.fontWeight,
+    this.elevation,
   }) : super(key: key);
 
   @override
@@ -33,16 +39,19 @@ class Button extends StatelessWidget {
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: borderRadius ?? BorderRadius.circular(30),
-            )
-          )
+            ),),
+          elevation: MaterialStateProperty.all(
+            elevation ?? 0.0, // Aplica la elevación aquí
+            ),
+          
         ),
         onPressed: onPressed,
         child: Text(
           title,
           style: TextStyle(
             color: textColor ?? Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 20.0,
+            fontWeight: fontWeight ?? FontWeight.w700,
+            fontSize: fontSize ?? 20,
           ) 
         ),
         ),

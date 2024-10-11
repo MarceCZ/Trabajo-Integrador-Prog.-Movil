@@ -10,4 +10,5 @@ class AppColors {
   static const Color backgroundColor5 = Color(0xFFF2F2F2);
   static const Color backgroundColor4 = Colors.red;
   static const Color textColor = Color(0xFF000000);
+  static const Color grisclarito = Color(0xFFD5D5D5);
 }

@@ -84,7 +84,7 @@ class ProductDetailPage extends StatelessWidget {
                                   color: AppColors.secondaryColor),
                             ),
                             CustomChip(
-                                label: producto.marca,
+                                label: producto.botica,
                                 textColor: AppColors.secondaryColor,
                                 backgroundColor: AppColors.backgroundColor,
                                 onTap: () {
