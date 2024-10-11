@@ -77,7 +77,7 @@ class ProductDetailPage extends StatelessWidget {
                             SizedBox(height: 8),
                             // Nombre del producto
                             Text(
-                              producto.nombre,
+                              '${producto.nombre} | ${producto.marca}',
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -87,9 +87,6 @@ class ProductDetailPage extends StatelessWidget {
                                 label: producto.botica,
                                 textColor: AppColors.secondaryColor,
                                 backgroundColor: AppColors.backgroundColor,
-                                onTap: () {
-                                  print('Ir a la tienda');
-                                },
                                 fontSize: 12),
                             // Presentación y precio
                             Text(

@@ -29,6 +29,7 @@ class HomeController extends GetxController {
 
   void listarProductos() async {
     productos.value = await productoService.fetchAll();
+    productosFiltrados.assignAll(productos);
     productos.refresh();
     actualizarMarcas();
     valoresFiltro();

@@ -13,7 +13,7 @@
       "stock": 100,
       "requiere_receta": false,
       "id_botica": 1,
-      "botica": "Botica Mi Salud"
+      "botica": "Mifarma"
     },
     {
       "id": 2,
@@ -28,7 +28,7 @@
       "stock": 200,
       "requiere_receta": false,
       "id_botica": 1,
-      "botica": "Botica Mi Salud"
+      "botica": "Mifarma"
     },
     {
       "id": 3,
@@ -43,7 +43,7 @@
       "stock": 50,
       "requiere_receta": true,
       "id_botica": 2,
-      "botica": "Farmacia Peruana"
+      "botica": "Inkafarma"
     },
     {
       "id": 4,
@@ -58,7 +58,7 @@
       "stock": 80,
       "requiere_receta": false,
       "id_botica": 2,
-      "botica": "Farmacia Peruana"
+      "botica": "Inkafarma"
     },
     {
       "id": 5,
@@ -73,7 +73,7 @@
       "stock": 30,
       "requiere_receta": true,
       "id_botica": 3,
-      "botica": "Botica del Pueblo"
+      "botica": "Farmacia Universal"
     },
     {
       "id": 6,
@@ -88,7 +88,7 @@
       "stock": 120,
       "requiere_receta": false,
       "id_botica": 3,
-      "botica": "Botica del Pueblo"
+      "botica": "Farmacia Universal"
     }
   ],
   "boticas": [

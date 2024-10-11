@@ -4,7 +4,7 @@ class CustomChip extends StatelessWidget {
   final String label;
   final Color textColor;
   final Color backgroundColor;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final double fontSize;
 
   const CustomChip({
@@ -12,7 +12,7 @@ class CustomChip extends StatelessWidget {
     required this.label,
     required this.textColor,
     required this.backgroundColor,
-    required this.onTap,
+    this.onTap,
     required this.fontSize,
   }) : super(key: key);
 

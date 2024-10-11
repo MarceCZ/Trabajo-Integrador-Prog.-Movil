@@ -10,7 +10,6 @@ class ProductCard extends StatelessWidget {
   final String chipLabel;
   final Color chipTextColor;
   final Color chipBackgroundColor;
-  final VoidCallback onChipTap;
   final double chipFontSize;
 
   const ProductCard({
@@ -23,7 +22,6 @@ class ProductCard extends StatelessWidget {
     required this.chipLabel,
     required this.chipTextColor,
     required this.chipBackgroundColor,
-    required this.onChipTap,
     required this.chipFontSize,
   }) : super(key: key);
 
@@ -73,7 +71,6 @@ class ProductCard extends StatelessWidget {
               label: chipLabel,
               textColor: chipTextColor,
               backgroundColor: chipBackgroundColor,
-              onTap: onChipTap,
               fontSize: chipFontSize,
             ),
             const Spacer(),
