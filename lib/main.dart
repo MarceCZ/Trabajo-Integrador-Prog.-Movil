@@ -9,6 +9,7 @@ import 'pages/signUpPage/sign_up_page.dart';
 import 'pages/purchaseConfirmationPage/purchase_confirmation_page.dart';
 import 'pages/profilePage/profile_page.dart';
 import 'pages/kitSettingPage/kit_setting_page.dart';
+import 'package:get/get.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         fontFamily: 'Gontserrat',
       ),

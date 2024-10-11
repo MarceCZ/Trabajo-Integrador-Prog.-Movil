@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mediplan/components/cart_controller.dart';
+import 'package:mediplan/components/cart_view.dart';
 import 'package:mediplan/components/custom_filter_button.dart';
 import 'package:mediplan/components/customSearchBar.dart';
 import 'package:mediplan/models/producto_botica.dart';
@@ -23,6 +25,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeController control = Get.put(HomeController());
   int _selectedIndex = 0; // Índice para controlar la vista seleccionada
+  void initState() {
+    super.initState();
+    // Registrar el CartController en esta página
+    Get.lazyPut(() => CartController());
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -37,12 +44,28 @@ class _HomePageState extends State<HomePage> {
       body: _buildBody(context),
       floatingActionButton: FloatingButton(
         onPressed: () {
-          // Lógica cuando se presiona el botón flotante
+          _showCartBottomSheet(context);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
+
+   void _showCartBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (BuildContext context) {
+      return   // Centrar el contenido en el BottomSheet
+        Container(
+          width: 350.0,  // Establecer un ancho fijo para el BottomSheet
+          child: CartView(),  // Aquí se muestra el contenido de tu BottomSheet
+        );
+  
+    },
+  );
+}
 
   // Método para construir el cuerpo de la página
   Widget _buildBody(BuildContext context) {
