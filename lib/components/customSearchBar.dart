@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final String placeholder;
+  final ValueChanged<String> onChanged;
 
   const CustomSearchBar({
     Key? key, 
-    required this.placeholder
+    required this.placeholder,
+    required this.onChanged,
     }) :super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class CustomSearchBar extends StatelessWidget {
             fillColor: Colors.white,
             contentPadding: EdgeInsets.symmetric(vertical: 8.0),
           ),
+          onChanged: onChanged,
         ),
       );
   }

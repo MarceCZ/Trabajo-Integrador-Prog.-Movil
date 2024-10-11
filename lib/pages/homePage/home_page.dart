@@ -125,7 +125,13 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   SizedBox(
                     height: 40.0,
-                    child: CustomSearchBar(placeholder: 'Buscar producto'),
+                    child: CustomSearchBar(
+                      placeholder: 'Buscar producto',
+                      onChanged: (text) {
+                        control.searchQuery.value = text;
+                        control.filtrarProductos();
+                      },
+                    ),
                   ),
                   const SizedBox(height: 16.0),
                   Container(
@@ -164,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 16.0),
                   Obx(() {
-                    if (control.productos.isEmpty) {
+                    if (control.productosFiltrados.isEmpty) {
                       return Center(
                           child: Text('No hay productos disponibles'));
                     } else {
@@ -177,9 +183,10 @@ class _HomePageState extends State<HomePage> {
                           crossAxisSpacing: 10.0,
                           mainAxisSpacing: 10.0,
                         ),
-                        itemCount: control.productos.length,
+                        itemCount: control.productosFiltrados.length,
                         itemBuilder: (context, index) {
-                          ProductoBotica producto = control.productos[index];
+                          ProductoBotica producto =
+                              control.productosFiltrados[index];
                           return GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -231,10 +238,15 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  CustomSearchBar(placeholder: 'Buscar botica'),
+                  CustomSearchBar(
+                    placeholder: 'Buscar botica',
+                    onChanged: (text)=>{
+                      control.filtrarBoticas(text)
+                    },
+                  ),
                   const SizedBox(height: 16.0),
                   Obx(() {
-                    if (control.productos.isEmpty) {
+                    if (control.boticasFiltradas.isEmpty) {
                       return Center(child: Text('No hay boticas disponibles'));
                     } else {
                       return GridView.builder(
@@ -246,9 +258,9 @@ class _HomePageState extends State<HomePage> {
                           crossAxisSpacing: 10.0,
                           mainAxisSpacing: 10.0,
                         ),
-                        itemCount: control.boticas.length,
+                        itemCount: control.boticasFiltradas.length,
                         itemBuilder: (context, index) {
-                          Botica botica = control.boticas[index];
+                          Botica botica = control.boticasFiltradas[index];
                           return BoticaCard(
                             imageUrl: botica.logo,
                             title: botica.nombre,
@@ -323,6 +335,7 @@ class _HomePageState extends State<HomePage> {
                             'S/${control.rangoPrecio.value.end.round()}'),
                         onChanged: (RangeValues values) {
                           control.rangoPrecio.value = values;
+                          control.filtrarProductos();
                         },
                       )),
                 ),
@@ -338,9 +351,14 @@ class _HomePageState extends State<HomePage> {
                     children: control.marcas.map((marca) {
                       return FilterChip(
                         label: Text(marca),
-                        selected: false,
+                        selected: control.marcasSeleccionadas.contains(marca),
                         onSelected: (bool selected) {
-                          // Lógica para manejar la selección de la marca
+                          if (selected) {
+                            control.marcasSeleccionadas.add(marca);
+                          } else {
+                            control.marcasSeleccionadas.remove(marca);
+                          }
+                          control.filtrarProductos();
                         },
                       );
                     }).toList(),
