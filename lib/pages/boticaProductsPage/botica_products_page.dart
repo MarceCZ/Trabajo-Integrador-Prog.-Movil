@@ -7,6 +7,7 @@ import 'package:mediplan/components/floating_button.dart';
 import 'package:mediplan/components/product_grid_view.dart';
 import 'package:mediplan/models/producto_botica.dart';
 import 'package:mediplan/pages/productDetailPage/product_detail_page.dart';
+import '../../components/common_drawer.dart';
 import 'botica_products_controller.dart';
 import '../../components/common_app_bar.dart';
 import '../../configs/colors.dart';
@@ -110,6 +111,7 @@ class BoticaProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
+        endDrawer: CommonDrawer(),
       body: Obx(() {
         return _buildBody(context); // Retornar el widget _buildBody
       }),

@@ -4,6 +4,7 @@ import 'package:mediplan/components/button.dart';
 import 'package:mediplan/components/customchip.dart';
 import 'package:mediplan/pages/kitSettingPage/kit_setting_controller.dart';
 import '../../components/common_app_bar.dart';
+import '../../components/common_drawer.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 import '../../models/kit_producto.dart';
@@ -404,6 +405,7 @@ class _KitSettingPageState extends State<KitSettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
+        endDrawer: CommonDrawer(),
       body: _build(context),
     );
   }

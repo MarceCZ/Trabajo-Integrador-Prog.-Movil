@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../components/common_drawer.dart';
 import './profile_controller.dart';
 import '../../components/common_app_bar.dart';
 import '../../components/button.dart';
@@ -15,11 +16,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
-  
-
   bool _isEditing = false;
-
 
   Widget _buildBodyRead(BuildContext context) {
     return SafeArea(
@@ -77,22 +74,22 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Obx(()=> widget.control.name.isNotEmpty
-                                    ? CustomTextLabel(
-                                      label: 'Nombre',
-                                      text: widget.control.name.value)
-                                    : CustomTextLabel(
-                                      label: 'Nombre',
-                                      text: ''),
+                                  Obx(
+                                    () => widget.control.name.isNotEmpty
+                                        ? CustomTextLabel(
+                                            label: 'Nombre',
+                                            text: widget.control.name.value)
+                                        : CustomTextLabel(
+                                            label: 'Nombre', text: ''),
                                   ),
                                   SizedBox(height: 10.0),
-                                  Obx(()=> widget.control.lastname.isNotEmpty
-                                    ? CustomTextLabel(
-                                      label: 'Apellido',
-                                      text: widget.control.lastname.value)
-                                    : CustomTextLabel(
-                                      label: 'Apellido',
-                                      text: ''),
+                                  Obx(
+                                    () => widget.control.lastname.isNotEmpty
+                                        ? CustomTextLabel(
+                                            label: 'Apellido',
+                                            text: widget.control.lastname.value)
+                                        : CustomTextLabel(
+                                            label: 'Apellido', text: ''),
                                   ),
                                 ],
                               ),
@@ -111,26 +108,29 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         SizedBox(height: 20.0),
 
-                        Obx(() => widget.control.fecha.isNotEmpty
-                            ? CustomTextLabel(
-                                label: 'Fecha de nacimiento',
-                                text: widget.control.fecha.value)
-                            : CustomTextLabel(
-                                label: 'Fecha de nacimiento', text: ''),
+                        Obx(
+                          () => widget.control.fecha.isNotEmpty
+                              ? CustomTextLabel(
+                                  label: 'Fecha de nacimiento',
+                                  text: widget.control.fecha.value)
+                              : CustomTextLabel(
+                                  label: 'Fecha de nacimiento', text: ''),
                         ),
                         SizedBox(height: 10.0),
-                        Obx(() => widget.control.email.isNotEmpty
-                            ? CustomTextLabel(
-                                label: 'Correo', text: widget.control.email.value)
-                            : CustomTextLabel(
-                                label: 'Correo', text: ''),
+                        Obx(
+                          () => widget.control.email.isNotEmpty
+                              ? CustomTextLabel(
+                                  label: 'Correo',
+                                  text: widget.control.email.value)
+                              : CustomTextLabel(label: 'Correo', text: ''),
                         ),
                         SizedBox(height: 10.0),
-                        Obx(() => widget.control.phone.isNotEmpty
-                            ? CustomTextLabel(
-                                label: 'Celular', text: widget.control.phone.value)
-                            : CustomTextLabel(
-                                label: 'Celular', text: ''),
+                        Obx(
+                          () => widget.control.phone.isNotEmpty
+                              ? CustomTextLabel(
+                                  label: 'Celular',
+                                  text: widget.control.phone.value)
+                              : CustomTextLabel(label: 'Celular', text: ''),
                         ),
                         Divider(height: 40.0),
                         // Sección de salud
@@ -145,57 +145,60 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           children: [
                             Expanded(
-                              child: Obx(() => widget.control.altura.isNotEmpty
+                                child: Obx(
+                              () => widget.control.altura.isNotEmpty
                                   ? CustomTextLabel(
-                                      label: 'Altura', text: widget.control.altura.value)
-                                  : CustomTextLabel(
-                                      label: 'Altura', text: ''),
-                                      )
-                            ),
+                                      label: 'Altura',
+                                      text: widget.control.altura.value)
+                                  : CustomTextLabel(label: 'Altura', text: ''),
+                            )),
                             Container(
-                              padding: EdgeInsets.only(top: 25.0, left: 5.0, right: 65.0),
+                              padding: EdgeInsets.only(
+                                  top: 25.0, left: 5.0, right: 65.0),
                               child: Text('m'),
                             ),
                             SizedBox(width: 20.0),
                             Expanded(
-                              child: Obx(() => widget.control.peso.isNotEmpty
+                                child: Obx(
+                              () => widget.control.peso.isNotEmpty
                                   ? CustomTextLabel(
-                                      label: 'Peso', text: widget.control.peso.value)
-                                  : CustomTextLabel(
-                                      label: 'Peso', text: ''),
-                                      )
-                            ),
+                                      label: 'Peso',
+                                      text: widget.control.peso.value)
+                                  : CustomTextLabel(label: 'Peso', text: ''),
+                            )),
                             Container(
-                              padding: EdgeInsets.only(top: 25.0,  left: 5.0, right: 65.0),
+                              padding: EdgeInsets.only(
+                                  top: 25.0, left: 5.0, right: 65.0),
                               child: Text('kg'),
                             ),
                           ],
                         ),
                         SizedBox(height: 10.0),
-                        Obx(() => widget.control.condicion.isNotEmpty
-                            ? CustomTextLabel(
-                                label: 'Condiciones médicas',
-                                text: widget.control.condicion.value)
-                            : CustomTextLabel(
-                                label: 'Condiciones médicas', text: ''),
+                        Obx(
+                          () => widget.control.condicion.isNotEmpty
+                              ? CustomTextLabel(
+                                  label: 'Condiciones médicas',
+                                  text: widget.control.condicion.value)
+                              : CustomTextLabel(
+                                  label: 'Condiciones médicas', text: ''),
                         ),
                         SizedBox(height: 10.0),
-                        Obx(() => widget.control.alergia.isNotEmpty
-                            ? CustomTextLabel(
-                                label: 'Alergias', text: widget.control.alergia.value)
-                            : CustomTextLabel(
-                                label: 'Alergias', text: ''),
+                        Obx(
+                          () => widget.control.alergia.isNotEmpty
+                              ? CustomTextLabel(
+                                  label: 'Alergias',
+                                  text: widget.control.alergia.value)
+                              : CustomTextLabel(label: 'Alergias', text: ''),
                         ),
                         SizedBox(height: 10.0),
-                        Obx(() => widget.control.otros.isNotEmpty
-                            ? CustomTextLabel(
-                                label: 'Otros', text: widget.control.otros.value)
-                            : CustomTextLabel(
-                                label: 'Otros', text: ''),
+                        Obx(
+                          () => widget.control.otros.isNotEmpty
+                              ? CustomTextLabel(
+                                  label: 'Otros',
+                                  text: widget.control.otros.value)
+                              : CustomTextLabel(label: 'Otros', text: ''),
                         ),
-                      
                       ],
-                    
                     ),
                   ),
                   SizedBox(height: 30.0),
@@ -203,10 +206,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Botones de acción
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [                      
+                    children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pop(context); 
+                          Navigator.pop(context);
                         },
                         child: Text(
                           'Volver',
@@ -217,6 +220,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             decoration: TextDecoration.underline,
                           ),
                         ),
+                      ),
+                      SizedBox(width: 20.0),
+                      Button(
+                        title: 'Cerrar sesión',
+                        onPressed: () {
+                          widget.control.cerrarSesion();
+                          Navigator.pushNamed(context, '/presentation');
+                        },
+                        fontSize: 16.0,
+                        width: 180.0,
+                        textColor: AppColors.textColor,
+                        backgroundColor: AppColors.backgroundColor4,
                       ),
                     ],
                   ),
@@ -294,7 +309,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     controller: widget.control.txtlastname,
                                     hintText: 'Ingrese su(s) apellido(s)',
                                   ),
-                                  Obx(() => widget.control.lastNameError.isNotEmpty
+                                  Obx(() => widget
+                                          .control.lastNameError.isNotEmpty
                                       ? Padding(
                                           padding: EdgeInsets.only(left: 15.0),
                                           child: Text(
@@ -324,7 +340,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           label: 'Fecha de nacimiento',
                           hintText: 'dd/mm/aaaa',
                           controller: widget.control.date,
-                          onCalendarTap: () => widget.control.selectDate(context),
+                          onCalendarTap: () =>
+                              widget.control.selectDate(context),
                         ),
                         Obx(() => widget.control.dateError.isNotEmpty
                             ? Padding(
@@ -385,7 +402,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     label: 'Altura',
                                     controller: widget.control.height,
                                   ),
-                                  Obx(() => widget.control.heightError.isNotEmpty
+                                  Obx(() => widget
+                                          .control.heightError.isNotEmpty
                                       ? Padding(
                                           padding: EdgeInsets.only(left: 15.0),
                                           child: Text(
@@ -410,7 +428,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     label: 'Peso',
                                     controller: widget.control.weight,
                                   ),
-                                  Obx(() => widget.control.weightError.isNotEmpty
+                                  Obx(() => widget
+                                          .control.weightError.isNotEmpty
                                       ? Padding(
                                           padding: EdgeInsets.only(left: 15.0),
                                           child: Text(
@@ -465,9 +484,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Center(
                           child: Button(
                             title: 'Guardar',
-                            onPressed: () {
-                              
-                            },
+                            onPressed: () {},
                             width: 200.0,
                             backgroundColor: AppColors.backgroundColor3,
                           ),
@@ -480,7 +497,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Botones de acción
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [                      
+                    children: [
                       InkWell(
                         onTap: () {
                           setState(() {
@@ -499,7 +516,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  
                 ],
               ),
             ),
@@ -520,6 +536,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
+      endDrawer: CommonDrawer(),
       body: _buildBody(context),
     );
   }

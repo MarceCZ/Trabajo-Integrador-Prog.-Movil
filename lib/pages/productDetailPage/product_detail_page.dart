@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mediplan/components/button.dart';
 import 'package:mediplan/components/customchip.dart';
 import 'package:mediplan/configs/colors.dart';
+import '../../components/common_drawer.dart';
 import 'product_detail_controller.dart';
 import '../../components/common_app_bar.dart';
 
@@ -199,6 +200,7 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
+        endDrawer: CommonDrawer(),
       body: FutureBuilder(
         future: controller.cargarProductDetail(pId),
         builder: (context, snapshot) {

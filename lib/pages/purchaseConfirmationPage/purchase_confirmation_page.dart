@@ -5,6 +5,7 @@ import 'package:mediplan/pages/loginPage/login_page_controller.dart';
 import 'package:mediplan/pages/purchaseConfirmationPage/purchase_confirmation_controller.dart';
 
 import '../../components/common_app_bar.dart';
+import '../../components/common_drawer.dart';
 import '../../configs/colors.dart';
 
 class PurchaseConfirmationPage extends StatelessWidget {
@@ -80,6 +81,7 @@ class PurchaseConfirmationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
         appBar: CommonAppBar(),
+        endDrawer: CommonDrawer(),
         body: _buildBody(context),
       
     );

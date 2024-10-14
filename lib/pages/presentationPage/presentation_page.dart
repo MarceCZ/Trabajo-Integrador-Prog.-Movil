@@ -4,6 +4,7 @@ import 'package:mediplan/components/button.dart';
 import '../../configs/colors.dart';
 import 'presentation_controller.dart';
 import '../../components/common_app_bar.dart';
+import '../../components/common_drawer.dart';
 
 class PresentationPage extends StatelessWidget {
   PresentationController control = Get.put(PresentationController());

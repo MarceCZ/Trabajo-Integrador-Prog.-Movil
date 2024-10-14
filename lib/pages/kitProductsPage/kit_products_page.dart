@@ -8,6 +8,8 @@ import 'package:mediplan/configs/colors.dart';
 import 'package:mediplan/components/stepProgress.dart';
 import 'package:mediplan/pages/kitProductsPage/kit_products_controller.dart';
 
+import '../../components/common_drawer.dart';
+
 class KitProductsPage extends StatelessWidget {
   final KitProductsController kitProductsController =
       Get.put(KitProductsController());
@@ -139,6 +141,7 @@ class KitProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
+        endDrawer: CommonDrawer(),
       body: _buildBody(context),
       resizeToAvoidBottomInset: true,
     );

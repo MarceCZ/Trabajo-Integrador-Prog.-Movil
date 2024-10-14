@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mediplan/models/usuario.dart';
 import '../../services/usuario_service.dart';
+import '../../components/common_app_bar_controller.dart';
 
 class ProfileController extends GetxController {
+  CommonAppBarController appBarControl = Get.put(CommonAppBarController());
   
   UsuarioService usuarioService = UsuarioService();
 
@@ -41,6 +43,11 @@ class ProfileController extends GetxController {
   var conditionError = ''.obs;
   var alergyError = ''.obs;
   var othersError = ''.obs;
+
+  void cerrarSesion() {
+    Usuario usuarioNull = Usuario(idUsuario: 0 , correo: '');
+    appBarControl.updateUsuario(usuarioNull);
+  }
 
   void buscarUsuario() async{
     final usuario = await usuarioService.fetchOne(1);

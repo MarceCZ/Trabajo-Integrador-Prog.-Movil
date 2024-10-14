@@ -7,6 +7,7 @@ import 'package:mediplan/components/customSearchBar.dart';
 import 'package:mediplan/models/producto_botica.dart';
 import 'package:mediplan/models/botica.dart';
 import 'package:mediplan/pages/boticaProductsPage/botica_products_page.dart';
+import '../../components/common_drawer.dart';
 import 'home_controller.dart';
 import '../../components/common_app_bar.dart';
 import '../../configs/colors.dart';
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
+      endDrawer: CommonDrawer(),
       body: _buildBody(context),
       floatingActionButton: FloatingButton(
         onPressed: () {
