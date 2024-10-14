@@ -45,6 +45,7 @@ class ProductGridView extends StatelessWidget {
             chipTextColor: Colors.black,
             chipBackgroundColor: Color(0xFFCCCCCC),
             chipFontSize: 9,
+            requiresPrescription: producto.requiereReceta,
           ),
         );
       },

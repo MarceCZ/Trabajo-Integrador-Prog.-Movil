@@ -11,8 +11,9 @@ class ProductCard extends StatelessWidget {
   final Color chipTextColor;
   final Color chipBackgroundColor;
   final double chipFontSize;
+  final bool requiresPrescription; 
 
-  const ProductCard({
+const ProductCard({
     Key? key,
     required this.imageUrl,
     required this.title,
@@ -23,6 +24,7 @@ class ProductCard extends StatelessWidget {
     required this.chipTextColor,
     required this.chipBackgroundColor,
     required this.chipFontSize,
+    required this.requiresPrescription,
   }) : super(key: key);
 
   @override
@@ -66,12 +68,22 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 2.0),
-            // Chip personalizado
-            CustomChip(
-              label: chipLabel,
-              textColor: chipTextColor,
-              backgroundColor: chipBackgroundColor,
-              fontSize: chipFontSize,
+            Row(
+              children: [
+                CustomChip(
+                  label: chipLabel,
+                  textColor: chipTextColor,
+                  backgroundColor: chipBackgroundColor,
+                  fontSize: chipFontSize,
+                ),
+                const SizedBox(width: 5.0), // Espacio entre el chip y el ícono
+                if (requiresPrescription) // Mostrar el ícono si se requiere receta
+                  const Icon(
+                    Icons.assignment, // Ícono que representa la receta
+                    color: Colors.red,
+                    size: 20.0,
+                  ),
+              ],
             ),
             const Spacer(),
             Row(
