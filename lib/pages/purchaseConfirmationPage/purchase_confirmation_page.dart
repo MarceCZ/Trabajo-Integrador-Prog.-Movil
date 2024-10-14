@@ -4,7 +4,7 @@ import 'package:mediplan/components/button.dart';
 import 'package:mediplan/pages/loginPage/login_page_controller.dart';
 import 'package:mediplan/pages/purchaseConfirmationPage/purchase_confirmation_controller.dart';
 
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../components/common_drawer.dart';
 import '../../configs/colors.dart';
 

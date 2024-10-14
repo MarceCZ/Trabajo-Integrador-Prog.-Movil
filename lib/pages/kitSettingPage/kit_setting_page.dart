@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mediplan/components/button.dart';
 import 'package:mediplan/components/customchip.dart';
 import 'package:mediplan/pages/kitSettingPage/kit_setting_controller.dart';
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../components/common_drawer.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';

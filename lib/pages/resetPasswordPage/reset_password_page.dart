@@ -1,116 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/pages/resetPasswordPage/reset_password_controller.dart';
-import '../../components/common_app_bar.dart';
-import '../../components/button.dart';
-import '../../components/customTextfield.dart';
-import '../../configs/colors.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
+import '../../components/ResetPasswordPage/reset_password_form.dart';
+import '../../components/ResetPasswordPage/confirmation_msg.dart';
 
-class ResetPasswordPage extends StatelessWidget {
-  // Instancia del controlador
+class ResetPasswordPage extends StatefulWidget {
+  @override
+  _ResetPasswordPageState createState() => _ResetPasswordPageState();
+}
+
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final ResetPasswordController control = Get.put(ResetPasswordController());
 
   @override
+  void initState() {
+    super.initState();
+    // Restablece el estado al cargar la página
+    control.isEmailSent.value = false;
+    control.txtemail.clear();
+  }
+
   Widget _buildBody(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        color: AppColors.backgroundColor3,
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    "Recuperar mi contraseña",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Padding(
-                  padding: EdgeInsets.only(left: 40.0, right: 40.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 400.0,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Ingrese el correo electrónico con el que te registraste.',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 30.0),
-                        Customtextfield(
-                          label: 'Correo electrónico',
-                          hintText: 'example@example.com',
-                          controller: control.txtemail,
-                        ),
-                        Obx(
-                          () => control.emailError.isNotEmpty
-                              ? Padding(
-                                  padding: EdgeInsets.only(left: 15.0),
-                                  child: Text(
-                                    control.emailError.value,
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                )
-                              : SizedBox.shrink(),
-                        ),
-                        SizedBox(height: 40.0),
-                        Center(
-                          child: Button(
-                            title: 'Enviar',
-                            onPressed: () async {
-                              if (await control.validate()) {
-                                
-                                Navigator.pushNamed(context, '/reset-msg');
-                              }
-                            },
-                            width: 200.0,
-                          ),
-                        ),
-                        SizedBox(height: 10.0),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/login');
-                          },
-                          child: Center(
-                            child: Text(
-                              "Volver",
-                              style: TextStyle(
-                                color: AppColors.customGreen,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    return Obx(() {
+      if (control.isEmailSent.value) {
+        // Mostrar el cuerpo del mensaje de éxito
+        return ConfirmationMsg();
+      } else {
+        // Mostrar el cuerpo inicial del formulario
+        return ResetPasswordForm(control: control);
+      }
+    });
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/pages/profileSettingPage/profile_setting_controller.dart';
 
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../components/button.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';

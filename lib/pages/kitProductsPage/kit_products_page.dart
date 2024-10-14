@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mediplan/components/cart_controller.dart';
 import 'package:mediplan/components/product_tile.dart';
 import 'package:mediplan/components/button.dart';
-import 'package:mediplan/components/common_app_bar.dart';
+import 'package:mediplan/components/commonAppBar/common_app_bar.dart';
 import 'package:mediplan/configs/colors.dart';
 import 'package:mediplan/components/stepProgress.dart';
 import 'package:mediplan/pages/kitProductsPage/kit_products_controller.dart';

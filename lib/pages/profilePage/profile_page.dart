@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../components/common_drawer.dart';
 import './profile_controller.dart';
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../components/button.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';

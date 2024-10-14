@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../components/button.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 import 'sign_up_controller.dart';
 import '../../components/customDateField.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final SignUpController control = Get.put(SignUpController());
+
+  @override
+  void initState() {
+    super.initState();
+    // Limpiar todos los campos de texto cuando se inicie la página
+    control.txtname.clear();
+    control.txtlastname.clear();
+    control.txtemail.clear();
+    control.phonenumber.clear();
+    control.txtpassword.clear();
+    control.date.clear();
+  }
 
   @override
   Widget _buildBody(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mediplan/models/usuario.dart';
 import '../../services/usuario_service.dart';
-import '../../components/common_app_bar_controller.dart';
+import '../../components/commonAppBar/common_app_bar_controller.dart';
 
 class ProfileController extends GetxController {
   CommonAppBarController appBarControl = Get.put(CommonAppBarController());

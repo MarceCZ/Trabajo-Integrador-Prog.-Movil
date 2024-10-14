@@ -2,12 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/components/button.dart';
 import 'package:mediplan/pages/loginPage/login_page_controller.dart';
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../components/customTextfield.dart';
 import '../../configs/colors.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   LoginPageController control = Get.put(LoginPageController());
+
+  @override
+  void initState() {
+    super.initState();
+    // Limpiar los campos de texto al iniciar la página
+    control.txtemail.clear();
+    control.txtpassword.clear();
+  }
 
   @override
   Widget _buildBody(BuildContext context) {

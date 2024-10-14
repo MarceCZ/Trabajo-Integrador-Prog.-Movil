@@ -11,8 +11,6 @@ class KitSettingController extends GetxController {
   KitService kitService = KitService();
   var productos = <KitProducto>[].obs;
 
-  
-
   var tipo = ''.obs;
   var fechaInicio = ''.obs;
   var fechaFin = ''.obs;

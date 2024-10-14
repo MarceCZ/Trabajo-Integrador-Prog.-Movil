@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mediplan/components/button.dart';
 import '../../configs/colors.dart';
 import 'presentation_controller.dart';
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../components/common_drawer.dart';
 
 class PresentationPage extends StatelessWidget {

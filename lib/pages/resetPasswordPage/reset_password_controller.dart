@@ -1,10 +1,11 @@
-import 'package:get/get.dart'; 
-import 'package:flutter/material.dart';  
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:mediplan/services/usuario_service.dart';
 
 class ResetPasswordController extends GetxController {
   TextEditingController txtemail = TextEditingController();
   var emailError = ''.obs;
+  var isEmailSent = false.obs;  // Controla si el correo fue enviado
 
   Future<void> validateEmail() async {
     UsuarioService service = UsuarioService();
@@ -19,13 +20,14 @@ class ResetPasswordController extends GetxController {
       if (!isRegistered) {
         emailError.value = 'Este correo no está registrado';
       } else {
-        emailError.value = ''; 
+        emailError.value = '';
+        isEmailSent.value = true;
       }
     }
   }
 
   Future<bool> validate() async {
-    await validateEmail();  
+    await validateEmail();
     return emailError.value.isEmpty;
   }
 }

@@ -9,7 +9,7 @@ import 'package:mediplan/models/botica.dart';
 import 'package:mediplan/pages/boticaProductsPage/botica_products_page.dart';
 import '../../components/common_drawer.dart';
 import 'home_controller.dart';
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../configs/colors.dart';
 import 'package:mediplan/components/floating_button.dart';
 import 'package:mediplan/pages/productDetailPage/product_detail_page.dart';
@@ -26,6 +26,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeController control = Get.put(HomeController());
   int _selectedIndex = 0; // Índice para controlar la vista seleccionada
+
+  @override
   void initState() {
     super.initState();
     // Registrar el CartController en esta página
@@ -40,34 +42,38 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(),
-      endDrawer: CommonDrawer(),
-      body: _buildBody(context),
-      floatingActionButton: FloatingButton(
-        onPressed: () {
-          _showCartBottomSheet(context);
-        },
+    return WillPopScope(
+      onWillPop: () async {
+        // Evitar que el usuario regrese a la pantalla anterior
+        return false;
+      },
+      child: Scaffold(
+        appBar: CommonAppBar(),
+        endDrawer: CommonDrawer(),
+        body: _buildBody(context),
+        floatingActionButton: FloatingButton(
+          onPressed: () {
+            _showCartBottomSheet(context);
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
-   void _showCartBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (BuildContext context) {
-      return   // Centrar el contenido en el BottomSheet
-        Container(
-          width: 350.0,  // Establecer un ancho fijo para el BottomSheet
-          child: CartView(),  // Aquí se muestra el contenido de tu BottomSheet
+  void _showCartBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          width: 350.0, // Establecer un ancho fijo para el BottomSheet
+          child: CartView(), // Aquí se muestra el contenido de tu BottomSheet
         );
-  
-    },
-  );
-}
+      },
+    );
+  }
 
   // Método para construir el cuerpo de la página
   Widget _buildBody(BuildContext context) {
@@ -196,15 +202,15 @@ class _HomePageState extends State<HomePage> {
                       return BoticaGridView(
                         boticas: control.boticasFiltradas,
                         onBoticaTap: (Botica botica) {
-                           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BoticaProductsPage(
-                              boticaId: botica.id,
-                              boticaNombre: botica.nombre,
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BoticaProductsPage(
+                                boticaId: botica.id,
+                                boticaNombre: botica.nombre,
+                              ),
                             ),
-                          ),
-                        );
+                          );
                         },
                       );
                     }

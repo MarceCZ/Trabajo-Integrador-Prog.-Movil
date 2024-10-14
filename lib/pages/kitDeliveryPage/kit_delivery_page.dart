@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/components/button.dart';
-import 'package:mediplan/components/common_app_bar.dart';
+import 'package:mediplan/components/commonAppBar/common_app_bar.dart';
 import 'package:mediplan/configs/colors.dart';
 import 'package:mediplan/components/stepProgress.dart';
 import 'package:mediplan/pages/kitDeliveryPage/kit_delivery_controller.dart';

@@ -9,7 +9,7 @@ import 'package:mediplan/models/producto_botica.dart';
 import 'package:mediplan/pages/productDetailPage/product_detail_page.dart';
 import '../../components/common_drawer.dart';
 import 'botica_products_controller.dart';
-import '../../components/common_app_bar.dart';
+import '../../components/commonAppBar/common_app_bar.dart';
 import '../../configs/colors.dart';
 
 class BoticaProductsPage extends StatelessWidget {
