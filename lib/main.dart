@@ -9,6 +9,9 @@ import 'pages/signUpPage/sign_up_page.dart';
 import 'pages/purchaseConfirmationPage/purchase_confirmation_page.dart';
 import 'pages/profilePage/profile_page.dart';
 import 'pages/kitSettingPage/kit_setting_page.dart';
+import 'pages/kitProductsPage/kit_products_page.dart';
+import 'pages/kitDeliveryPage/kit_delivery_page.dart';
+//import 'pages/kitSubscriptionPage/kit_subscription_page.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -37,7 +40,11 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/profile': (context) => ProfilePage(),
         '/kit-setting': (context) => KitSettingPage(),
+        '/kit-products': (context) => KitProductsPage(),
+        '/kit-delivery': (context) => KitDeliveryPage(),
+      //  '/kit-subscription': (context) => KitSubscriptionPage(),
       },
     );
   }
 }
+
