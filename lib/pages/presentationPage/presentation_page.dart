@@ -23,20 +23,24 @@ class PresentationPage extends StatelessWidget {
                 Image.asset('assets/img/logo3.png', height: 170.0),
                 SizedBox(height: 30.0),
                 RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontFamily: 'Gontserrat', 
+                      fontSize: 35.0,
+                      color: Colors.white,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "Tu salud ",
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 35.0,
+                          fontWeight: FontWeight.w900,
                         ),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "Tu salud ",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                              )),
-                          TextSpan(text: "a un click de distancia"),
-                        ])),
+                      ),
+                      TextSpan(text: "a un click de distancia"),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 20.0),
                 Text(
                     "Personaliza y recibe tus medicinas esenciales cada mes con comodidad y confianza.",

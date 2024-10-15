@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Gontserrat',
       ),
+      //debugShowCheckedModeBanner: false,
       initialRoute: '/presentation',
       routes: {
         '/presentation': (context) => PresentationPage(),
