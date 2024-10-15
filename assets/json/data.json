@@ -192,7 +192,8 @@
         "departamento":"Lima",
         "distrito":"Miraflores",
         "direccion":"Av. Larco 123",
-        "otro": "-"
+        "otro": "-",
+        "idUsuario":1
       },
       {
         "id":2,
@@ -206,7 +207,8 @@
         "departamento":"Lima",
         "distrito":"Miraflores",
         "direccion":"Av. Larco 123",
-        "otro": "-"
+        "otro": "-",
+        "idUsuario":2
       }
     ]
 }

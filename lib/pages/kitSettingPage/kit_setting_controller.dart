@@ -4,9 +4,11 @@ import 'package:mediplan/models/kit_producto.dart';
 import 'package:mediplan/models/kit.dart';
 import 'package:mediplan/services/kit_producto_service.dart';
 import 'package:mediplan/services/kit_service.dart';
+import '../../components/commonAppBar/common_app_bar_controller.dart';
 
 class KitSettingController extends GetxController {
-  final int idKit = 1;
+  final CommonAppBarController appBarControl = Get.put(CommonAppBarController());
+  int idKit = 0;
   KitProductoService kitProductoService = KitProductoService();
   KitService kitService = KitService();
   var productos = <KitProducto>[].obs;
@@ -34,8 +36,9 @@ class KitSettingController extends GetxController {
   }
 
   void buscarKit() async {
-    final kit = await kitService.fetchOne(idKit);
+    final kit = await kitService.fetchOneUser(appBarControl.usuario.value.idUsuario);
     if (kit != null) {
+      idKit = kit.id;
       tipo.value = kit.tipo;
       fechaInicio.value = DateFormat('dd/MM/yyyy').format(kit.fechaInicio);
       fechaFin.value = DateFormat('dd/MM/yyyy').format(kit.fechaFin);
@@ -51,11 +54,12 @@ class KitSettingController extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
+
+  void getKit() {
     print(idKit);
     buscarKit();
-    listarProductos();
-    super.onInit();
+    Future.delayed(Duration(seconds: 1), () {
+      listarProductos();
+    });
   }
 }

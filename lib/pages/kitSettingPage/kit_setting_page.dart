@@ -19,12 +19,11 @@ class _KitSettingPageState extends State<KitSettingPage> {
   bool _existKit = true;
 
   Widget _build(BuildContext context) {
-    return _existKit? _buildBody(context)
-    :_buildEmpty(context);
+    return _existKit ? _buildBody(context) : _buildEmpty(context);
   }
 
-  Widget _buildEmpty(BuildContext context){
-    return  SafeArea(
+  Widget _buildEmpty(BuildContext context) {
+    return SafeArea(
       child: Container(
         color: AppColors.backgroundColor2,
         child: Center(
@@ -76,8 +75,7 @@ class _KitSettingPageState extends State<KitSettingPage> {
                             ],
                           ),
                         ),
-                        ],
-                    
+                      ],
                     ),
                   ),
                   SizedBox(height: 30.0),
@@ -85,10 +83,10 @@ class _KitSettingPageState extends State<KitSettingPage> {
                   // Botones de acción
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [                      
+                    children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pop(context); 
+                          Navigator.pop(context);
                         },
                         child: Text(
                           'Volver',
@@ -112,7 +110,7 @@ class _KitSettingPageState extends State<KitSettingPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return  SafeArea(
+    return SafeArea(
       child: Container(
         color: AppColors.backgroundColor2,
         child: Center(
@@ -154,143 +152,172 @@ class _KitSettingPageState extends State<KitSettingPage> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [ Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ExpansionTile(
-                                      title: Text('Productos', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryColor)),
-                                      children: [
-                                        Obx(()=>
-                                          control.productos.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListView.builder(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ExpansionTile(
+                                title: Text('Productos',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primaryColor)),
+                                children: [
+                                  Obx(
+                                    () => control.productos.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListView.builder(
                                             shrinkWrap: true,
                                             itemCount: control.productos.length,
                                             itemBuilder: (context, index) {
-                                              return _buildProductItem(control.productos[index]);
+                                              return _buildProductItem(
+                                                  control.productos[index]);
                                             },
                                           ),
-                                        )
-                                      ],
-
-                                    ),
-                                    ExpansionTile(
-                                      title: Text('Detalles de entrega', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryColor)),
-                                      children: [
-                                        Obx(()=>
-                                          control.departamento.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  )
+                                ],
+                              ),
+                              ExpansionTile(
+                                title: Text('Detalles de entrega',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primaryColor)),
+                                children: [
+                                  Obx(
+                                    () => control.departamento.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Departamento'),
-                                            subtitle: Text(control.departamento.value),
+                                            subtitle: Text(
+                                                control.departamento.value),
                                           ),
-                                        ),
-                                        Obx(()=>
-                                          control.distrito.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                  Obx(
+                                    () => control.distrito.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Distrito'),
-                                            subtitle: Text(control.distrito.value)
-                                          ),
-                                        ),
-                                        Obx(()=>
-                                          control.direccion.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                            subtitle:
+                                                Text(control.distrito.value)),
+                                  ),
+                                  Obx(
+                                    () => control.direccion.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Dirección'),
-                                            subtitle: Text(control.direccion.value)
-                                          ),
-                                        ),
-                                        Obx(()=>
-                                          control.otro.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
-                                            title: Text('Dpto/Nro/Piso/Referencia'),
+                                            subtitle:
+                                                Text(control.direccion.value)),
+                                  ),
+                                  Obx(
+                                    () => control.otro.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
+                                            title: Text(
+                                                'Dpto/Nro/Piso/Referencia'),
                                             subtitle: Text(control.otro.value),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    ExpansionTile(
-                                      title: Text('Mi suscripción', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryColor)),
-                                      children: [
-                                        Obx(()=>
-                                          control.tipo.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                ],
+                              ),
+                              ExpansionTile(
+                                title: Text('Mi suscripción',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primaryColor)),
+                                children: [
+                                  Obx(
+                                    () => control.tipo.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Tipo de suscripción'),
                                             subtitle: Text(control.tipo.value),
                                           ),
-                                        ),
-                                        Obx(()=>
-                                          control.fechaInicio.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                  Obx(
+                                    () => control.fechaInicio.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Fecha de inicio'),
-                                            subtitle: Text(control.fechaInicio.value),
+                                            subtitle:
+                                                Text(control.fechaInicio.value),
                                           ),
-                                        ),
-                                        Obx(()=>
-                                          control.fechaFin.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                  Obx(
+                                    () => control.fechaFin.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Fecha de fin'),
-                                            subtitle: Text(control.fechaFin.value),
+                                            subtitle:
+                                                Text(control.fechaFin.value),
                                           ),
-                                        ),
-                                        Obx(()=>
-                                          control.total.value == 0.0?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                  Obx(
+                                    () => control.total.value == 0.0
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Total'),
-                                            subtitle: Text('S/ ' + control.total.value.toString()),
+                                            subtitle: Text('S/ ' +
+                                                control.total.value.toString()),
                                           ),
-                                        ),
-                                        Obx(()=>
-                                          control.pago.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                  Obx(
+                                    () => control.pago.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Método de pago'),
                                             subtitle: Text(control.pago.value),
                                           ),
-                                        ),
-                                        Obx(()=>
-                                          control.fechaEntrega.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                  Obx(
+                                    () => control.fechaEntrega.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Fecha de entrega'),
-                                            subtitle: Text(control.fechaEntrega.value),
+                                            subtitle: Text(
+                                                control.fechaEntrega.value),
                                           ),
-                                        ),
-                                        Obx(()=>
-                                          control.estado.value.isEmpty?
-                                          Center(child: CircularProgressIndicator()):
-                                          ListTile(
+                                  ),
+                                  Obx(
+                                    () => control.estado.value.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : ListTile(
                                             title: Text('Estado'),
-                                            subtitle: Text(control.estado.value),
+                                            subtitle:
+                                                Text(control.estado.value),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Button(
-                                              title: 'Cancelar',
-                                              onPressed: () {
-                                                _showCancelDialog(context);
-                                              },
-                                              width: 200.0,
-                                              textColor: AppColors.textColor,
-                                              backgroundColor: AppColors.backgroundColor4,
-                                            ),
-                                        ),
-                                      ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Button(
+                                      title: 'Cancelar',
+                                      onPressed: () {
+                                        _showCancelDialog(context);
+                                      },
+                                      width: 200.0,
+                                      textColor: AppColors.textColor,
+                                      backgroundColor:
+                                          AppColors.backgroundColor4,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
+                            ],
+                          ),
+                        ),
                       ],
-                    
                     ),
                   ),
                   SizedBox(height: 30.0),
@@ -298,10 +325,10 @@ class _KitSettingPageState extends State<KitSettingPage> {
                   // Botones de acción
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [                      
+                    children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pop(context); 
+                          Navigator.pop(context);
                         },
                         child: Text(
                           'Volver',
@@ -322,22 +349,26 @@ class _KitSettingPageState extends State<KitSettingPage> {
         ),
       ),
     );
-  
   }
 
   Widget _buildProductItem(KitProducto producto) {
     return ListTile(
-       leading: Image.network(
-      producto.imagen,
-      width: 50, 
-      height: 50,
-      fit: BoxFit.cover,
-    ),
+      leading: Image.network(
+        producto.imagen,
+        width: 50,
+        height: 50,
+        fit: BoxFit.cover,
+      ),
       title: Text(producto.nombre + ' | ' + producto.marca),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomChip(label: producto.botica, textColor: AppColors.secondaryColor, backgroundColor: AppColors.backgroundColor, onTap: (()=>()), fontSize: 10.0),
+          CustomChip(
+              label: producto.botica,
+              textColor: AppColors.secondaryColor,
+              backgroundColor: AppColors.backgroundColor,
+              onTap: (() => ()),
+              fontSize: 10.0),
           Text('S/ ' + producto.subTotal.toString()),
           Row(
             children: [
@@ -356,45 +387,46 @@ class _KitSettingPageState extends State<KitSettingPage> {
     );
   }
 
-   void _showCancelDialog(BuildContext context) {
+  void _showCancelDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: false, // El fondo se opacará y no se puede cerrar tocando fuera del diálogo
+      barrierDismissible:
+          false, // El fondo se opacará y no se puede cerrar tocando fuera del diálogo
       builder: (BuildContext context) {
         return AlertDialog(
-          title:RichText(
-                    textAlign: TextAlign.center,
-                    text:TextSpan(
-                        text: "¿Estás seguro/a que deseas cancelar tu suscripción? ", 
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: AppColors.primaryColor,
-                          fontSize: 30.0,
-                        )
-                      ),),
+          title: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+                text: "¿Estás seguro/a que deseas cancelar tu suscripción? ",
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.primaryColor,
+                  fontSize: 30.0,
+                )),
+          ),
           actions: <Widget>[
-            
-           Button(
-            title: 'No',
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            width: 100.0,
-            backgroundColor: AppColors.backgroundColor3,
-          ),
-          SizedBox(width: 50.0),
-             Button(
-            title: 'Sí',
-            onPressed: () {
-              setState(() {
-                _existKit = false; // Actualiza el estado aquí
-              });
-              Navigator.of(context).pop();
-            },
-            width: 100.0,
-            textColor: AppColors.primaryColor,
-            backgroundColor: AppColors.backgroundColor,
-          ),
+            Button(
+              title: 'No',
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              width: 100.0,
+              backgroundColor: AppColors.backgroundColor3,
+            ),
+            SizedBox(width: 50.0),
+            Button(
+              title: 'Sí',
+              onPressed: () {
+                control.idKit = 0;
+                setState(() {
+                  _existKit = false; // Actualiza el estado aquí
+                });
+                Navigator.of(context).pop();
+              },
+              width: 100.0,
+              textColor: AppColors.primaryColor,
+              backgroundColor: AppColors.backgroundColor,
+            ),
           ],
         );
       },
@@ -403,9 +435,18 @@ class _KitSettingPageState extends State<KitSettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    control.idKit = 0;
+    control.getKit();
+    Future.delayed(Duration(seconds: 1), () {
+      if (control.idKit == 0) {
+        setState(() {
+          _existKit = false;
+        });
+      }
+    });
     return Scaffold(
       appBar: CommonAppBar(),
-        endDrawer: CommonDrawer(),
+      endDrawer: CommonDrawer(),
       body: _build(context),
     );
   }

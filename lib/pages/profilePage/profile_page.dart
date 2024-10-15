@@ -225,8 +225,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Button(
                         title: 'Cerrar sesión',
                         onPressed: () {
-                          widget.control.cerrarSesion();
-                          Navigator.pushNamed(context, '/presentation');
+                          _showLogoutDialog(context);
                         },
                         fontSize: 16.0,
                         width: 180.0,
@@ -529,6 +528,48 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+                text: '¿Estás seguro que deseas cerrar sesión?',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.primaryColor,
+                  fontSize: 30.0,
+                )),
+          ),
+          actions: <Widget>[
+            Button(
+              title: 'No',
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              width: 100.0,
+              backgroundColor: AppColors.backgroundColor3,
+            ),
+            SizedBox(width: 50.0),
+            Button(
+              title: 'Sí',
+              onPressed: () {
+                widget.control.cerrarSesion();
+                Navigator.pushNamed(context, '/presentation');
+              },
+              width: 100.0,
+              backgroundColor: AppColors.backgroundColor4,
+            ),
+          ],
+        );
+      },
     );
   }
 

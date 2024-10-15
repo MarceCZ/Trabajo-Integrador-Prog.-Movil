@@ -13,6 +13,7 @@ class Kit {
   String distrito;
   String direccion;
   String otro;
+  int idUsuario;
 
   // Constructor
   Kit({
@@ -28,12 +29,13 @@ class Kit {
     required this.distrito,
     required this.direccion,
     this.otro = '',
+    required this.idUsuario,
   });
 
   // Método toString
   @override
   String toString() {
-    return 'Kit{id: $id, tipo: $tipo, fechaInicio: $fechaInicio, fechaFin: $fechaFin, total: $total, metodoPago: $metodoPago, fechaEntrega: $fechaEntrega, estado: $estado, departamento: $departamento, distrito: $distrito, direccion: $direccion, otro: $otro}';
+    return 'Kit{id: $id, tipo: $tipo, fechaInicio: $fechaInicio, fechaFin: $fechaFin, total: $total, metodoPago: $metodoPago, fechaEntrega: $fechaEntrega, estado: $estado, departamento: $departamento, distrito: $distrito, direccion: $direccion, otro: $otro, idUsuario: $idUsuario}';
   }
 
   // Método para convertir a JSON
@@ -51,6 +53,7 @@ class Kit {
       'distrito': distrito,
       'direccion': direccion,
       'otro': otro,
+      'idUsuario': 1,
     };
   }
 
@@ -69,6 +72,7 @@ class Kit {
       distrito: map['distrito'],
       direccion: map['direccion'],
       otro: map['otro'],
+      idUsuario: map['idUsuario'],
     );
   }
 }
