@@ -484,7 +484,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         Center(
                           child: Button(
                             title: 'Guardar',
-                            onPressed: () {},
+                            onPressed: () {
+                              if (widget.control.validateForm()) {
+                                widget.control.actualizarUsuario();
+                                setState(() {
+                                  _isEditing = false;
+                                });
+                              }
+                            },
                             width: 200.0,
                             backgroundColor: AppColors.backgroundColor3,
                           ),
@@ -526,7 +533,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 0), () {
       widget.control.buscarUsuario();
     });
     return _isEditing ? _buildBodyEdit(context) : _buildBodyRead(context);

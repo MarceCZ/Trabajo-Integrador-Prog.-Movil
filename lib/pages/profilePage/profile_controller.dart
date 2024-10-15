@@ -7,7 +7,7 @@ import '../../components/commonAppBar/common_app_bar_controller.dart';
 
 class ProfileController extends GetxController {
   CommonAppBarController appBarControl = Get.put(CommonAppBarController());
-  
+
   UsuarioService usuarioService = UsuarioService();
 
   // Controladores de los campos
@@ -45,41 +45,96 @@ class ProfileController extends GetxController {
   var othersError = ''.obs;
 
   void cerrarSesion() {
-    Usuario usuarioNull = Usuario(idUsuario: 0 , correo: '');
+    Usuario usuarioNull = Usuario(idUsuario: 0, correo: '');
     appBarControl.updateUsuario(usuarioNull);
   }
 
-  void buscarUsuario() async{
-    final usuario = await usuarioService.fetchOne(1);
-    if(usuario != null){
-      print('Usuario encontrado: $usuario');
-    
-      txtname.text = usuario.nombres ?? '';
-      txtlastname.text = usuario.apellidos ?? '';
-      txtemail.text = usuario.correo;
-      phonenumber.text = usuario.celular ?? '';
-      date.text = DateFormat('dd/MM/yyyy').format(usuario.fechaNacimiento ?? DateTime.now());
-      height.text = usuario.altura.toString();
-      weight.text = usuario.peso.toString();
-      condition.text = usuario.condicionesMedicas   ?? '';
-      alergy.text = usuario.alergias ?? '';
-      others.text = usuario.otros ?? '';
-      name.value = usuario.nombres ?? '';
-      lastname.value = usuario.apellidos ?? '';
-      email.value = usuario.correo;
-      phone.value = usuario.celular ?? '';
-      fecha.value = DateFormat('dd/MM/yyyy').format(usuario.fechaNacimiento ?? DateTime.now());
-      altura.value = usuario.altura.toString();
-      peso.value = usuario.peso.toString();
-      condicion.value = usuario.condicionesMedicas ?? '';
-      alergia.value = usuario.alergias ?? '';
-      otros.value = usuario.otros ?? '';
-    }
+  void actualizarUsuario() async {
+    Usuario usuario = Usuario(
+      idUsuario: appBarControl.usuario.value.idUsuario,
+      nombres: txtname.text,
+      apellidos: txtlastname.text,
+      correo: txtemail.text,
+      celular: phonenumber.text,
+      fechaNacimiento: DateFormat('dd/MM/yyyy').parse(date.text),
+      altura: double.parse(height.text),
+      peso: double.parse(weight.text),
+      condicionesMedicas: condition.text,
+      alergias: alergy.text,
+      otros: others.text,
+    );
+
+    appBarControl.updateUsuario(usuario);
+    print('Usuario actualizado: $usuario');
+    Future.delayed(Duration(seconds: 1), () {
+      buscarUsuario();
+    });
   }
 
+  void buscarUsuario() async {
+    final usuarioBar = appBarControl.usuario.value;
+    print('Usuario bar: $usuarioBar');
+    if (appBarControl.usuario.value.alergias == null ||
+        appBarControl.usuario.value.altura == null ||
+        appBarControl.usuario.value.apellidos == null ||
+        appBarControl.usuario.value.celular == null ||
+        appBarControl.usuario.value.condicionesMedicas == null ||
+        appBarControl.usuario.value.fechaNacimiento == null ||
+        appBarControl.usuario.value.nombres == null ||
+        appBarControl.usuario.value.peso == null ) {
+      final usuario =
+          await usuarioService.fetchOne(appBarControl.usuario.value.idUsuario);
+      if (usuario != null) {
+        print('Usuario encontrado: $usuario');
 
-  
-
+        txtname.text = usuario.nombres ?? '';
+        txtlastname.text = usuario.apellidos ?? '';
+        txtemail.text = usuario.correo;
+        phonenumber.text = usuario.celular ?? '';
+        date.text = DateFormat('dd/MM/yyyy')
+            .format(usuario.fechaNacimiento ?? DateTime.now());
+        height.text = usuario.altura.toString();
+        weight.text = usuario.peso.toString();
+        condition.text = usuario.condicionesMedicas ?? '';
+        alergy.text = usuario.alergias ?? '';
+        others.text = usuario.otros ?? '';
+        name.value = usuario.nombres ?? '';
+        lastname.value = usuario.apellidos ?? '';
+        email.value = usuario.correo;
+        phone.value = usuario.celular ?? '';
+        fecha.value = DateFormat('dd/MM/yyyy')
+            .format(usuario.fechaNacimiento ?? DateTime.now());
+        altura.value = usuario.altura.toString();
+        peso.value = usuario.peso.toString();
+        condicion.value = usuario.condicionesMedicas ?? '';
+        alergia.value = usuario.alergias ?? '';
+        otros.value = usuario.otros ?? '';
+      }
+    } else {
+      txtname.text = appBarControl.usuario.value.nombres ?? '';
+      txtlastname.text = appBarControl.usuario.value.apellidos ?? '';
+      txtemail.text = appBarControl.usuario.value.correo;
+      phonenumber.text = appBarControl.usuario.value.celular ?? '';
+      date.text = DateFormat('dd/MM/yyyy')
+          .format(appBarControl.usuario.value.fechaNacimiento ?? DateTime.now());
+      height.text = appBarControl.usuario.value.altura.toString();
+      weight.text = appBarControl.usuario.value.peso.toString();
+      condition.text = appBarControl.usuario.value.condicionesMedicas ?? '';
+      alergy.text = appBarControl.usuario.value.alergias ?? '';
+      others.text = appBarControl.usuario.value.otros ?? '';
+      name.value = appBarControl.usuario.value.nombres ?? '';
+      lastname.value = appBarControl.usuario.value.apellidos ?? '';
+      email.value = appBarControl.usuario.value.correo;
+      phone.value = appBarControl.usuario.value.celular ?? '';
+      fecha.value = DateFormat('dd/MM/yyyy')
+          .format(appBarControl.usuario.value.fechaNacimiento ?? DateTime.now());
+      altura.value = appBarControl.usuario.value.altura.toString();
+      peso.value = appBarControl.usuario.value.peso.toString();
+      condicion.value = appBarControl.usuario.value.condicionesMedicas ?? '';
+      alergia.value = appBarControl.usuario.value.alergias ?? '';
+      otros.value = appBarControl.usuario.value.otros ?? '';
+    }
+  }
 
   // Método para seleccionar la fecha de nacimiento
   Future<void> selectDate(BuildContext context) async {
@@ -140,7 +195,7 @@ class ProfileController extends GetxController {
   }
 
   void validateHeight() {
-    final heightRegex =  RegExp(r'^[0-9]\.[0-9]{1,2}$');
+    final heightRegex = RegExp(r'^[0-9]\.[0-9]{1,2}$');
     if (height.text.isEmpty || !heightRegex.hasMatch(height.text)) {
       heightError.value = 'Ingrese una altura válida';
     } else {
@@ -149,7 +204,7 @@ class ProfileController extends GetxController {
   }
 
   void validateWeight() {
-    final weightRegex =  RegExp(r'^[0-9]{2,3}\.[0-9]{1,2}$');
+    final weightRegex = RegExp(r'^[0-9]{2,3}\.[0-9]{1,2}$');
     if (weight.text.isEmpty || !weightRegex.hasMatch(weight.text)) {
       weightError.value = 'Ingrese un peso válido';
     } else {
@@ -172,8 +227,6 @@ class ProfileController extends GetxController {
       alergyError.value = '';
     }
   }
-
-  
 
   // Validar campos del formulario
   bool validateForm() {

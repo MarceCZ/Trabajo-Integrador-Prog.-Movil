@@ -25,7 +25,7 @@ class LoginPageController extends GetxController{
     } else if (usuario != null) {
       this.hayError.value = false;
       appBarControl.updateUsuario(usuario);
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 1), () {
         Navigator.pushNamed(context, '/home', arguments: usuario.toJson());
       });
     } else {
