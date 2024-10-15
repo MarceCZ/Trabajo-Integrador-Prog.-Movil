@@ -13,7 +13,7 @@ class CartView extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      height: screenHeight * 0.5,  // Ocupa la mitad de la altura de la pantalla
+      height: screenHeight * 0.5,
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -23,7 +23,7 @@ class CartView extends StatelessWidget {
         children: [
           // Lista de productos en el carrito
           Padding(
-            padding: const EdgeInsets.only(bottom: 80.0),  // Reservar espacio para el botón
+            padding: const EdgeInsets.only(bottom: 80.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -38,13 +38,23 @@ class CartView extends StatelessWidget {
                 const SizedBox(height: 10.0),
                 Obx(() {
                   if (cartController.cartItems.isEmpty) {
-                    return Center(child: Text('Agrega productos al kit'));
+                    return Center(child: Text('¡Agrega productos al kit!'));
                   } else {
+                    final Set<int> uniqueProductIds = Set();
+                    final uniqueProducts =
+                        cartController.cartItems.where((producto) {
+                      if (!uniqueProductIds.contains(producto.id)) {
+                        uniqueProductIds.add(producto.id);
+                        return true;
+                      }
+                      return false;
+                    }).toList();
+
                     return Expanded(
                       child: ListView.builder(
-                        itemCount: cartController.cartItems.length,
+                        itemCount: uniqueProducts.length,
                         itemBuilder: (context, index) {
-                          final producto = cartController.cartItems[index];
+                          final producto = uniqueProducts[index];
                           return ProductTile(
                             imagen: producto.imagen,
                             nombre: producto.nombre,
@@ -65,7 +75,7 @@ class CartView extends StatelessWidget {
           Obx(() {
             return cartController.cartItems.isNotEmpty
                 ? Positioned(
-                    bottom: 0.0,  // Mueve el botón 20 píxeles hacia arriba del borde inferior
+                    bottom: 0.0,
                     left: 0,
                     right: 0,
                     child: Container(
@@ -73,15 +83,15 @@ class CartView extends StatelessWidget {
                       child: Button(
                         title: 'Continuar',
                         onPressed: () {
-                          // Acción para navegar a la página de productos del kit
                           Navigator.pushNamed(context, '/kit-products');
                         },
-                        width: double.infinity,  // Ocupa todo el ancho disponible
+                        width: double.infinity,
                         height: 50.0,
+                        backgroundColor: AppColors.primaryColor,
                       ),
                     ),
                   )
-                : SizedBox.shrink();  // No mostrar nada si el carrito está vacío
+                : SizedBox.shrink();
           }),
         ],
       ),

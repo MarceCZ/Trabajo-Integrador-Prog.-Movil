@@ -64,7 +64,7 @@ class PurchaseConfirmationPage extends StatelessWidget {
           Button(
             title: 'Aceptar', 
             onPressed: () {
-              Navigator.pushNamed(context, '/main-page');
+              Navigator.pushNamed(context, '/home');
             },
             width: 180.0,
             backgroundColor: AppColors.backgroundColor2,

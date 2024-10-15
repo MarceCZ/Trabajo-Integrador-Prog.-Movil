@@ -10,7 +10,7 @@ import 'pages/profilePage/profile_page.dart';
 import 'pages/kitSettingPage/kit_setting_page.dart';
 import 'pages/kitProductsPage/kit_products_page.dart';
 import 'pages/kitDeliveryPage/kit_delivery_page.dart';
-//import 'pages/kitSubscriptionPage/kit_subscription_page.dart';
+import 'pages/kitSubscriptionPage/kit_subscription_page.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         '/kit-setting': (context) => KitSettingPage(),
         '/kit-products': (context) => KitProductsPage(),
         '/kit-delivery': (context) => KitDeliveryPage(),
-      //  '/kit-subscription': (context) => KitSubscriptionPage(),
+        '/kit-subscription': (context) => KitSubscriptionPage(),
       },
     );
   }

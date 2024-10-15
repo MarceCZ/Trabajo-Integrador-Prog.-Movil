@@ -7,13 +7,23 @@ import 'package:mediplan/components/commonAppBar/common_app_bar.dart';
 import 'package:mediplan/configs/colors.dart';
 import 'package:mediplan/components/stepProgress.dart';
 import 'package:mediplan/pages/kitProductsPage/kit_products_controller.dart';
-
 import '../../components/common_drawer.dart';
+import 'package:mediplan/components/prescription_dialog.dart';
 
 class KitProductsPage extends StatelessWidget {
   final KitProductsController kitProductsController =
       Get.put(KitProductsController());
   final CartController cartController = Get.find<CartController>();
+
+  // Método para mostrar el popup de subir archivo
+  void _showUploadDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return PrescriptionDialog();
+      },
+    );
+  }
 
   @override
   Widget _buildBody(BuildContext context) {
@@ -60,17 +70,45 @@ class KitProductsPage extends StatelessWidget {
                                 return Center(
                                     child: Text('Agrega productos al kit'));
                               } else {
-                                // Reemplazar ListView con Column
+                                final Set<int> uniqueProductIds = Set();
+                                final uniqueProducts =
+                                    cartController.cartItems.where((producto) {
+                                  if (!uniqueProductIds.contains(producto.id)) {
+                                    uniqueProductIds.add(producto.id);
+                                    return true;
+                                  }
+                                  return false;
+                                }).toList();
+
                                 return Column(
-                                  children:
-                                      cartController.cartItems.map((producto) {
-                                    return ProductTile(
-                                      imagen: producto.imagen,
-                                      nombre: producto.nombre,
-                                      marca: producto.marca,
-                                      precio: producto.precio,
-                                      requiereReceta: producto.requiereReceta,
-                                      cartController: cartController,
+                                  children: uniqueProducts.map((producto) {
+                                    return Column(
+                                      children: [
+                                        ProductTile(
+                                          imagen: producto.imagen,
+                                          nombre: producto.nombre,
+                                          marca: producto.marca,
+                                          precio: producto.precio,
+                                          requiereReceta:
+                                              producto.requiereReceta,
+                                          cartController: cartController,
+                                        ),
+                                        if (producto.requiereReceta)
+                                          Column(
+                                            children: [
+                                              Button(
+                                                title: 'Adjuntar receta',
+                                                onPressed: () {
+                                                  _showUploadDialog(context);
+                                                },
+                                                width: 200.0,
+                                                height: 45,
+                                                fontSize: 15,
+                                              ),
+                                              SizedBox(height: 10.0),
+                                            ],
+                                          ),
+                                      ],
                                     );
                                   }).toList(),
                                 );
@@ -82,26 +120,26 @@ class KitProductsPage extends StatelessWidget {
                         Obx(() {
                           return Center(
                             child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Subtotal: ',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.primaryColor,
-                                    ),
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Subtotal: ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primaryColor,
                                   ),
-                                  Text(
-                                    'S/ ${kitProductsController.subtotal}',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.secondaryColor,
-                                    ),
+                                ),
+                                Text(
+                                  'S/ ${(kitProductsController.subtotal).toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.secondaryColor,
                                   ),
-                                ],
-                              )
+                                ),
+                              ],
+                            ),
                           );
                         }),
                         SizedBox(height: 5.0),
@@ -112,12 +150,13 @@ class KitProductsPage extends StatelessWidget {
                   Button(
                     title: 'Continuar',
                     onPressed: () {
-                      // Validar el formulario al presionar el botón
                       if (cartController.cartItems.isNotEmpty) {
                         Navigator.pushNamed(context, '/kit-delivery');
-                      } else  Get.snackbar("Error", "No hay productos.");
+                      } else
+                        Get.snackbar("Error", "No hay productos.");
                     },
                     width: 200.0,
+                    backgroundColor: AppColors.primaryColor,
                   ),
                   TextButton(
                     onPressed: () {
@@ -141,7 +180,7 @@ class KitProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(),
-        endDrawer: CommonDrawer(),
+      endDrawer: CommonDrawer(),
       body: _buildBody(context),
       resizeToAvoidBottomInset: true,
     );

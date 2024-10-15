@@ -122,11 +122,12 @@ class KitDeliveryPage extends StatelessWidget {
                     title: 'Continuar',
                     onPressed: () {
                       // Validar el formulario al presionar el botón
-                      //if (kitProductsController.validateForm()) {
-                        //Navigator.pushNamed(context, '/kit-subscription');
-                     // } else {}
+                      if (kitProductsController.validateForm()) {
+                        Navigator.pushNamed(context, '/kit-subscription');
+                     } else {}
                     },
                     width: 200.0,
+                    backgroundColor: AppColors.primaryColor,
                   ),
                   // Botón de cancelar
                   TextButton(

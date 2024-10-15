@@ -1,36 +1,38 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class KitSubscriptionController extends GetxController {
-  TextEditingController subscriptionController = TextEditingController();
-  TextEditingController paymethodController = TextEditingController();
+  // Variables observables para los dropdowns, inicializadas como null
+  var selectedSubscription =
+      Rx<String?>(null); // Valor inicial para suscripción
+  var selectedPaymethod =
+      Rx<String?>(null); // Valor inicial para método de pago
 
-  var subscriptionError = ''.obs;
-  var paymethodError = ''.obs;
+  var subscriptionError = ''.obs; // Mensaje de error para suscripción
+  var paymethodError = ''.obs; // Mensaje de error para método de pago
 
   // Inicializa las opciones
   final List<String> subscriptionOptions = ['3 meses', '6 meses', '12 meses'];
-  final List<String> paymentOptions = ['Tarjeta de crédito/débito', 'Yape'];
-
-  // Variables observables para los dropdowns, inicializadas
-  var selectedSubscription = '3 meses'.obs;  // Valor inicial para suscripción
-  var selectedPaymethod = 'Tarjeta de crédito/débito'.obs;  // Valor inicial para método de pago
+  final List<String> paymentOptions = [
+    'Tarjeta de crédito',
+    'Tarjeta de débito',
+    'Yape'
+  ];
 
   // Métodos de validación
   void validateSubscription() {
-    if (selectedSubscription.value.isEmpty) {
+    if (selectedSubscription.value == null) {
       subscriptionError.value = 'Elija tipo de suscripción';
     } else {
-      subscriptionError.value = '';
+      subscriptionError.value = ''; // Limpia el error si hay selección
     }
   }
 
   void validatePaymethod() {
-    if (selectedPaymethod.value.isEmpty) {
+    if (selectedPaymethod.value == null) {
       paymethodError.value = 'Elija método de pago';
     } else {
-      paymethodError.value = '';
+      paymethodError.value = ''; // Limpia el error si hay selección
     }
   }
 
@@ -40,9 +42,4 @@ class KitSubscriptionController extends GetxController {
     return subscriptionError.value.isEmpty && paymethodError.value.isEmpty;
   }
 
-  @override
-  void onClose() {
-    subscriptionController.dispose();
-    paymethodController.dispose();
-  }
-}*/
+}
