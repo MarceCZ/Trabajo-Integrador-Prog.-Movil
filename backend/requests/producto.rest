@@ -8,6 +8,14 @@ GET {{baseUrl}}producto/listar_filtrado?min_precio=0&max_precio=11&marcas=Genér
 
 ####################################
 
+GET {{baseUrl}}producto/listar_filtrado?min_precio=0&max_precio=11&marcas=Genérico&busqueda=loratadina
+
+####################################
+
+GET {{baseUrl}}producto/listar_filtrado?min_precio=0&max_precio=11&busqueda=pa
+
+####################################
+
 GET {{baseUrl}}producto/2
 
 ####################################
@@ -17,3 +25,12 @@ GET {{baseUrl}}/botica/2
 ####################################
 
 GET {{baseUrl}}/botica/2/productos_filtrados?min_precio=0&max_precio=100&marcas=Genérico
+
+####################################
+
+GET {{baseUrl}}/botica/2/productos_filtrados?min_precio=0&max_precio=100&marcas=Genérico&busqueda=ibu
+
+
+####################################
+
+GET {{baseUrl}}/botica/2/productos_filtrados?min_precio=20&max_precio=100&marcas=Genérico

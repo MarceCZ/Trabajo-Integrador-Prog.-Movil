@@ -41,6 +41,7 @@ get '/producto/listar_filtrado' do
       min_precio = params['min_precio'] || 0
       max_precio = params['max_precio'] || 1000
       marcas = params['marcas'] ? params['marcas'].split(',') : []
+      busqueda = params['busqueda'] ? "%#{params['busqueda'].downcase}%" : nil
   
       query = <<-SQL
         SELECT 
@@ -65,7 +66,14 @@ get '/producto/listar_filtrado' do
         query += " AND p.marca IN (#{marcas_placeholder})"
       end
 
-      rs = DB[query, min_precio, max_precio, *marcas].all
+      if busqueda
+        query += " AND LOWER(p.nombre) LIKE ?"
+      end
+
+      params_query = [min_precio, max_precio, *marcas]
+      params_query << busqueda if busqueda
+
+      rs = DB[query, *params_query].all
       if rs.any?
         resp = rs.to_json
       else
@@ -174,6 +182,7 @@ get '/botica/:id/productos_filtrados' do
         min_precio = params['min_precio'] || 0
         max_precio = params['max_precio'] || 1000
         marcas = params['marcas'] ? params['marcas'].split(',') : []
+        busqueda = params['busqueda'] ? "%#{params['busqueda'].downcase}%" : nil
   
         query = <<-SQL
           SELECT 
@@ -198,9 +207,15 @@ get '/botica/:id/productos_filtrados' do
           marcas_placeholder = (['?'] * marcas.size).join(',')
           query += " AND p.marca IN (#{marcas_placeholder})"
         end
-  
-        # Ejecuta la consulta con los parámetros
-        rs = DB[query, id.to_i, min_precio, max_precio, *marcas].all
+        
+        if busqueda
+          query += " AND LOWER(p.nombre) LIKE ?"
+        end
+
+        params_query = [id.to_i, min_precio, max_precio, *marcas]
+        params_query << busqueda if busqueda
+
+        rs = DB[query, *params_query].all
         if rs.any?
           resp = rs.to_json
         else
