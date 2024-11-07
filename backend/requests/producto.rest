@@ -1,0 +1,19 @@
+@baseUrl = http://192.168.56.1:4567/
+
+####################################
+GET {{baseUrl}}producto/listar
+
+####################################
+GET {{baseUrl}}producto/listar_filtrado?min_precio=0&max_precio=11&marcas=Genérico
+
+####################################
+
+GET {{baseUrl}}producto/2
+
+####################################
+
+GET {{baseUrl}}/botica/2
+
+####################################
+
+GET {{baseUrl}}/botica/2/productos_filtrados?min_precio=0&max_precio=100&marcas=Genérico

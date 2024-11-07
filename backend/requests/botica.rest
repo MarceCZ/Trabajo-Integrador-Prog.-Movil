@@ -1,0 +1,3 @@
+@baseUrl = http://192.168.56.1:4567/
+
+GET {{baseUrl}}botica/listar
