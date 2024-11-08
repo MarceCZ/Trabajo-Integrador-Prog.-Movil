@@ -1,4 +1,4 @@
-@baseUrl = http://192.168.56.1:4567/
+@baseUrl = http://192.168.1.33:4567/
 
 POST {{baseUrl}}suscripcion/crear_suscripcion
   content-type: application/json
@@ -24,3 +24,16 @@ POST {{baseUrl}}suscripcion/crear_suscripcion
     "numero": "456"
   }
 }
+
+###########################################
+
+GET {{baseUrl}}suscripcion/complete/1
+
+#############################################
+
+DELETE  {{baseUrl}}suscripcion/1/1
+#############################################
+
+GET  {{baseUrl}}suscripcion/1/1
+
+#######
