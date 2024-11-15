@@ -1,59 +1,126 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import '../models/usuario_login.dart';
+import '../models/usuario_signUp.dart';
+import 'package:http/http.dart' as http;
+import '../models/service_http_response.dart';
 import '../models/usuario.dart';
 
 class UsuarioService {
-  // Método privado para cargar y decodificar el archivo JSON
-  Future<List<dynamic>> _loadUsuariosData() async {
-    final String response =
-        await rootBundle.loadString('assets/json/usuarios.json');
-    final Map<String, dynamic> jsonData = jsonDecode(response);
-    return jsonData['usuarios'] as List<dynamic>;
-  }
+  final String baseUrl = 'http://192.168.56.1:4567/';  // Cambia esta URL por la URL del servidor
 
-  Future<Usuario?> login(String email, String password) async {
-    final List<dynamic> data = await _loadUsuariosData();
-    // Buscar el usuario con el email y password proporcionados
-    final usuarioEncontrado = data.firstWhere(
-      (map) =>
-          (map as Map<String, dynamic>)['correo'] == email &&
-          (map)['contraseña'] == password,
-      orElse: () => null,
-    );
-
-    if (usuarioEncontrado != null) {
-      print("usuario encontrado");
-      return Usuario.fromMap(usuarioEncontrado as Map<String, dynamic>);
-    } else {
-      print("usuario no encontrado");
-      return null;
-    }
-  }
-
-  Future<Usuario?> fetchOne(int idUsuario) async {
-    final List<dynamic> data = await _loadUsuariosData();
-    // Buscar el usuario por idUsuario
-    final usuarioEncontrado = data.firstWhere(
-      (map) => (map as Map<String, dynamic>)['idUsuario'] == idUsuario,
-      orElse: () => null,
-    );
-
-    if (usuarioEncontrado != null) {
-      return Usuario.fromMap(usuarioEncontrado as Map<String, dynamic>);
-    } else {
-      return null;
-    }
-  }
-
-  Future<bool> isEmailRegistered(String email) async {
-    final List<dynamic> data = await _loadUsuariosData();
+  // Método para realizar el login
+  Future<ServiceHttpResponse?> login(UsuarioLogin usuario) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('${baseUrl}usuario/login');
     
-    // Buscar si el correo ya existe
-    final usuarioEncontrado = data.firstWhere(
-      (map) => (map as Map<String, dynamic>)['correo'] == email,
-      orElse: () => null,
-    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(usuario.toJson()),  
+      );
 
-    return usuarioEncontrado != null;
+      serviceResponse.status = response.statusCode;
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponse = json.decode(response.body);
+        serviceResponse.body = jsonResponse;
+      } 
+      else {
+        serviceResponse.body = response.body;
+      }
+    } catch (e) {
+      serviceResponse.status = 500;
+      serviceResponse.body = 'Error en la conexión o en el servidor';
+    }
+    return serviceResponse;
+  }
+
+  // Método para registrar al usuario
+  Future<ServiceHttpResponse?> registerUser(UsuarioSignUp usuario) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('${baseUrl}usuario/registro');
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(usuario.toJson()),
+      );
+
+      serviceResponse.status = response.statusCode;
+      serviceResponse.body = response.statusCode == 200 ? 'Usuario creado exitosamente' : response.body;
+    } catch (e) {
+      serviceResponse.status = 500;
+      serviceResponse.body = 'Error en la conexión o en el servidor';
+    }
+    return serviceResponse;
+  }
+
+
+  // Método para recuperar la contraseña
+  Future<ServiceHttpResponse> recoverPassword(String correo) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('${baseUrl}usuario/validar');
+    
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'correo': correo}),
+      );
+
+      serviceResponse.status = response.statusCode;
+
+      if (response.statusCode == 200) {
+        serviceResponse.body = 'Correo enviado con nueva contraseña';
+      } else if (response.statusCode == 404) {
+        serviceResponse.body = 'Correo no encontrado';
+      } else {
+        serviceResponse.body = 'Error al enviar el correo';
+      }
+
+    } catch (e) {
+      serviceResponse.status = 500;
+      serviceResponse.body = 'Error al conectar con el servidor';
+    }
+
+    return serviceResponse;
+  }
+
+  // Método para verificar si el correo ya está registrado
+  Future<bool> isEmailRegistered(String correo) async {
+    final url = Uri.parse('${baseUrl}usuario/verificar_correo');
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'correo': correo}),
+      );
+      return response.statusCode == 409;
+    } catch (e) {
+      print('Error al verificar el correo: $e');
+      return false;
+    }
+  }
+
+  // Método para recuperar el usuario por ID
+  Future<Usuario?> fetchOne(int idUsuario) async {
+    final url = Uri.parse('${baseUrl}usuario/$idUsuario');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return Usuario.fromMap(data);
+      } else {
+        print('Error: ${response.body}');
+        return null;
+      }
+    } catch (e) {
+      print('Error al recuperar el usuario: $e');
+      return null;
+    }
   }
 }

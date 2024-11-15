@@ -105,7 +105,6 @@ end
 # ==========================================================================================
 
 # Para login
-# Para login
 post '/usuario/login' do
   body = request.body.read
   data = JSON.parse(body)
@@ -125,7 +124,7 @@ post '/usuario/login' do
       if BCrypt::Password.new(record.contrasena) == contrasena
         # Contraseña correcta
         status 200
-        resp = record.id.to_json
+        resp = { idUsuario: record.id }.to_json
       else
         # Contraseña incorrecta
         status 404
@@ -228,83 +227,38 @@ end
 # ==========================================================================================
 
 post '/usuario/registro' do
-  content_type :json
-
-  # Obtener los parámetros requeridos
-  nombres = params[:nombres]
-  apellidos = params[:apellidos]
-  fecha_nacimiento_str = params[:fecha_nacimiento]
-  correo = params[:correo]
-  celular = params[:celular]
-  contrasena = params[:contrasena]
-
-  # Obtener los parámetros opcionales
-  altura = params[:altura]
-  peso = params[:peso]
-  sexo = params[:sexo]
-  condiciones_medicas = params[:condiciones_medicas]
-  alergias = params[:alergias]
-  otros = params[:otros]
+  body = request.body.read
+  data = JSON.parse(body)
 
   resp = ''
 
-  # Validación de campos requeridos
-  if [nombres, apellidos, fecha_nacimiento_str, correo, celular, contrasena].any?(&:nil?)
-    status = 400
-    resp = 'Faltan completar campos requeridos'
-  else
-    # Verificar que el correo no esté registrado
-    begin
-      existing_user = Usuario.where(correo: correo).first
-      if existing_user
-        status = 409
-        resp = 'El correo ya está registrado'
-      else
-        # Convertir la fecha de nacimiento al formato de Date en Ruby
-        begin
-          fecha_nacimiento = Date.strptime(fecha_nacimiento_str, '%d/%m/%Y')
-        rescue ArgumentError
-          status = 400
-          resp = 'La fecha de nacimiento no está en el formato correcto (dd/mm/yyyy)'
-        else
-          # encriptar la contraseña
-          hashed_password = BCrypt::Password.create(contrasena)
+  usuario = Usuario.create(
+    nombres: data['nombres'],
+    apellidos: data['apellidos'],
+    correo: data['correo'],
+    celular: data['celular'],
+    fecha_nacimiento: data['fechaNacimiento'],
+    contrasena: BCrypt::Password.create(data['contrasena']),
+    altura: data['altura'],
+    peso: data['peso'],
+    sexo: data['sexo'],
+    condiciones_medicas: data['condiciones_medicas'],
+    alergias: data['alergias'],
+    otros: data['otros']
+  )
 
-          # Crear el usuario en la base de datos con campos opcionales
-          begin
-            usuario = Usuario.create(
-              nombres: nombres,
-              apellidos: apellidos,
-              fecha_nacimiento: fecha_nacimiento,
-              correo: correo,
-              contrasena: hashed_password,
-              celular: celular,
-              altura: altura.nil? || altura.empty? ? nil : altura,
-              peso: peso.nil? || peso.empty? ? nil : peso,
-              sexo: sexo.nil? || sexo.empty? ? nil : sexo,
-              condiciones_medicas: condiciones_medicas.nil? || condiciones_medicas.empty? ? nil : condiciones_medicas,
-              alergias: alergias.nil? || alergias.empty? ? nil : alergias,
-              otros: otros.nil? || otros.empty? ? nil : otros
-            )
-            status = 201
-            resp = 'Usuario registrado exitosamente'
-          rescue Sequel::DatabaseError => e
-            status = 500
-            resp = 'Error al guardar en la base de datos'
-            puts e.message
-          end
-        end
-      end
-    rescue Sequel::DatabaseError => e
-      status = 500
-      resp = 'Error al acceder a la base de datos'
-      puts e.message
-    end
+  if usuario
+    status 200
+    resp = 'Usuario creado exitosamente'
+  else
+    status 500
+    resp = 'Error al crear el usuario'
   end
 
   status status
   return resp
 end
+
 
 # ==========================================================================================
 
@@ -343,4 +297,75 @@ post '/usuario/actualizar_correo' do
 
   # Devolver la respuesta
   resp
+end 
+
+# ==========================================================================================
+
+post '/usuario/eliminar' do
+  content_type :json
+
+  # Obtener el parámetro id_usuario
+  id_usuario = params[:id_usuario]
+
+  # Verificar si el id_usuario es válido
+  if id_usuario.nil? || !id_usuario.match?(/^\d+$/)
+    status 400
+    return { message: 'ID de usuario no válido' }.to_json
+  end
+
+  # Convertir id_usuario a un número entero
+  id_usuario = id_usuario.to_i
+
+  # Buscar al usuario en la base de datos por ID
+  usuario = Usuario.where(id: id_usuario).first
+
+  # Si el usuario existe, eliminamos
+  if usuario
+    # Eliminar el usuario
+    usuario.delete
+
+    # Reiniciar el contador de auto-incremento de la tabla usuarios
+    DB.run("DELETE FROM sqlite_sequence WHERE name = 'usuarios'")
+
+    status 200
+    return { message: 'Usuario eliminado exitosamente' }.to_json
+  else
+    # Si el usuario no existe
+    status 404
+    return { message: 'Usuario no encontrado' }.to_json
+  end
 end
+
+# ==========================================================================================
+
+post '/usuario/verificar_correo' do
+  content_type :json
+  body = request.body.read
+  data = JSON.parse(body)
+  correo = data['correo']
+
+  resp = ''
+
+  if correo.nil? || correo.empty?
+    status 400
+    resp = 'El correo es obligatorio'
+  end
+
+  usuario_existente = Usuario.where(correo: correo).first
+  if usuario_existente
+    status 409
+    resp = 'El correo ya está registrado'
+  else
+    status 200
+    resp = 'Correo disponible'
+  end
+
+  status status
+  return resp
+end
+
+
+
+
+
+

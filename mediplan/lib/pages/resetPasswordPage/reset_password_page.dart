@@ -23,12 +23,25 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   Widget _buildBody(BuildContext context) {
     return Obx(() {
-      if (control.isEmailSent.value) {
-        // Mostrar el cuerpo del mensaje de éxito
-        return ConfirmationMsg();
+      if (control.isLoading.value) {
+        // Mostrar el indicador de carga sobre el contenido
+        return Stack(
+          children: [
+            // Contenido principal
+            control.isEmailSent.value ? ConfirmationMsg() : ResetPasswordForm(control: control),
+            // Indicador de carga
+            Container(
+              color: Colors.black.withOpacity(0.6),
+              child: Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+            ),
+          ],
+        );
       } else {
-        // Mostrar el cuerpo inicial del formulario
-        return ResetPasswordForm(control: control);
+        return control.isEmailSent.value ? ConfirmationMsg() : ResetPasswordForm(control: control);
       }
     });
   }

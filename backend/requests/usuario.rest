@@ -7,7 +7,7 @@ content-type: application/json
 
 {
     "correo": "20210651@aloe.ulima.edu.pe",
-    "contrasena": "d5069f94aa9cec3f"
+    "contrasena": "47a64f80b6001f2c"
 }
 
 #############################################
@@ -24,11 +24,12 @@ content-type: application/json
 POST {{baseUrl}}usuario/registro
 Content-Type: application/x-www-form-urlencoded
 
-nombres=Fermin&apellidos=Bernales&fecha_nacimiento=10/06/2000&correo=fermin.ber@example.com&celular=123456789&contrasena=1234pass&altura=1.70&peso=70&sexo=M&condiciones_medicas=Miopia1
+nombres=Carlos&apellidos=Saenz&fecha_nacimiento=10/06/2000&correo=20210630@aloe.ulima.edu.pe&celular=123456789&contrasena=1234pass
 
 
 #############################################
 GET {{baseUrl}}usuario/2
+
 #############################################
 PUT {{baseUrl}}usuario/2
 content-type: application/json
@@ -67,6 +68,13 @@ content-type: application/json
   "celular": 987123456,
   "otros": "Ninguno"
 }
+
+#############################################
+
+POST {{baseUrl}}usuario/eliminar
+Content-Type: application/x-www-form-urlencoded
+
+id_usuario=6
 
 #############################################
 
