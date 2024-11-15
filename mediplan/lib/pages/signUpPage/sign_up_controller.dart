@@ -79,8 +79,11 @@ class SignUpController extends GetxController {
   }
 
   void validateEmail() {
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+'); 
     if (txtemail.text.isEmpty) {
       emailError.value = 'El correo es requerido';
+    } else if (!emailRegex.hasMatch(txtemail.text)) {
+      emailError.value = 'Ingrese un correo válido';
     } else {
       emailError.value = '';
     }
