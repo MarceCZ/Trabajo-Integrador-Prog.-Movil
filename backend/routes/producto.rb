@@ -3,7 +3,7 @@ get '/producto/listar' do
     status=200
     begin
         query= <<-STRING
-        SELECT 
+        SELECT
             p.id AS producto_id,
             p.nombre AS producto_nombre,
             p.marca AS producto_marca,
@@ -12,9 +12,9 @@ get '/producto/listar' do
             p.presentacion AS producto_presentación,
             p.requiere_receta AS producto_requiere_receta,
             b.nombre AS nombre_botica
-        FROM 
+        FROM
             productos p
-        JOIN 
+        JOIN
             boticas b ON p.id_botica = b.id;
         STRING
         rs=DB[query].all
@@ -42,9 +42,9 @@ get '/producto/listar_filtrado' do
       max_precio = params['max_precio'] || 1000
       marcas = params['marcas'] ? params['marcas'].split(',') : []
       busqueda = params['busqueda'] ? "%#{params['busqueda'].downcase}%" : nil
-  
+
       query = <<-SQL
-        SELECT 
+        SELECT
           p.id AS producto_id,
           p.nombre AS producto_nombre,
           p.marca AS producto_marca,
@@ -53,14 +53,14 @@ get '/producto/listar_filtrado' do
           p.presentacion AS producto_presentacion,
           p.requiere_receta AS producto_requiere_receta,
           b.nombre AS nombre_botica
-        FROM 
+        FROM
           productos p
-        JOIN 
+        JOIN
           boticas b ON p.id_botica = b.id
-        WHERE 
+        WHERE
           p.precio BETWEEN ? AND ?
       SQL
-  
+
       if !marcas.empty?
         marcas_placeholder = (['?'] * marcas.size).join(',')
         query += " AND p.marca IN (#{marcas_placeholder})"
@@ -85,24 +85,24 @@ get '/producto/listar_filtrado' do
       resp = 'Ocurrió un error no esperado al listar los productos con filtros'
       puts e.message
     end
-  
+
     status status
     resp
-  end  
+  end
 
-#Pantalla 3: Un producto segun id      
+#Pantalla 3: Un producto segun id
 get '/producto/:id' do
         id = params['id']
         status = 200
         begin
           if id.match?(/^\d+$/)
             query = <<-SQL
-              SELECT 
+              SELECT
                 p.*,
                 b.nombre AS nombre_botica
-              FROM 
+              FROM
                 productos p
-              JOIN 
+              JOIN
                 boticas b ON p.id_botica = b.id
               WHERE
                 p.id = ?;
@@ -123,11 +123,11 @@ get '/producto/:id' do
           resp = 'Ocurrió un error no esperado al mostrar la información del producto'
           puts e.message
         end
-      
+
         status status
         resp
       end
-      
+
 
 # Pantalla5: Listar todos los productos de una botica en específico
 get '/botica/:id' do
@@ -136,7 +136,7 @@ get '/botica/:id' do
     begin
       if id.match?(/^\d+$/)
         query = <<-SQL
-          SELECT 
+          SELECT
             p.id AS producto_id,
             p.nombre AS producto_nombre,
             p.marca AS producto_marca,
@@ -145,14 +145,14 @@ get '/botica/:id' do
             p.presentacion AS producto_presentacion,
             p.requiere_receta AS producto_requiere_receta,
             b.nombre AS nombre_botica
-          FROM 
+          FROM
             productos p
-          JOIN 
+          JOIN
             boticas b ON p.id_botica = b.id
           WHERE
             b.id = ?;
         SQL
-  
+
         rs = DB.fetch(query, id.to_i).all
         if rs.any?
           resp = rs.to_json
@@ -172,7 +172,7 @@ get '/botica/:id' do
     status status
     resp
   end
-  
+
 # Pantalla 5: Listar todos los productos de una botica en específico con filtros
 get '/botica/:id/productos_filtrados' do
     id = params['id']
@@ -183,9 +183,9 @@ get '/botica/:id/productos_filtrados' do
         max_precio = params['max_precio'] || 1000
         marcas = params['marcas'] ? params['marcas'].split(',') : []
         busqueda = params['busqueda'] ? "%#{params['busqueda'].downcase}%" : nil
-  
+
         query = <<-SQL
-          SELECT 
+          SELECT
             p.id AS producto_id,
             p.nombre AS producto_nombre,
             p.marca AS producto_marca,
@@ -194,20 +194,20 @@ get '/botica/:id/productos_filtrados' do
             p.presentacion AS producto_presentacion,
             p.requiere_receta AS producto_requiere_receta,
             b.nombre AS nombre_botica
-          FROM 
+          FROM
             productos p
-          JOIN 
+          JOIN
             boticas b ON p.id_botica = b.id
-          WHERE 
+          WHERE
             b.id = ?
             AND p.precio BETWEEN ? AND ?
         SQL
-  
+
         if !marcas.empty?
           marcas_placeholder = (['?'] * marcas.size).join(',')
           query += " AND p.marca IN (#{marcas_placeholder})"
         end
-        
+
         if busqueda
           query += " AND LOWER(p.nombre) LIKE ?"
         end
@@ -231,8 +231,52 @@ get '/botica/:id/productos_filtrados' do
       resp = 'Ocurrió un error no esperado al listar los productos con filtros'
       puts e.message
     end
-  
+
     status status
     resp
   end
-  
+
+
+
+# Listar todas los productos de una suscripcion kit
+get '/suscripcion/:id/productos' do
+  id = params['id'].to_i
+  status = 200
+  begin
+    if id>0
+      query = <<-SQL
+        SELECT pk.cantidad,
+          p.nombre as producto_nombre,
+          p.presentacion,
+          p.marca,
+          p.precio,
+          p.imagen as producto_imagen,
+          b.nombre as botica_nombre,
+          r.imagen as receta_imagen
+        FROM productos_kits PK
+          INNER JOIN productos P ON PK.id_producto = P.ID
+          INNER JOIN boticas B ON P.id_botica = B.ID
+          INNER JOIN kits K ON K.id = PK.id_kit
+          INNER JOIN suscripciones S ON S.id = K.id_suscripcion AND  S.id_usuario = ?
+          LEFT JOIN recetas R ON P.ID = R.id_producto AND R.id_usuario = ?
+      SQL
+
+      rs = DB[query,id,id].all
+      if rs.any?
+        resp = rs.to_json
+      else
+        status = 404
+        resp = 'No hay productos de la suscripción'
+      end
+    else
+      status = 400
+      resp = 'ID de suscripción no válido'
+    end
+  rescue StandardError => e
+    status = 500
+    resp = 'Ocurrió un error no esperado al listar los productos de la suscripción'
+    puts e.message
+  end
+  status status
+  resp
+end

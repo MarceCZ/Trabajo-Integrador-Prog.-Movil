@@ -1,0 +1,39 @@
+@baseUrl = http://192.168.1.33:4567/
+
+POST {{baseUrl}}suscripcion/crear_suscripcion
+  content-type: application/json
+  
+  {
+  "usuario_id": 1,
+  "tipo_suscripcion": 1,
+  "metodo_pago": "Tarjeta de Crédito",
+  "productos": [
+    {
+      "id_producto": 1,
+      "cantidad": 2
+    },
+    {
+      "id_producto": 2,
+      "cantidad": 1
+    }
+  ],
+  "direccion": {
+    "departamento": "Lima",
+    "distrito": "Miraflores",
+    "direccion": "Av. Pardo y Aliaga 1234",
+    "numero": "456"
+  }
+}
+
+###########################################
+
+GET {{baseUrl}}suscripcion/complete/1
+
+#############################################
+
+DELETE  {{baseUrl}}suscripcion/1/1
+#############################################
+
+GET  {{baseUrl}}suscripcion/1/1
+
+#######

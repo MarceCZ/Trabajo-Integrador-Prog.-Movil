@@ -1,4 +1,4 @@
-@baseUrl = http://192.168.56.1:4567/
+@baseUrl = http://192.168.1.33:4567/
 
 ####################################
 GET {{baseUrl}}producto/listar
@@ -34,3 +34,6 @@ GET {{baseUrl}}/botica/2/productos_filtrados?min_precio=0&max_precio=100&marcas=
 ####################################
 
 GET {{baseUrl}}/botica/2/productos_filtrados?min_precio=20&max_precio=100&marcas=Genérico
+####################################
+
+GET {{baseUrl}}suscripcion/2/productos
