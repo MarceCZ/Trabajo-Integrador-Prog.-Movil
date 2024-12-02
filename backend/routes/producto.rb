@@ -193,6 +193,7 @@ get '/botica/:id/productos_filtrados' do
             p.imagen AS producto_imagen,
             p.presentacion AS producto_presentacion,
             p.requiere_receta AS producto_requiere_receta,
+            p.id_botica AS id_botica,
             b.nombre AS nombre_botica
           FROM
             productos p

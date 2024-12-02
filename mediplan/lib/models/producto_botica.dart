@@ -63,7 +63,7 @@ class ProductoBotica {
   // Método fromMap
   static ProductoBotica fromMap(Map<String, dynamic> map) {
     return ProductoBotica(
-      id: map['id'],
+      /*id: map['id'],
       nombre: map['nombre'],
       marca: map['marca'],
       precio: map['precio'],
@@ -76,6 +76,20 @@ class ProductoBotica {
       requiereReceta: map['requiere_receta'],
       idBotica: map['id_botica'],
       botica: map['botica'],
+      */
+      id: map['producto_id'] ?? 0,
+      nombre: map['producto_nombre'] ?? 'Sin nombre',
+      marca: map['producto_marca'] ?? 'Sin marca',
+      precio: map['producto_precio']?.toDouble() ?? 0.0,
+      descripcion: map['descripcion'] ?? '',
+      contraindicaciones: map['contraindicaciones'] ?? '',
+      advertencias: map['advertencias'] ?? '',
+      imagen: map['producto_imagen'] ?? '',
+      presentacion: map['producto_presentación'] ?? '',
+      stock: map['stock'] ?? 0,
+      requiereReceta: map['producto_requiere_receta'] ?? false,
+      idBotica: map['id_botica'] ?? 0,
+      botica: map['nombre_botica'] ?? 'Desconocido',
     );
   }
 }
