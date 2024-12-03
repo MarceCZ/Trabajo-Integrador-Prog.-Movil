@@ -1,4 +1,4 @@
-@baseUrl = http://192.168.1.33:4567/
+@baseUrl = http://10.137.1.5:4567/
 
 ####################################
 GET {{baseUrl}}producto/listar

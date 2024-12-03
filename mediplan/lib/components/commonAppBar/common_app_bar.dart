@@ -12,7 +12,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-       backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       title: Row(
         children: [
           Image.asset(
@@ -28,7 +28,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           SizedBox(width: 30.0),
-         /* Obx(() {
+          /* Obx(() {
             return control.usuario.value.idUsuario != 0
                 ? IconButton(
                     icon: Icon(Icons.person),
@@ -44,17 +44,18 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       actions: [
         Obx(() {
-            return control.usuario.value.idUsuario != 0 ?
-        IconButton(
-          icon: Icon(Icons.person),
-          onPressed: () {
-            Scaffold.of(context).openEndDrawer();
-          },
-        )
-        : SizedBox.shrink();
+          //return control.usuario.value.idUsuario != 0
+          return control.idUsuario.value != 0
+              ? IconButton(
+                  icon: Icon(Icons.person),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                )
+              : SizedBox.shrink();
         }),
       ],
-      );
+    );
   }
 
   @override

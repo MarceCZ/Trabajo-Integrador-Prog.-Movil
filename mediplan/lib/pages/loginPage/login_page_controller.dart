@@ -55,7 +55,8 @@ class LoginPageController extends GetxController {
         msg.value = 'Usuario y contraseña válidos';
         hayError.value = false;
         var idUsuario = response.body['idUsuario'];
-
+        print('ID de Usuario: $idUsuario');
+        appBarControl.updateIdUsuario(idUsuario);
         Future.delayed(Duration(seconds: 1), () {
           isLoading.value = false; 
           Navigator.pushNamed(context, '/home', arguments: {'idUsuario': idUsuario});  //enviar el idUsuario a la siguiente página

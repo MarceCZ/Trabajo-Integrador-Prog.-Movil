@@ -73,7 +73,7 @@ put '/usuario/:id' do
         fecha_nacimiento: fecha_nacimiento,
         correo: correo,
         celular: celular,
-        contrasena: contrasena,
+        contrasena:  BCrypt::Password.create(contrasena),
         altura: altura,
         peso: peso,
         sexo: sexo,
@@ -297,7 +297,7 @@ post '/usuario/actualizar_correo' do
 
   # Devolver la respuesta
   resp
-end 
+end
 
 # ==========================================================================================
 
@@ -363,9 +363,3 @@ post '/usuario/verificar_correo' do
   status status
   return resp
 end
-
-
-
-
-
-

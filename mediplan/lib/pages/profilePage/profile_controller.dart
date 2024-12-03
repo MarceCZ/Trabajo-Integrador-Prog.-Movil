@@ -2,7 +2,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mediplan/models/usuario.dart';
-import '../../services/usuario_service.dart';
+import 'package:mediplan/services/usuario_service.dart';
+import 'package:mediplan/models/service_http_response.dart';
 import '../../components/commonAppBar/common_app_bar_controller.dart';
 
 class ProfileController extends GetxController {
@@ -14,6 +15,7 @@ class ProfileController extends GetxController {
   TextEditingController txtname = TextEditingController();
   TextEditingController txtlastname = TextEditingController();
   TextEditingController txtemail = TextEditingController();
+  TextEditingController txtpassword = TextEditingController();
   TextEditingController phonenumber = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController height = TextEditingController();
@@ -24,6 +26,7 @@ class ProfileController extends GetxController {
   var name = ''.obs;
   var lastname = ''.obs;
   var email = ''.obs;
+  var password = ''.obs;
   var phone = ''.obs;
   var fecha = ''.obs;
   var altura = ''.obs;
@@ -36,6 +39,7 @@ class ProfileController extends GetxController {
   var nameError = ''.obs;
   var lastNameError = ''.obs;
   var emailError = ''.obs;
+  var passwordError = ''.obs;
   var phoneError = ''.obs;
   var dateError = ''.obs;
   var heightError = ''.obs;
@@ -44,14 +48,43 @@ class ProfileController extends GetxController {
   var alergyError = ''.obs;
   var othersError = ''.obs;
 
+  var errorMessage = ''.obs;
+
+  var isLoading = false.obs;
+  void showSnackbar(String title, String message) {
+    Get.snackbar(
+      title,
+      '',
+      icon: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+        child: Icon(Icons.warning_amber,
+            color: const Color.fromARGB(255, 243, 136, 22), size: 35),
+      ),
+      backgroundColor: Colors.black.withOpacity(0.6),
+      colorText: Colors.white,
+      duration: Duration(seconds: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      messageText: Text(
+        message,
+        style: TextStyle(
+          fontSize: 15.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
   void cerrarSesion() {
-    Usuario usuarioNull = Usuario(idUsuario: 0, correo: '');
-    appBarControl.updateUsuario(usuarioNull);
+    Usuario usuarioNull = Usuario(idUsuario: 0, correo: '', contrasena: '');
+    appBarControl.updateUsuario(usuarioNull); //eliminar updateUsuario
+    appBarControl.updateIdUsuario(0);
   }
 
   void actualizarUsuario() async {
     Usuario usuario = Usuario(
-      idUsuario: appBarControl.usuario.value.idUsuario,
+      idUsuario: appBarControl.idUsuario.value,
+      contrasena: txtpassword.text,
       nombres: txtname.text,
       apellidos: txtlastname.text,
       correo: txtemail.text,
@@ -63,14 +96,34 @@ class ProfileController extends GetxController {
       alergias: alergy.text,
       otros: others.text,
     );
+    isLoading.value = true; // Mostrar indicador de carga
 
-    appBarControl.updateUsuario(usuario);
+    //appBarControl.updateUsuario(usuario);
+    try {
+      ServiceHttpResponse? response =
+          await usuarioService.update(usuario).timeout(Duration(seconds: 10));
+
+      isLoading.value = false;
+      if (response != null && response.status == 200) {
+        buscarUsuario();
+      } else {
+        errorMessage.value =
+            response?.body ?? 'No se pudo guardar la información.';
+        showSnackbar('Error', errorMessage.value);
+      }
+    } catch (e) {
+      isLoading.value = false;
+      errorMessage.value =
+          'No se pudo conectar con el servidor. Verifica tu conexión.';
+      showSnackbar('Error', errorMessage.value);
+    }
+
     print('Usuario actualizado: $usuario');
     Future.delayed(Duration(seconds: 1), () {
       buscarUsuario();
     });
   }
-
+/*
   void buscarUsuario() async {
     final usuarioBar = appBarControl.usuario.value;
     print('Usuario bar: $usuarioBar');
@@ -134,6 +187,43 @@ class ProfileController extends GetxController {
       alergia.value = appBarControl.usuario.value.alergias ?? '';
       otros.value = appBarControl.usuario.value.otros ?? '';
     }
+  }*/
+
+  void buscarUsuario() async {
+    final idUsuarioBar = appBarControl.idUsuario.value;
+    final usuarioBar = appBarControl.usuario.value;
+    print('Usuario bar: $idUsuarioBar');
+    if (idUsuarioBar != 0) {
+      final usuario = await usuarioService.fetchOne(idUsuarioBar);
+      if (usuario != null) {
+        print('Usuario encontrado: $usuario');
+
+        txtname.text = usuario.nombres ?? '';
+        txtlastname.text = usuario.apellidos ?? '';
+        txtemail.text = usuario.correo;
+        txtpassword.text = '';
+        phonenumber.text = usuario.celular ?? '';
+        date.text = DateFormat('dd/MM/yyyy')
+            .format(usuario.fechaNacimiento ?? DateTime.now());
+        height.text = usuario.altura != null ? usuario.altura.toString() : '';
+        weight.text = usuario.peso != null ? usuario.peso.toString() : '';
+        condition.text = usuario.condicionesMedicas ?? '';
+        alergy.text = usuario.alergias ?? '';
+        others.text = usuario.otros ?? '';
+        name.value = usuario.nombres ?? '';
+        lastname.value = usuario.apellidos ?? '';
+        email.value = usuario.correo;
+        password.value = usuario.contrasena;
+        phone.value = usuario.celular ?? '';
+        fecha.value = DateFormat('dd/MM/yyyy')
+            .format(usuario.fechaNacimiento ?? DateTime.now());
+        altura.value = usuario.altura != null ? usuario.altura.toString() : '';
+        peso.value = usuario.peso != null ? usuario.peso.toString() : '';
+        condicion.value = usuario.condicionesMedicas ?? '';
+        alergia.value = usuario.alergias ?? '';
+        otros.value = usuario.otros ?? '';
+      }
+    }
   }
 
   // Método para seleccionar la fecha de nacimiento
@@ -174,6 +264,14 @@ class ProfileController extends GetxController {
       emailError.value = 'Ingrese un correo válido';
     } else {
       emailError.value = '';
+    }
+  }
+
+  void validatePassword() {
+    if (txtpassword.text.isEmpty) {
+      passwordError.value = 'La contraseña es requerida';
+    } else {
+      passwordError.value = '';
     }
   }
 
@@ -233,6 +331,7 @@ class ProfileController extends GetxController {
     validateName();
     validateLastName();
     validateEmail();
+    validatePassword();
     validatePhone();
     validateDate();
     validateHeight();
@@ -245,10 +344,10 @@ class ProfileController extends GetxController {
         lastNameError.value.isEmpty &&
         emailError.value.isEmpty &&
         phoneError.value.isEmpty &&
-        dateError.value.isEmpty &&
+        dateError.value.isEmpty /*&&
         heightError.value.isEmpty &&
         weightError.value.isEmpty &&
         conditionError.value.isEmpty &&
-        alergyError.value.isEmpty;
+        alergyError.value.isEmpty*/;
   }
 }

@@ -2,9 +2,14 @@ import '../../models/usuario.dart';
 import 'package:get/get.dart';
 
 class CommonAppBarController extends GetxController {
-  
-  var usuario = Usuario(idUsuario: 0, correo: '').obs;
+  //Elimnar usuario 
+  var usuario = Usuario(idUsuario: 0, correo: '',contrasena: '').obs;
 
+
+  var idUsuario = 0.obs;
+
+
+  //Eliminar updateUsuario
   void updateUsuario(Usuario u) {
     Future.delayed(Duration(seconds: 1), () {
       print('¡1 segundos han pasado!');
@@ -24,5 +29,11 @@ class CommonAppBarController extends GetxController {
         val?.sexo = u.sexo;
       });
     });
+  }
+
+
+
+  void updateIdUsuario(int id) {
+    idUsuario.value = id;
   }
 }

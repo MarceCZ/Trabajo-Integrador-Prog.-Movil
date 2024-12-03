@@ -7,7 +7,7 @@ import '../models/service_http_response.dart';
 import '../models/usuario.dart';
 
 class UsuarioService {
-  final String baseUrl = 'http://192.168.56.1:4567/';  // Cambia esta URL por la URL del servidor
+  final String baseUrl = 'http://10.64.53.121:4567/';  // Cambia esta URL por la URL del servidor
 
   // Método para realizar el login
   Future<ServiceHttpResponse?> login(UsuarioLogin usuario) async {
@@ -122,5 +122,26 @@ class UsuarioService {
       print('Error al recuperar el usuario: $e');
       return null;
     }
+  }
+
+  Future<ServiceHttpResponse?> update(Usuario usuario) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('${baseUrl}usuario/${usuario.idUsuario}');
+    try {
+      final response = await http.put(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(usuario.toJson()),
+      );
+
+      serviceResponse.status = response.statusCode;
+      serviceResponse.body = response.statusCode == 200 ? 'Usuario actualizado exitosamente' : response.body;
+      print('Response: ${response.body}');
+    } catch (e) {
+      serviceResponse.status = 500;
+      serviceResponse.body = 'Error en la conexión o en el servidor';
+      print('Error: $e');
+    }
+    return serviceResponse;
   }
 }

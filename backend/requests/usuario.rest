@@ -1,4 +1,14 @@
-@baseUrl = http://192.168.56.1:4567/
+@baseUrl = http://10.64.53.121:4567/
+
+#############################################
+
+POST {{baseUrl}}usuario/login
+content-type: application/json
+
+{
+    "correo": "20210651@aloe.ulima.edu.pe",
+    "contrasena": "47a64f80b6001f2c"
+}
 
 #############################################
 
@@ -28,7 +38,28 @@ nombres=Carlos&apellidos=Saenz&fecha_nacimiento=10/06/2000&correo=20210630@aloe.
 
 
 #############################################
-GET {{baseUrl}}usuario/2
+GET {{baseUrl}}usuario/5
+
+
+#############################################
+PUT {{baseUrl}}usuario/5
+content-type: application/json
+
+{
+  "id": 5,
+  "nombres": "Carlo",
+  "apellidos": "Saenz",
+  "fecha_nacimiento": "2024-11-14",
+  "correo": "20210630@aloe.ulima.edu.pe",
+  "contrasena": "$2a$12$baDExM/mkGKNUVHanJFQrOpBwAjrnVsWonhmkAyOB1uP4Csg4IhK6",
+  "altura": null,
+  "peso": null,
+  "sexo": null,
+  "condiciones_medicas": null,
+  "alergias": null,
+  "celular": 123456789,
+  "otros": null
+}
 
 #############################################
 PUT {{baseUrl}}usuario/2
