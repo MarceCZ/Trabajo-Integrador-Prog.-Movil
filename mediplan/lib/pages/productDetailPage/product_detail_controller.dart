@@ -25,12 +25,9 @@ class ProductDetailController extends GetxController {
     );
   }
 
-  Future<void> cargarProductDetail(int id) async {
-    print("ID RECIBIDOOOOOOOO-----: $id");
-    ProductoBoticaService service = ProductoBoticaService();
-    ProductoBotica producto = await service.fetchById(id);
-    print("Producto cargado en el controlador: $producto");
-    productDetail.value = producto;
-    print("Producto asignado a productDetail: ${productDetail.value}");
+  Future<void> cargarProductDetail(int id) async{
+      ProductoBoticaService service = ProductoBoticaService();
+      List<ProductoBotica> productos = await service.fetchAll();
+      productDetail.value = productos.firstWhere((producto) => producto.id == id);
   }
 }

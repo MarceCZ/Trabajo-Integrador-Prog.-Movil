@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 @baseUrl = http://10.137.1.5:4567/
-=======
-@baseUrl = http://192.168.56.1:4567/
->>>>>>> 3a986e10eb94cdb36188c46fc27240e43d5bd506
 
 ####################################
 GET {{baseUrl}}producto/listar
