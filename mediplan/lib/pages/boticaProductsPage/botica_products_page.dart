@@ -18,6 +18,7 @@ class BoticaProductsPage extends StatelessWidget {
   BoticaProductsPage(
       {Key? key, required int boticaId, required String boticaNombre})
       : super(key: key) {
+    print("Botica ID recibido: $boticaId, Nombre: $boticaNombre");
     control.cargarProductosDeBotica(boticaId, boticaNombre);
   }
 
@@ -80,6 +81,7 @@ class BoticaProductsPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Obx(() {
+              print("Productos mostrados en la vista: ${control.productosFiltrados}");
               if (control.productosFiltrados.isEmpty) {
                 return Center(child: Text('No hay productos disponibles'));
               } else {
