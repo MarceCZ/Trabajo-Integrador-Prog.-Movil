@@ -68,4 +68,17 @@ class ProductoBoticaService {
     }
   }
 
+  Future<ProductoBotica> fetchById(int id) async {
+    final response = await http.get(Uri.parse('$baseUrl/producto/$id'));
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      print("Respuesta del servidor: $data");
+      return ProductoBotica.fromMap(data);
+    } else if (response.statusCode == 404) {
+      throw Exception("Producto no encontrado");
+    } else {
+      throw Exception("Error al obtener el producto");
+    }
+  }
 }
