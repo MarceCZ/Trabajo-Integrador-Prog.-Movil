@@ -1,4 +1,3 @@
-
 post '/suscripcion/crear_suscripcion' do
   body = request.body.read
   data = JSON.parse(body)
@@ -13,7 +12,7 @@ post '/suscripcion/crear_suscripcion' do
     usuario = Usuario[usuario_id]
     if usuario.nil?
       status 404
-      return { mensaje: "Error al procesar la solicitud" }.to_json
+      return { mensaje: "Usuario no encontrado" }.to_json
     end
 
     # Crear una nueva dirección
@@ -24,13 +23,12 @@ post '/suscripcion/crear_suscripcion' do
       numero: direccion_data['numero']
     )
 
-    subtotal_kit = 0.0
-
+    # Crear una nueva suscripción
     suscripcion = Suscripcion.create(
-      costo: 0.0,
+      costo: 0.0, # Se actualizará más tarde
       fecha_inicio: Date.today,
       fecha_fin: Date.today.next_month(tipo_suscripcion * 3),
-      precio_total: 0.0,
+      precio_total: 0.0, # Se actualizará más tarde
       metodo_pago: metodo_pago,
       id_usuario: usuario_id,
       id_estado: 1,
@@ -39,11 +37,12 @@ post '/suscripcion/crear_suscripcion' do
 
     # Crear el kit asociado a la suscripción
     kit = Kit.create(
-      subtotal: 0.0,
+      subtotal: 0.0, # Se actualizará más tarde
       id_suscripcion: suscripcion.id
     )
 
-    # Agregar productos al kit
+    # Calcular el subtotal del kit
+    subtotal_kit = 0.0
     productos.each do |producto_info|
       id_producto = producto_info['id_producto']
       cantidad = producto_info['cantidad']
@@ -51,10 +50,10 @@ post '/suscripcion/crear_suscripcion' do
       producto = Producto[id_producto]
       if producto.nil?
         status 404
-        return { mensaje: "Error al procesar la solicitud" }.to_json
+        return { mensaje: "Producto con ID #{id_producto} no encontrado" }.to_json
       end
 
-      subtotal_kit += producto.precio * cantidad
+      subtotal_kit += producto.precio.to_f * cantidad.to_f
 
       # Crear el registro en la tabla productos_kits
       ProductoKit.create(
@@ -63,18 +62,20 @@ post '/suscripcion/crear_suscripcion' do
         id_producto: id_producto
       )
     end
+    kit.update(subtotal: subtotal_kit.to_f)
 
-    # Actualizar el subtotal del kit
-    kit.update(subtotal: subtotal_kit)
+    costo_suscripcion = (subtotal_kit.to_f * 0.2).round(2)
 
-    costo_suscripcion = suscripcion.precio_total - subtotal_kit
+    precio_total = (subtotal_kit.to_f + costo_suscripcion).round(2)
 
-    # Actualizar la suscripción con el costo y el precio total
+    # Actualizar la suscripción con los valores calculados
+
     suscripcion.update(
       costo: costo_suscripcion,
-      precio_total: costo_suscripcion + subtotal_kit
+      precio_total: precio_total
     )
 
+    # Generar los envíos para los meses de la suscripción
     meses = case tipo_suscripcion
             when 1 then 3
             when 2 then 6
@@ -93,7 +94,7 @@ post '/suscripcion/crear_suscripcion' do
     end
 
     status 200
-    return { mensaje: "Operación realizada exitosamente" }.to_json
+    return { mensaje: "Suscripción creada exitosamente" }.to_json
 
   rescue StandardError => e
     puts "Ocurrió un error inesperado: #{e.message}"

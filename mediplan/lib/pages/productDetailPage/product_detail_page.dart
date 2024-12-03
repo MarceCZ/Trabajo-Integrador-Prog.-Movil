@@ -196,7 +196,7 @@ class ProductDetailPage extends StatelessWidget {
                   ),
                   Button(
                     onPressed: () {
-                      print('Agregar al kit');
+                      controller.addToCart();
                     },
                     title: 'Agregar al kit',
                     height: 60,

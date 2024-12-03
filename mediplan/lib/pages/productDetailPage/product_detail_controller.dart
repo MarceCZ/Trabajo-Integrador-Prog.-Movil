@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:mediplan/models/producto_botica.dart';
 import 'package:mediplan/services/producto_botica.dart';
+import 'package:mediplan/components/cart_controller.dart';
 
 class ProductDetailController extends GetxController {
   var quantity = 1.obs;
   var productDetail = Rxn<ProductoBotica>();
+  final CartController cartController = Get.find<CartController>();
 
   void incrementQuantity() {
     quantity.value++;
@@ -17,12 +19,16 @@ class ProductDetailController extends GetxController {
   }
 
   void addToCart() {
-    // Lógica para agregar el producto al carrito
-    Get.snackbar(
-      'Producto añadido',
-      'El producto ha sido añadido al carrito con éxito',
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    if (productDetail.value != null) {
+      for (int i = 0; i < quantity.value; i++) {
+        cartController.addToCart(productDetail.value!);
+      }
+      Get.snackbar(
+        'Producto añadido',
+        '${quantity.value} unidades añadidas al carrito',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 
   Future<void> cargarProductDetail(int id) async {

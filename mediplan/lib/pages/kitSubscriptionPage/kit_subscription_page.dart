@@ -169,6 +169,7 @@ class _KitSubscriptionPageState extends State<KitSubscriptionPage> {
       title: 'Confirmar',
       onPressed: () {
         if (kitSubscriptionController.validateForm()) {
+          kitSubscriptionController.confirmSubscription();
           Navigator.pushNamed(context, '/purchase-confirmation');
         }
       },

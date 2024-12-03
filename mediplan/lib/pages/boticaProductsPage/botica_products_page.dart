@@ -11,6 +11,7 @@ import '../../components/common_drawer.dart';
 import 'botica_products_controller.dart';
 import '../../components/commonAppBar/common_app_bar.dart';
 import '../../configs/colors.dart';
+import 'package:mediplan/components/cart_view.dart';
 
 class BoticaProductsPage extends StatelessWidget {
   final BoticaProductsController control = Get.put(BoticaProductsController());
@@ -119,10 +120,24 @@ class BoticaProductsPage extends StatelessWidget {
       }),
       floatingActionButton: FloatingButton(
         onPressed: () {
-          // Lógica cuando se presiona el botón flotante
+          _showCartBottomSheet(context);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  void _showCartBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          width: 350.0, // Establecer un ancho fijo para el BottomSheet
+          child: CartView(), // Aquí se muestra el contenido de tu BottomSheet
+        );
+      },
     );
   }
 

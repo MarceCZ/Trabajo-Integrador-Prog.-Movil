@@ -7,7 +7,7 @@ import '../models/service_http_response.dart';
 import '../models/usuario.dart';
 
 class UsuarioService {
-  final String baseUrl = 'http://10.64.53.121:4567/';  // Cambia esta URL por la URL del servidor
+  final String baseUrl = 'http://192.168.56.1:4567/';  // Cambia esta URL por la URL del servidor
 
   // Método para realizar el login
   Future<ServiceHttpResponse?> login(UsuarioLogin usuario) async {
