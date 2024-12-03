@@ -18,19 +18,20 @@ class BoticaProductsController extends GetxController {
 
   Future<void> cargarProductosDeBotica(int boticaId, String boticaNombre) async {
     ProductoBoticaService service = ProductoBoticaService();
-    List<ProductoBotica> todosLosProductos = await service.fetchAll();
-    
-    // Filtra los productos según la botica
-    productos.value = todosLosProductos
-        .where((producto) => producto.idBotica == boticaId)
-        .toList();
-    
-    productosFiltrados.value = productos.toList();
-    nombreBotica.value = boticaNombre;
 
-    // Configura los valores iniciales del filtro
-    actualizarMarcas();
-    valoresFiltro();
+    try {
+      List<ProductoBotica> todosLosProductos = await service.fetchFilteredByBotica(boticaId: boticaId);
+      print("Productos cargados desde la botica ${boticaNombre}: ${todosLosProductos.length}");
+
+      productos.value = todosLosProductos;
+      productosFiltrados.value = todosLosProductos.toList();
+      nombreBotica.value = boticaNombre;
+
+      actualizarMarcas();
+      valoresFiltro();
+    } catch (e) {
+      print("Error al cargar productos de la botica $boticaNombre: $e");
+    }
   }
 
   void actualizarMarcas() {

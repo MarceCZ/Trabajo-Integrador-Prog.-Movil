@@ -98,8 +98,17 @@ get '/producto/:id' do
           if id.match?(/^\d+$/)
             query = <<-SQL
               SELECT
-                p.*,
-                b.nombre AS nombre_botica
+                p.id AS producto_id,
+          p.nombre AS producto_nombre,
+          p.marca AS producto_marca,
+          p.precio AS producto_precio,
+          p.descripcion AS descripcion,
+          p.contraindicaciones AS contraindicaciones,
+          p.advertencias AS advertencias,
+          p.imagen AS producto_imagen,
+          p.presentacion AS producto_presentacion,
+          p.requiere_receta AS producto_requiere_receta,
+          b.nombre AS nombre_botica
               FROM
                 productos p
               JOIN
@@ -193,6 +202,7 @@ get '/botica/:id/productos_filtrados' do
             p.imagen AS producto_imagen,
             p.presentacion AS producto_presentacion,
             p.requiere_receta AS producto_requiere_receta,
+            p.id_botica AS id_botica,
             b.nombre AS nombre_botica
           FROM
             productos p
