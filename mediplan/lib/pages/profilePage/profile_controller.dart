@@ -90,14 +90,14 @@ class ProfileController extends GetxController {
       correo: txtemail.text,
       celular: phonenumber.text,
       fechaNacimiento: DateFormat('dd/MM/yyyy').parse(date.text),
-      altura: double.parse(height.text),
-      peso: double.parse(weight.text),
+      altura: height.text.isEmpty? null : double.parse(height.text),
+      peso: weight.text.isEmpty? null : double.parse(weight.text),
       condicionesMedicas: condition.text,
       alergias: alergy.text,
       otros: others.text,
     );
     isLoading.value = true; // Mostrar indicador de carga
-
+    print('Usuario actualizado: $usuario');
     //appBarControl.updateUsuario(usuario);
     try {
       ServiceHttpResponse? response =
@@ -334,20 +334,22 @@ class ProfileController extends GetxController {
     validatePassword();
     validatePhone();
     validateDate();
-    validateHeight();
+    /*validateHeight();
     validateWeight();
     validateCondition();
-    validateAlergy();
+    validateAlergy();*/
 
     // Verdadero si todos los campos son válidos
     return nameError.value.isEmpty &&
-        lastNameError.value.isEmpty &&
-        emailError.value.isEmpty &&
-        phoneError.value.isEmpty &&
-        dateError.value.isEmpty /*&&
+            lastNameError.value.isEmpty &&
+            emailError.value.isEmpty &&
+            phoneError.value.isEmpty &&
+            dateError.value
+                .isEmpty /*&&
         heightError.value.isEmpty &&
         weightError.value.isEmpty &&
         conditionError.value.isEmpty &&
-        alergyError.value.isEmpty*/;
+        alergyError.value.isEmpty*/
+        ;
   }
 }

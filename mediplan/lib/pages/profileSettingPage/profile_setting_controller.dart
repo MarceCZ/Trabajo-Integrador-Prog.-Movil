@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mediplan/services/usuario_service.dart';
+import '../../models/usuario_login.dart';
 import '../../models/service_http_response.dart';
+import '../../components/commonAppBar/common_app_bar_controller.dart';
 import '../../models/usuario_signUp.dart';
 
 class ProfileSettingController extends GetxController {
+  CommonAppBarController appBarControl = Get.put(CommonAppBarController());
   TextEditingController alturaController = TextEditingController();
   TextEditingController pesoController = TextEditingController();
   TextEditingController sexoController = TextEditingController();
@@ -71,11 +74,16 @@ class ProfileSettingController extends GetxController {
     try {
       // Petición con timeout de 10 segundos
       ServiceHttpResponse? response = await service.registerUser(usuario).timeout(Duration(seconds: 10));
+      UsuarioLogin usuarioLogin = UsuarioLogin(correo:  userData['correo'], contrasena: userData['contrasena']);
 
       isLoading.value = false;
 
       if (response != null && response.status == 200) {
-        Get.toNamed('/home');
+        response = await service.login(usuarioLogin).timeout(Duration(seconds: 10));
+        if (response != null && response.status == 200) {
+          appBarControl.updateIdUsuario(response.body['idUsuario']);
+          Get.toNamed('/home');
+        } 
       } else {
         errorMessage.value = response?.body ?? 'No se pudo guardar la información.';
         showSnackbar('Error', errorMessage.value);

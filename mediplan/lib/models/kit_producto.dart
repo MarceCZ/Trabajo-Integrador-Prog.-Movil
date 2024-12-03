@@ -59,4 +59,30 @@ class KitProducto {
       receta: map['receta'],
     );
   }
+
+  
+  static KitProducto fromMapService(Map<String, dynamic> map) {
+    return KitProducto(
+      id: map['producto_id'],
+      nombre: map['producto_nombre'],
+      marca: map['marca'],
+      imagen: map['producto_imagen'],
+      subTotal: map['subtotal'],
+      cantidadProducto: map['cantidad'],
+      botica: map['botica_nombre'],
+      idKit: map['kit_id'],
+      receta: _convertToBool(map['receta_imagen']),
+    );
+  }
+
+  // Método auxiliar para convertir el valor de receta_imagen a bool
+  static bool _convertToBool(dynamic value) {
+    if (value is bool) {
+      return value;
+    } else if (value is int) {
+      return value == 1;  // Si es 1, lo consideramos como true, de lo contrario false
+    } else {
+      return false;  // Por defecto si no es un valor esperado
+    }
+  }
 }

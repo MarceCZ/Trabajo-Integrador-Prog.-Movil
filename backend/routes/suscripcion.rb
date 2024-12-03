@@ -114,29 +114,31 @@ get '/suscripcion/complete/:id' do
       idUser = params['id'].to_i
 
       query= <<-SQL
-        select
-          s.costo,
-          s.fecha_inicio,
-          s.fecha_fin,
-          s.precio_total,
-          s.metodo_pago,
-          ts.descripcion,
-          k.id as kit_id,
-          k.subtotal,
-          e.fecha_envio,
-          ee.descripcion,
-          d.departamento,
-          d.distrito,
-          d.direccion,
-          d.numero
-        from suscripciones s
-          inner join tipo_suscripcion ts on s.id_tipo_suscripcion = ts.id
-          inner join kits k on s.id = k.id_suscripcion
-          inner join envios e on k.id = e.id_kit and e.fecha_envio > CURRENT_DATE
-          inner join direcciones d on d.id = e.id_direccion
-          inner join estado_envio ee on ee.id = e.id_estado_envio
-        where  s.id_estado = 1
-      SQL
+      select
+        s.costo,
+        s.fecha_inicio,
+        s.fecha_fin,
+        s.precio_total,
+        s.metodo_pago,
+        s.id as suscripcion_id,
+        ts.descripcion as tipo_suscripcion,
+        s.id_usuario as usuario_id,
+        k.id as kit_id,
+        k.subtotal,
+        e.fecha_envio,
+        ee.descripcion,
+        d.departamento,
+        d.distrito,
+        d.direccion,
+        d.numero
+      from suscripciones s
+        inner join tipo_suscripcion ts on s.id_tipo_suscripcion = ts.id
+        inner join kits k on s.id = k.id_suscripcion
+        inner join envios e on k.id = e.id_kit and e.fecha_envio > CURRENT_DATE
+        inner join direcciones d on d.id = e.id_direccion
+        inner join estado_envio ee on ee.id = e.id_estado_envio
+      where  s.id_estado = 1
+    SQL
 
       if idUser >0
         query += " and s.id_usuario = ? "
@@ -228,6 +230,42 @@ delete '/suscripcion/:id/:idKit' do
   status status
   resp
 end
+
+#cancelar suscripcion
+
+put '/suscripcion/cancelar/:id' do
+  id = params['id']
+  status 500
+  resp = ''
+
+  begin
+    record = Suscripcion.where(id: id).first
+
+    if record then
+      record.update(
+        id_estado: 2
+      )
+
+      status 200
+      resp = 'Suscripción cancelada'
+    else
+      status 404
+      resp = 'No se encontró la suscripción'
+    end
+    rescue Sequel::DatabaseError => e
+      status = 500
+      resp = 'Error al acceder a la base de datos'
+      puts e.message
+    rescue StandardError => e
+      status = 500
+      resp = 'Ocurrió un error no esperado al cancelar la suscripción'
+      puts e.message
+    end
+
+  status status
+  return resp
+end
+
 
 
 #prueba

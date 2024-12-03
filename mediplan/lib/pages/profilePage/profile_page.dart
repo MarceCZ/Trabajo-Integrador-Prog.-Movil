@@ -527,6 +527,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               title: 'Guardar',
                               onPressed: () {
                                 if (widget.control.validateForm()) {
+                                  print('actualizar');
                                   widget.control.actualizarUsuario();
                                   setState(() {
                                     _isEditing = false;

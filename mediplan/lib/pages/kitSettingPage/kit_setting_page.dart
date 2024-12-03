@@ -417,7 +417,9 @@ class _KitSettingPageState extends State<KitSettingPage> {
             Button(
               title: 'Sí',
               onPressed: () {
+                control.cancelarSuscripcion();
                 control.idKit = 0;
+                control.idSuscripcion = 0;                
                 setState(() {
                   _existKit = false; // Actualiza el estado aquí
                 });

@@ -5,9 +5,11 @@ import 'package:mediplan/models/kit.dart';
 import 'package:mediplan/services/kit_producto_service.dart';
 import 'package:mediplan/services/kit_service.dart';
 import '../../components/commonAppBar/common_app_bar_controller.dart';
+import 'package:mediplan/models/service_http_response.dart';
 
 class KitSettingController extends GetxController {
   final CommonAppBarController appBarControl = Get.put(CommonAppBarController());
+  int idSuscripcion = 0;
   int idKit = 0;
   KitProductoService kitProductoService = KitProductoService();
   KitService kitService = KitService();
@@ -25,9 +27,10 @@ class KitSettingController extends GetxController {
   var direccion = ''.obs;
   var otro = ''.obs;
 
+  var errorMessage = ''.obs;
   void listarProductos() async {
     try {
-      productos.value = await kitProductoService.fetchByKit(idKit);
+      productos.value = await kitProductoService.fetchByKit(appBarControl.idUsuario.value);
       productos.refresh();
       print("Productos cargados: ${productos}");
     } catch (e) {
@@ -36,9 +39,10 @@ class KitSettingController extends GetxController {
   }
 
   void buscarKit() async {
-    final kit = await kitService.fetchOneUser(appBarControl.usuario.value.idUsuario);
+    final kit = await kitService.fetchOneUser(appBarControl.idUsuario.value);
     if (kit != null) {
       idKit = kit.id;
+      idSuscripcion = kit.idSuscripcion!;
       tipo.value = kit.tipo;
       fechaInicio.value = DateFormat('dd/MM/yyyy').format(kit.fechaInicio);
       fechaFin.value = DateFormat('dd/MM/yyyy').format(kit.fechaFin);
@@ -60,6 +64,33 @@ class KitSettingController extends GetxController {
     buscarKit();
     Future.delayed(Duration(seconds: 1), () {
       listarProductos();
+    });
+  }
+
+  void cancelarSuscripcion() async {
+    
+    try {
+      ServiceHttpResponse? response =
+          await kitService.cancelarSuscripcion(idSuscripcion).timeout(Duration(seconds: 10));
+
+      //isLoading.value = false;
+      if (response != null && response.status == 200) {
+       // buscarUsuario();
+      } else {
+        errorMessage.value =
+            response?.body ?? 'Error al cancelar la suscripción';
+        //showSnackbar('Error', errorMessage.value);
+      }
+    } catch (e) {
+      //isLoading.value = false;
+      errorMessage.value =
+          'No se pudo conectar con el servidor. Verifica tu conexión.';
+      //showSnackbar('Error', errorMessage.value);
+    }
+
+    print('suscripcion cancelada');
+    Future.delayed(Duration(seconds: 1), () {
+      //buscarUsuario();
     });
   }
 }

@@ -13,7 +13,8 @@ class Kit {
   String distrito;
   String direccion;
   String otro;
-  int idUsuario;
+  int? idUsuario;
+  int? idSuscripcion;
 
   // Constructor
   Kit({
@@ -29,13 +30,14 @@ class Kit {
     required this.distrito,
     required this.direccion,
     this.otro = '',
-    required this.idUsuario,
+    this.idUsuario,
+    this.idSuscripcion,
   });
 
   // Método toString
   @override
   String toString() {
-    return 'Kit{id: $id, tipo: $tipo, fechaInicio: $fechaInicio, fechaFin: $fechaFin, total: $total, metodoPago: $metodoPago, fechaEntrega: $fechaEntrega, estado: $estado, departamento: $departamento, distrito: $distrito, direccion: $direccion, otro: $otro, idUsuario: $idUsuario}';
+    return 'Kit{id: $id, tipo: $tipo, fechaInicio: $fechaInicio, fechaFin: $fechaFin, total: $total, metodoPago: $metodoPago, fechaEntrega: $fechaEntrega, estado: $estado, departamento: $departamento, distrito: $distrito, direccion: $direccion, otro: $otro, idUsuario: $idUsuario, idSuscripcion: $idSuscripcion}';
   }
 
   // Método para convertir a JSON
@@ -53,7 +55,8 @@ class Kit {
       'distrito': distrito,
       'direccion': direccion,
       'otro': otro,
-      'idUsuario': 1,
+      'idUsuario': idUsuario,
+      'idSuscripcion': idSuscripcion,
     };
   }
 
@@ -73,6 +76,26 @@ class Kit {
       direccion: map['direccion'],
       otro: map['otro'],
       idUsuario: map['idUsuario'],
+      idSuscripcion: map['idSuscripcion'],
+    );
+  }
+
+  static Kit fromMapService(Map<String, dynamic> map) {
+    return Kit(
+      id: map['kit_id'],
+      tipo: map['tipo_suscripcion'],
+      fechaInicio: DateTime.parse(map['fecha_inicio']),
+      fechaFin: DateTime.parse(map['fecha_fin']),
+      total: map['precio_total'],
+      metodoPago: map['metodo_pago'],
+      fechaEntrega: DateTime.parse(map['fecha_envio']),
+      estado: map['descripcion'],
+      departamento: map['departamento'],
+      distrito: map['distrito'],
+      direccion: map['direccion'],
+      otro: map['numero'].toString(),
+      idUsuario: map['usuario_id'],
+      idSuscripcion: map['suscripcion_id'],
     );
   }
 }

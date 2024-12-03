@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:mediplan/models/kit_producto.dart';
+import 'package:http/http.dart' as http;
 
 class KitProductoService {
+  final String baseUrl = 'http://192.168.1.40:4567/';
+
   Future<List<KitProducto>> fetchAll() async {
     List<KitProducto> kitProductos = [];
     final String response =
@@ -15,7 +18,6 @@ class KitProductoService {
         .toList();
     return kitProductos;
   }
-
 
   Future<KitProducto?> fetchOne(int id) async {
     final String response =
@@ -54,7 +56,7 @@ class KitProductoService {
     return kitProductos;
   }*/
 
-  Future<List<KitProducto>> fetchByKit(int idKit) async {
+  /* Future<List<KitProducto>> fetchByKit(int idKit) async {
   List<KitProducto> kitProductos = [];
   final String response = await rootBundle.loadString('assets/json/data.json');
   final Map<String, dynamic> jsonData = jsonDecode(response);
@@ -73,6 +75,20 @@ class KitProductoService {
       .toList();
 
   return kitProductos;
-}
+}*/
 
+  Future<List<KitProducto>> fetchByKit(int idUsuario) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/suscripcion/$idUsuario/productos'));
+    print('busqueda productos de kit');
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      print(data);
+      return data
+          .map((producto) => KitProducto.fromMapService(producto))
+          .toList();
+    } else {
+      throw Exception("Error al obtener los productos");
+    }
+  }
 }

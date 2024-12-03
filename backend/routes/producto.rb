@@ -256,18 +256,22 @@ get '/suscripcion/:id/productos' do
     if id>0
       query = <<-SQL
         SELECT pk.cantidad,
-          p.nombre as producto_nombre,
-          p.presentacion,
+			    p.id as producto_id,
+          CONCAT(p.nombre, ' ', p.presentacion) AS producto_nombre,
           p.marca,
-          p.precio,
+          p.precio * pk.cantidad as subtotal,
           p.imagen as producto_imagen,
           b.nombre as botica_nombre,
-          r.imagen as receta_imagen
+          CASE
+           WHEN r.imagen IS NOT NULL THEN TRUE
+           ELSE FALSE
+			    END AS receta_imagen,
+		      k.id as kit_id
         FROM productos_kits PK
           INNER JOIN productos P ON PK.id_producto = P.ID
           INNER JOIN boticas B ON P.id_botica = B.ID
           INNER JOIN kits K ON K.id = PK.id_kit
-          INNER JOIN suscripciones S ON S.id = K.id_suscripcion AND  S.id_usuario = ?
+          INNER JOIN suscripciones S ON S.id = K.id_suscripcion AND S.id_estado = 1 AND  S.id_usuario = ?
           LEFT JOIN recetas R ON P.ID = R.id_producto AND R.id_usuario = ?
       SQL
 
