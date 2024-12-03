@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import '../../components/commonAppBar/common_app_bar_controller.dart';
 import 'package:get/get.dart';
 import 'package:mediplan/components/cart_controller.dart';
 import 'package:mediplan/pages/kitDeliveryPage/kit_delivery_controller.dart';
@@ -8,6 +8,7 @@ import 'package:mediplan/services/subscription_service.dart';
 class KitSubscriptionController extends GetxController {
   final CartController cartController = Get.find<CartController>();
   final KitDeliveryController deliveryController = Get.find<KitDeliveryController>();
+  final CommonAppBarController appBarControl = Get.put(CommonAppBarController());
   final SubscriptionService subscriptionService = SubscriptionService();
 
   var selectedSubscription = Rx<String?>(null);
@@ -71,7 +72,7 @@ class KitSubscriptionController extends GetxController {
 
     // Construir datos para el backend
     final Map<String, dynamic> subscriptionData = {
-      'usuario_id': 1,
+      'usuario_id': appBarControl.idUsuario.value,
       'tipo_suscripcion': _getSubscriptionType(selectedSubscription.value),
       'metodo_pago': selectedPaymethod.value,
       'productos': productos,
